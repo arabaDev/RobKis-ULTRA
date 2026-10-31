@@ -1,0 +1,366 @@
+# ai
+## ai-state-machines
+d: Máquinas de estados finitos para IA de inimigos.
+w: Comportamento com poucos modos claros (patrulhar, perseguir, atacar).
+r: Estados e transições em tabela, com uma função por estado | Uma única transição por tick | Registre o estado atual para depuração
+v: Todos os estados são alcançáveis e têm saída.
+## ai-behavior-trees
+d: Árvores de comportamento para IA com muitas decisões.
+w: Quando uma máquina de estados fica grande demais.
+r: Nós Sequence, Selector e Action com resultado Sucesso, Falha ou Executando | Reavalie a árvore por tick com custo controlado | Ações longas guardam estado no nó
+v: Uma árvore de teste produz a sequência esperada.
+## ai-pathfinding-service
+d: PathfindingService com parâmetros de agente, custos e modificadores.
+w: Navegação em mapas complexos.
+r: Parâmetros AgentRadius, AgentHeight, AgentCanJump e Costs em CreatePath | PathfindingModifier e PathfindingLink para áreas e saltos | Recalcule com frequência limitada
+v: Navegação funciona em escadas, portas e obstáculos do mapa.
+## ai-perception-sight
+d: Visão da IA com cone, distância e raycast.
+w: Detectar jogadores sem ver através de paredes.
+r: Ângulo por produto escalar entre frente e direção ao alvo | Raycast confirma linha de visão | Distância máxima em config
+v: O NPC não detecta atrás de parede nem fora do cone.
+## ai-hearing-noise
+d: Audição baseada em eventos de ruído.
+w: Stealth e terror.
+r: Eventos de ruído com posição e intensidade | O NPC reage dentro do alcance | Decaimento com o tempo
+v: Um ruído distante atrai uma reação gradual, não instantânea.
+## ai-utility-scoring
+d: IA de utilidade: pontua ações e escolhe a melhor.
+w: Comportamento flexível sem muitas regras fixas.
+r: Cada ação recebe nota a partir de fatores normalizados | Escolha a maior, com pequena histerese para não oscilar | Pesos em config
+v: As escolhas são estáveis, sem trocar de ação a cada frame.
+## ai-steering-avoidance
+d: Desvio de obstáculos e separação entre NPCs.
+w: Grupos de NPCs que se empurram.
+r: Força de separação por vizinhos próximos | Raycasts curtos para obstáculos | Combine com o caminho do Pathfinding
+v: Um grupo se move sem empilhar.
+## ai-group-coordination
+d: Coordenação de grupos: papéis, ataque em turnos e formação.
+w: Inimigos em bando.
+r: Um coordenador decide quem ataca | Limite de atacantes simultâneos | Papéis em config
+v: Não mais que o limite ataca ao mesmo tempo.
+## ai-difficulty-scaling
+d: Escala de dificuldade por parâmetros de IA.
+w: Níveis ou ondas progressivas.
+r: Curva de dificuldade em config: vida, dano, reação | Evite somente inflar números | Teste com jogadores novos e experientes
+v: A dificuldade sobe de forma gradual e mensurável.
+## ai-performance-throttling
+d: Limitar o custo de IA: intervalos e níveis de detalhe.
+w: Muitos NPCs com lag.
+r: Atualize a IA em intervalos escalonados | IA simples para NPCs distantes | Pause a IA sem jogadores por perto
+v: Tempo de script de IA medido antes e depois.
+## ai-debug-visualization
+d: Visualizar caminhos, alcance e estado de IA.
+w: Depurar comportamento de NPC.
+r: Partes ou Beams temporários só no modo de depuração | Flag de config para ligar e desligar | Remova antes de publicar
+v: O modo de depuração desligado não deixa nada no jogo.
+## ai-boss-patterns
+d: Padrões de chefe com fases e ataques telegrafados.
+w: Lutas de chefe.
+r: Fases por faixa de vida em config | Telegrafe o ataque antes de causar dano | Dano e estado no servidor
+v: Todas as fases e transições testadas.
+# inv
+## inv-data-model
+d: Modelo de dados de inventário: itens, quantidades e slots.
+w: Qualquer sistema de inventário.
+r: Itens são ID mais quantidade, nunca instâncias salvas | Definições em um registro à parte | Slots opcionais conforme o jogo
+v: O inventário serializa e carrega sem perda.
+## inv-stacking-rules
+d: Regras de empilhamento e limites.
+w: Itens iguais e limites por pilha.
+r: Cada item define máximo por pilha | Adição divide em novas pilhas quando necessário | Sobra volta ao chamador
+v: Adicionar além do limite não perde itens.
+## inv-equip-system
+d: Equipar itens com slots e regras de conflito.
+w: Armas, armaduras e acessórios.
+r: Um slot guarda um item | Equipar troca e devolve o anterior | Efeitos aplicados e removidos de forma simétrica
+v: Equipar, trocar e desequipar volta ao estado base.
+## inv-server-actions
+d: Ações de inventário decididas no servidor.
+w: Adicionar, remover, mover e usar itens.
+r: Cliente pede, servidor valida e executa | Cada ação retorna sucesso ou motivo da falha | Operações atômicas
+v: Pedido inválido não altera o inventário.
+## inv-capacity-limits
+d: Limites de capacidade e peso.
+w: Inventários com espaço limitado.
+r: Capacidade em config | Falha clara ao exceder | Itens de missão podem ter regras próprias
+v: Exceder o limite é recusado com mensagem.
+## inv-item-registry
+d: Registro central de definições de itens.
+w: Jogos com muitos itens.
+r: ID estável e único por item | Campos obrigatórios validados na inicialização | Nunca reutilize um ID removido
+v: Todo ID usado no jogo existe no registro.
+## inv-trading-safe
+d: Troca entre jogadores em duas fases.
+w: Sistemas de troca.
+r: Ambos confirmam; servidor executa de forma atômica | Cancela se algum perder o item ou sair | Registre a transação
+v: Sair no meio da troca não duplica nem perde itens.
+## inv-persistence
+d: Persistência do inventário com versão do esquema.
+w: Salvar e carregar inventários.
+r: Salve IDs e quantidades, com campo de versão | Valide e migre ao carregar | Use o padrão de salvamento seguro de DataStore
+v: Carregar dados antigos e novos funciona.
+## inv-ui-sync
+d: Sincronia entre inventário do servidor e UI.
+w: UI que mostra itens.
+r: Servidor notifica mudanças | UI reconstrói só o que mudou | Reconcilie ao entrar
+v: A UI sempre coincide com o servidor.
+## inv-drag-drop
+d: Arrastar e soltar itens na UI.
+w: Reorganizar slots.
+r: A UI só envia o pedido de mover | Servidor valida origem e destino | Mostre estado pendente
+v: Movimento inválido volta ao lugar de origem.
+## inv-crafting
+d: Sistema de criação com receitas.
+w: Combinar itens para criar outros.
+r: Receitas em config: entradas e saídas | Servidor consome e entrega atomicamente | Valide espaço antes
+v: Falha no meio não consome ingredientes sem entregar.
+## inv-rarity-sorting
+d: Ordenação e filtro de itens por raridade e tipo.
+w: Inventários grandes.
+r: table.sort com comparador consistente | Filtros na UI, dados intactos | Ordenação estável por ID como desempate
+v: A ordenação não gera o erro de ordem inválida.
+# eco
+## eco-currency-design
+d: Projeto de moedas e fontes de renda do jogo.
+w: Jogos com economia.
+r: Uma moeda principal e poucas secundárias | Cada fonte e cada sumidouro documentado | Valores em config
+v: Existe um resumo de entradas e saídas de moeda.
+## eco-shop-purchase-flow
+d: Fluxo de compra dentro do jogo no servidor.
+w: Lojas de itens e melhorias.
+r: Verificar saldo, remover moeda e entregar item em uma operação | Falha reverte tudo | Resultado enviado ao cliente
+v: Falha na entrega devolve a moeda.
+## eco-sinks-and-sources
+d: Equilíbrio entre fontes e sumidouros de moeda.
+w: Inflação ou escassez de moeda.
+r: Meça entrada e saída por hora de jogo | Adicione sumidouros úteis | Evite recompensas ilimitadas
+v: A moeda total não cresce sem controle em simulação.
+## eco-pricing-balance
+d: Preços e progressão econômica balanceados.
+w: Definir custos de itens.
+r: Preço relacionado ao tempo de jogo para obter | Curva de custo crescente em config | Teste com jogadores de ritmos diferentes
+v: Um jogador médio alcança o próximo item em tempo planejado.
+## eco-developer-products
+d: Developer Products: compras repetíveis com Robux.
+w: Moeda do jogo, reposições e boosts.
+r: PromptProductPurchase no cliente e ProcessReceipt no servidor | Entregue só no servidor | Idempotência por ID do recibo
+v: Repetir o recibo não repete a entrega.
+## eco-gamepasses
+d: Game Passes: compras únicas com benefício permanente.
+w: Acesso VIP e vantagens fixas.
+r: PromptGamePassPurchase e verificação no servidor | Aplique no PlayerAdded e na compra | Nunca prometa o que o jogo não entrega
+v: O benefício aparece após a compra e na próxima entrada.
+## eco-subscriptions
+d: Assinaturas da experiência, se o jogo as usar.
+w: Benefícios recorrentes.
+r: Confira a documentação atual do MarketplaceService para assinaturas | Verifique o estado no servidor | Trate expiração
+v: Benefício some quando a assinatura expira.
+## eco-daily-rewards
+d: Recompensas diárias com data validada no servidor.
+w: Retenção sem práticas enganosas.
+r: Use a hora do servidor para checar o dia | Registre o último resgate | Sequência com regras claras
+v: Mudar o relógio do jogador não permite resgatar de novo.
+## eco-leaderboards
+d: Placares globais com OrderedDataStore.
+w: Rankings de jogadores.
+r: OrderedDataStore:GetSortedAsync para páginas do topo | Atualize em intervalos, não a cada ganho | Cache local do resultado
+v: O placar atualiza sem estourar o orçamento de requisições.
+## eco-anti-exploit-economy
+d: Defesa contra exploits de economia.
+w: Qualquer sistema que concede moeda.
+r: Recompensa só por eventos do servidor | Limites por tempo | Registro de ganhos suspeitos
+v: Disparar Remotes não gera moeda.
+## eco-ethical-monetization
+d: Monetização honesta, sem padrões enganosos.
+w: Projetar compras e recompensas.
+r: Mostre preço e o que se recebe com clareza | Itens pagos aleatórios exigem divulgação das chances conforme as regras da plataforma | Sem pressão enganosa sobre crianças
+v: A revisão da loja não encontrou texto enganoso.
+## eco-premium-benefits
+d: Benefícios para membros Premium.
+w: Quando o jogo reconhece assinantes.
+r: Player.MembershipType no servidor | Benefícios opcionais e claros | Não bloqueie o essencial
+v: Jogador sem Premium tem a experiência completa básica.
+# data
+## data-schema-versioning
+d: Versão do esquema de dados e valores padrão.
+w: Ao criar ou alterar dados salvos.
+r: Campo version em todo registro | Valores padrão ao carregar campos novos | Reconciliação com o modelo atual
+v: Dados antigos carregam sem erro.
+## data-session-locking
+d: Bloqueio de sessão para evitar dois servidores sobrescrevendo.
+w: Jogadores que trocam de servidor rapidamente.
+r: Marque o dono da sessão no registro com UpdateAsync | Libere ao sair | Trate bloqueio expirado com cuidado
+v: Dois servidores não salvam o mesmo jogador ao mesmo tempo.
+## data-updateasync-pattern
+d: UpdateAsync para leitura e escrita atômicas.
+w: Alterações que dependem do valor anterior.
+r: A função recebe o valor atual e retorna o novo | Retorne nil para cancelar a alteração | Evite yield dentro da função
+v: Duas alterações concorrentes não se perdem.
+## data-retry-backoff
+d: Tentativas com espera crescente para DataStore.
+w: Falhas temporárias.
+r: pcall em cada chamada | Número máximo de tentativas | Espera crescente com task.wait
+v: Falha persistente termina com erro tratado.
+## data-autosave-bindtoclose
+d: Salvamento periódico, em PlayerRemoving e em BindToClose.
+w: Evitar perda de progresso.
+r: Salve em PlayerRemoving | game:BindToClose salva quem restou | Intervalo de autosave moderado
+v: Fechar o servidor salva todos os jogadores.
+## data-budget-limits
+d: Limites de requisições e de tamanho do DataStore.
+w: Erros de limite ou dados grandes.
+r: Cheque GetRequestBudgetForRequestType | Valor limitado a cerca de 4 MB e chave a 50 caracteres; confirme na doc atual | Junte dados em um registro por jogador
+v: Nenhuma operação excede o orçamento.
+## data-migration
+d: Migração de dados entre versões do esquema.
+w: Mudanças que alteram o formato salvo.
+r: Passos pequenos por versão | Teste com dados reais ou amostras | Backup antes
+v: Dados migrados passam por validação.
+## data-ordered-leaderboards
+d: OrderedDataStore: valores inteiros ordenados.
+w: Placares e rankings.
+r: Só inteiros | GetSortedAsync por páginas | Atualize com intervalo
+v: O ranking retorna na ordem correta.
+## data-memorystore-usage
+d: MemoryStoreService para dados temporários e filas.
+w: Matchmaking e estado curto entre servidores.
+r: SortedMap, HashMap e Queue com expiração | Não use como armazenamento permanente | Respeite os limites
+v: Dados expiram conforme o TTL.
+## data-studio-api-access
+d: Acesso do Studio às APIs para testar DataStore.
+w: DataStore falha no Studio.
+r: Habilite Studio Access to API Services nas configurações do jogo | Use um DataStore de teste separado | Não escreva dados de teste em produção
+v: O DataStore funciona no Studio sem tocar em dados reais.
+## data-corruption-recovery
+d: Recuperação de dados corrompidos com versões.
+w: Perda ou corrupção de dados.
+r: ListVersionsAsync e GetVersionAsync para voltar a uma versão anterior | Backup periódico | Valide antes de restaurar
+v: Uma versão anterior foi restaurada em um jogador de teste.
+## data-gdpr-userids
+d: Registro de UserIds e remoção de dados de usuário.
+w: Requisitos de privacidade.
+r: Associe UserIds ao salvar com DataStoreSetOptions | RemoveAsync quando solicitado | Evite dados pessoais desnecessários
+v: Dados removidos não retornam em nova leitura.
+# perf
+## perf-microprofiler
+d: Medir quedas de FPS e picos de frame com o MicroProfiler, antes e depois.
+w: Quedas de FPS ou picos de frame.
+r: Abra o MicroProfiler e capture um frame ruim | Identifique o rótulo mais caro | Compare depois da mudança
+v: Há captura antes e depois.
+## perf-instance-count
+d: Contagem de instâncias e partes.
+w: Mapas pesados.
+r: Meça o total de instâncias e partes | Reduza partes ocultas e duplicadas | Prefira MeshPart ou união para detalhes
+v: O número de instâncias caiu de forma medida.
+## perf-script-profiling
+d: Perfil de scripts com os.clock e debug.profilebegin.
+w: Código suspeito de custo alto.
+r: debug.profilebegin e debug.profileend aparecem no MicroProfiler | os.clock para tempos pontuais | Meça com carga realista
+v: O custo por chamada foi medido.
+## perf-render-cost
+d: Custo de renderização: triângulos, luzes, sombras e partículas.
+w: GPU limitada ou mobile.
+r: Reduza luzes dinâmicas e partículas | Controle o número de triângulos visíveis | Verifique o modo de iluminação
+v: FPS medido em dispositivo de baixo desempenho.
+## perf-physics-cost
+d: Custo de física: partes móveis, colisões e constraints.
+w: Lag em cenas com física.
+r: Ancore o que for possível | Reduza colisão complexa | Limite constraints ativas
+v: O tempo de física caiu no MicroProfiler.
+## perf-memory-leaks
+d: Vazamentos de memória em conexões, tabelas e instâncias.
+w: Memória que só cresce.
+r: Desconecte eventos e limpe tabelas por jogador | Destrua instâncias não usadas | Observe o gráfico de memória ao longo do tempo
+v: A memória se estabiliza em sessão longa.
+## perf-network-cost
+d: Custo de rede: Remotes, replicação e propriedades.
+w: Ping alto ou tráfego intenso.
+r: Reduza disparos e tamanho de payload | Agrupe mensagens | Evite replicar o que o cliente não usa
+v: Tráfego medido antes e depois.
+## perf-object-pooling
+d: Pool de objetos para projéteis e efeitos.
+w: Criação e destruição frequentes.
+r: Pré-crie e reaproveite | Reinicie o estado ao devolver | Limite o tamanho do pool
+v: Menos picos de coleta e criação.
+## perf-streaming-tuning
+d: Ajuste de streaming para equilibrar memória e visibilidade.
+w: Mapas grandes.
+r: Raio de streaming conforme o dispositivo | Modelos importantes persistentes | Teste em mobile
+v: Memória e carga ficam dentro do alvo.
+## perf-mobile-budgets
+d: Orçamentos de desempenho para dispositivos móveis.
+w: Jogos para celular.
+r: Menos partes, triângulos e efeitos | Texturas moderadas | Teste em dispositivo real
+v: FPS alvo atingido no aparelho de referência.
+## perf-loading-time
+d: Tempo de carregamento e tela de loading.
+w: Entrada demorada.
+r: ContentProvider:PreloadAsync só do essencial | Carregue o resto em segundo plano | Mostre progresso
+v: Tempo de entrada medido.
+## perf-benchmark-method
+d: Método para comparar desempenho de forma justa.
+w: Validar uma otimização.
+r: Mesmas condições antes e depois | Várias medições | Registre dispositivo e cena
+v: Resultado repetível.
+# bug
+## bug-reproduce-minimal
+d: Reproduzir o bug com a menor entrada possível.
+w: Início de toda investigação.
+r: Reduza a cena e o código até o erro continuar | Registre os passos | Verifique se é constante ou intermitente
+v: Os passos reproduzem o bug de forma repetida.
+## bug-read-stack
+d: Ler mensagens de erro e stacks completos.
+w: Qualquer erro no Output.
+r: Anote script, linha e tipo | Siga a pilha até o ponto de origem | Não corrija pelo título
+v: A causa aponta para uma linha específica.
+## bug-nil-index
+d: Erros de indexar nil.
+w: attempt to index nil.
+r: Descubra qual variável é nil | FindFirstChild e WaitForChild com timeout | Verifique replicação e streaming
+v: O caso nil tem tratamento explícito.
+## bug-race-conditions
+d: Condições de corrida entre scripts e eventos.
+w: Falhas que dependem do tempo.
+r: Garanta ordem com eventos ou WaitForChild | Evite assumir que objetos já existem | Inicialize em ordem definida
+v: O bug não reaparece em várias execuções.
+## bug-replication-desync
+d: Diferenças entre servidor e cliente.
+w: Algo muda em um lado e não no outro.
+r: Confirme em qual lado a alteração ocorreu | Alterações do cliente não replicam | Use Remotes ou atributos
+v: Ambos os lados mostram o mesmo estado.
+## bug-event-leaks
+d: Eventos duplicados e conexões acumuladas.
+w: Efeitos que ocorrem mais de uma vez.
+r: Procure Connect dentro de loops ou handlers | Guarde e desconecte | Conte conexões se possível
+v: A ação dispara uma vez por evento.
+## bug-yield-issues
+d: Yield infinito e esperas que nunca terminam.
+w: Avisos de infinite yield.
+r: WaitForChild com timeout | Verifique nome e pai esperados | Evite yield em lugares onde não é permitido
+v: Nenhum aviso de yield no Output.
+## bug-datastore-failures
+d: Diagnóstico de falhas de DataStore.
+w: Erros de salvar ou carregar.
+r: Leia o código de erro do pcall | Verifique acesso a APIs no Studio | Confira limites e orçamento
+v: A falha é reproduzida ou explicada.
+## bug-physics-glitches
+d: Glitches de física: tremedeira, voo e travamento.
+w: Objetos se comportam de forma estranha.
+r: Verifique propriedade de rede | Verifique massa e constraints | Colisões sobrepostas
+v: O objeto se move de forma estável.
+## bug-ui-not-showing
+d: UI que não aparece.
+w: Elemento criado e invisível.
+r: Verifique Parent no PlayerGui, Visible, Enabled e ZIndex | Confira tamanho zero e AnchorPoint | ResetOnSpawn pode recriar a UI
+v: O elemento aparece em teste.
+## bug-bisect-regressions
+d: Bisseção para achar a mudança que quebrou algo.
+w: Algo que funcionava deixou de funcionar.
+r: Divida o histórico de mudanças ao meio | Teste cada ponto | Isole a mudança responsável
+v: A mudança causadora foi identificada.
+## bug-log-instrumentation
+d: Instrumentação de logs para depuração.
+w: Bug difícil de observar.
+r: Logs com contexto e nível | Remova os temporários | Evite spam no Output
+v: Os logs mostram o caminho até o erro.

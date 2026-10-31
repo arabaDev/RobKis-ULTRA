@@ -1,0 +1,7 @@
+# Regras que o projeto realmente exige (o Fast Check nível 3 roda `ruff check .`).
+# Sem este arquivo, o ruff usaria a configuração global da máquina e o resultado mudaria de PC para PC.
+line-length = 160
+extend-exclude = ["dist", ".fastcheck"]
+
+[lint]
+select = ["F", "E9", "B"]

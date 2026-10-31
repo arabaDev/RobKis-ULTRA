@@ -1,0 +1,73 @@
+# flow
+## flow-complete-weapon
+d: Fluxo completo de arma: requisitos, modelo, importação, scripts, testes e relatório.
+w: Pedido de arma nova com modelo 3D e comportamento.
+s: Traduza os requisitos em config com `tool-rarity-stats` e `arq-config-driven-design` | Defina a fronteira cliente e servidor com `arq-client-server-boundary` | Modele com `model-hard-surface` dentro do orçamento de `topo-poly-budgets` | Valide a geometria com `topo-mesh-validation` | Prepare material e UV com `mat-pbr-texture-set` e `uv-export-validation` | Exporte com `exp-fbx-settings` e confira com `exp-validate-file` | Importe com `pipe-import-3d-importer` e confira a escala com `pipe-scale-verification` | Monte a Tool com `tool-structure` e `tool-grip-positioning` | Implemente o ataque no servidor com `combat-hitbox-raycast`, `combat-cooldowns` e `combat-damage-pipeline` | Ligue animações e efeitos com `tool-animation-binding` e `fx-hit-feedback` | Proteja os Remotes com `sec-remote-input-validation` e `sec-rate-limit-implementation` | Teste multiplayer com `test-multiplayer-local-server` e latência com `combat-latency-testing` | Meça desempenho com `perf-script-profiling` | Rode regressão com `regr-smoke-suite` | Feche com `review-final-result`
+r: Não avance para scripts antes de o asset ser visto no Studio, ou marque a etapa como importação manual pendente | Dano nunca é decidido no cliente
+v: Cada etapa tem estado real e o relatório final lista o que não foi testado.
+## flow-map-creation
+d: Fluxo de criação de mapa: layout, assets, iluminação, navegação e desempenho.
+w: Pedido de mapa ou cenário novo.
+s: Planeje o layout e o ciclo de partida com `arq-game-loop-design` | Fixe a escala usando o personagem de referência com `pipe-scale-verification` | Modele peças com `proc-modular-building-kits` e `model-low-poly` | Crie materiais com `mat-roblox-materials-mapping` e `mat-atlases` | Prepare colisões com `topo-collision-hulls` e `pipe-collision-setup` | Exporte com `exp-selection-export` e importe com `pipe-bulk-import` | Configure o streaming com `studio-streaming-enabled` | Ajuste a luz com `light-technology-modes` e `light-atmosphere-sky` | Valide a navegação de NPCs com `ai-pathfinding-service` | Teste o streaming com `net-streaming-replication` | Meça com `perf-instance-count` e `perf-mobile-budgets` | Corrija e repita `regr-smoke-suite`
+r: Escala e colisão são validadas antes de decorar | Meça no celular, não só no computador
+v: O mapa abre sem erro de nil com streaming ligado e dentro do orçamento medido.
+## flow-game-system
+d: Fluxo genérico para implementar um sistema de jogo com segurança e testes.
+w: Novo sistema com várias dependências.
+s: Transforme os requisitos em critérios com `test-acceptance-checklists` | Defina camadas com `arq-service-layering` | Fixe os contratos com `arq-api-contracts` | Divida o trabalho com `orch-subtask-splitting` | Implemente com `luau-strict-types` e `luau-error-handling` | Rode análise estática com `luau-linting-formatting` | Cubra casos extremos com `test-edge-cases` | Revise segurança com `review-security` | Integre e revise com `review-integration` | Avalie o impacto com `regr-diff-impact` | Meça com `perf-script-profiling` | Documente limitações com `doc-known-issues`
+r: Uma subtarefa por arquivo para permitir paralelismo seguro | Sem dependência circular entre os módulos novos
+v: Critérios de aceitação verificados item a item e limitações documentadas.
+## flow-inventory-system
+d: Fluxo de inventário: dados, ações no servidor, UI, persistência e anti-duplicação.
+w: Inventário, equipamentos ou itens em um jogo.
+s: Modele os dados com `inv-data-model` e `inv-item-registry` | Defina empilhamento com `inv-stacking-rules` | Implemente ações no servidor com `inv-server-actions` e `sec-ownership-checks` | Persista com `inv-persistence` e `data-schema-versioning` | Sincronize a UI com `inv-ui-sync` e `ui-inventory-grids` | Adicione equipamento com `inv-equip-system` | Proteja trocas com `inv-trading-safe` e `sec-dupe-prevention` | Teste falhas com `test-datastore-offline` | Confirme dados antigos com `regr-data-compat`
+r: Itens são IDs e quantidades, nunca instâncias salvas | Toda mudança passa pelas ações do servidor
+v: Salvar, sair, entrar e trocar itens não duplica nem perde nada em teste.
+## flow-combat-system
+d: Fluxo de combate completo: dano, hitbox, estados, latência e balanceamento.
+w: Sistema de combate novo ou refeito.
+s: Defina autoridade com `arq-client-server-boundary` | Centralize o dano com `combat-damage-pipeline` | Escolha a detecção com `combat-hitbox-overlap` ou `combat-hitbox-raycast` | Controle o ritmo com `combat-cooldowns` | Evite dano duplo com `combat-hit-dedup` | Adicione estados com `combat-status-effects` e `combat-knockback` | Credite abates com `combat-kill-credit` | Sincronize visual com `combat-animation-sync` | Proteja os Remotes com `sec-rate-limit-implementation` | Teste com `test-multiplayer-local-server` e `combat-latency-testing` | Ajuste números com `combat-balancing-method`
+r: Todo dano passa pelo mesmo pipeline | Teste com ping alto antes de balancear
+v: Sem dano duplicado nem dano sem validação em testes com vários clientes.
+## flow-npc-system
+d: Fluxo de NPC: spawn, IA, navegação, rede, vida e custo de CPU.
+w: Inimigos ou NPCs novos.
+s: Crie o personagem com `npc-character-spawning` | Modele o comportamento com `ai-state-machines` | Navegue com `npc-path-following` | Perceba jogadores com `ai-perception-sight` | Escolha alvos com `npc-aggro-targeting` | Defina a rede com `npc-network-ownership` | Animações com `npc-animations` | Vida com `npc-health-bars` | Recompensas com `npc-loot-drops` | Controle o custo com `ai-performance-throttling` | Considere streaming com `npc-streaming-considerations` | Teste com `test-edge-cases`
+r: Meça o custo de IA com muitos NPCs antes de concluir
+v: Vários NPCs funcionam sem lag e sem erros de nil.
+## flow-ability-system
+d: Fluxo de habilidades: dados, validação, efeitos, UI e balanceamento.
+w: Habilidades com cooldown e custo.
+s: Defina o sistema com `game-ability-system` | Coloque números em config com `arq-config-driven-design` | Valide pedidos com `sec-remote-input-validation` | Controle recarga com `combat-cooldowns` | Aplique estados com `combat-status-effects` | Efeitos no cliente com `fx-client-side-effects` | Indicadores com `ui-ability-indicators` | Sincronize com `anim-markers-events` | Teste com `test-multiplayer-local-server` | Balanceie com `combat-balancing-method`
+r: Adicionar uma habilidade nova deve exigir só dados e um módulo de efeito
+v: Uma habilidade de teste nova funciona sem editar o sistema base.
+## flow-ui-feature
+d: Fluxo de uma tela ou HUD: layout, estados, entrada, desempenho e testes.
+w: Nova interface ou refatoração de UI.
+s: Monte o layout com `ui-scale-layout` e `ui-layout-objects` | Defina estados com `ui-state-management` | Trate entrada com `ui-input-handling` e `ui-gamepad-navigation` | Respeite `ui-safe-areas` | Anime com `ui-tween-animation` | Otimize com `ui-update-optimization` | Acessibilidade com `ui-accessibility-controls` | Teste tamanhos com `test-ui-responsive` | Teste uso com `ui-usability-testing`
+r: A UI só pede ações; o servidor decide
+v: A tela funciona em celular e desktop, com teclado, toque e gamepad.
+## flow-datastore-feature
+d: Fluxo de persistência: esquema, escrita segura, falhas, migração e recuperação.
+w: Qualquer dado novo salvo.
+s: Defina o esquema com `data-schema-versioning` | Escreva com `data-updateasync-pattern` | Trate falhas com `data-retry-backoff` | Evite escrita dupla com `data-session-locking` | Salve com `data-autosave-bindtoclose` | Respeite `data-budget-limits` | Teste no Studio com `data-studio-api-access` | Simule falhas com `test-datastore-offline` | Planeje `data-migration` | Prepare `data-corruption-recovery` | Valide com `regr-data-compat`
+r: Nunca teste em dados reais | Nunca sobrescreva dados bons com dados vazios
+v: Falha de leitura não apaga dados e dados antigos carregam corretamente.
+## flow-animation-pipeline
+d: Fluxo de animação: rig, animação, exportação, importação e validação no Studio.
+w: Personagem ou criatura animada vinda do Blender.
+s: Monte a hierarquia com `rig-bone-hierarchy` e `rig-naming-roblox` | Pese com `rig-weight-painting` | Teste poses com `rig-pose-testing` | Anime com `anim3d-keyframe-basics` | Garanta loops com `anim3d-looping` | Bake com `anim3d-bake-export` | Exporte com `exp-fbx-settings` | Importe com `pipe-rig-import-animation` | Confirme permissões com `anim-ownership-permissions` | Defina prioridades com `anim-priorities` | Eventos com `anim-markers-events` | Valide com `anim3d-validation-in-studio`
+r: Valide a animação no Studio, não só no Blender
+v: A animação toca no rig importado, com a duração e o loop esperados.
+## flow-3d-environment
+d: Fluxo de ambiente 3D: modelagem, UV, texturas, exportação, importação e custo.
+w: Props e cenários feitos no Blender para o Roblox.
+s: Modele com `model-low-poly` | Respeite `topo-poly-budgets` | Limpe origem com `topo-scale-origin` | Padronize `uv-texel-density` | Defina resolução com `mat-texture-resolution` | Use `mat-atlases` | Fixe `exp-scale-units` | Valide com `exp-validate-file` | Importe com `pipe-import-3d-importer` | Configure `pipe-meshpart-setup` | Compare com `pipe-source-vs-destination-diff` | Ajuste luz com `light-technology-modes` | Meça com `perf-render-cost`
+r: Compare sempre o asset em jogo com o modelo de origem
+v: Dimensões, orientação e aparência em jogo conferem com a origem.
+## flow-release-update
+d: Fluxo de lançamento de atualização: backup, regressão, medição, publicação e reversão.
+w: Antes de publicar uma nova versão do jogo.
+s: Faça backup com `vcs-backup-before-risk` | Capture o baseline com `regr-baseline-capture` | Rode `regr-smoke-suite` | Percorra `regr-gameplay-checklist` | Confira `regr-data-compat` | Confira `regr-network-contracts` | Compare FPS com `perf-fps-regression-tracking` | Revise com `review-final-result` | Escreva `doc-changelogs` | Passe pelo `regr-release-gate` | Publique com `studio-publishing` após autorização | Marque `vcs-release-tags` | Tenha pronto `vcs-rollback-recovery`
+r: Publicar exige autorização explícita do usuário | Sem baseline não há comparação de regressão
+v: O portão de entrega foi aprovado com evidência e o plano de reversão existe.

@@ -1,0 +1,366 @@
+# uv
+## uv-unwrap-basics
+d: Desdobramento UV básico: costuras, ilhas e escala.
+w: Preparar a malha para textura.
+r: Defina costuras em lugares pouco visíveis | Desdobre e confira a distorção | Mantenha as ilhas dentro de 0 a 1
+v: Um padrão xadrez aplicado fica uniforme.
+## uv-seams
+d: Escolha e marcação de costuras.
+w: Evitar esticamento e emendas visíveis.
+r: Costuras em arestas ocultas ou por material | Menos costuras reduz emendas, mais costuras reduz distorção | Confira em um modelo de teste
+v: A emenda não aparece em uso normal.
+## uv-texel-density
+d: Densidade de texel consistente entre peças.
+w: Texturas com nitidez desigual.
+r: Escala proporcional ao tamanho real | Peças pequenas e grandes comparáveis | Exceções para partes importantes
+v: O xadrez tem quadrados de tamanho semelhante.
+## uv-padding-islands
+d: Margem entre ilhas UV.
+w: Evitar sangramento de cor entre ilhas.
+r: Margem em pixels conforme a resolução | Mais margem para mipmaps | Empacote com margem constante
+v: Sem manchas nas bordas das ilhas.
+## uv-mirror-overlap
+d: UVs espelhadas e sobrepostas.
+w: Economizar espaço em peças simétricas.
+r: Sobrepor só onde a textura é igual | Cuidado com normal map espelhado | Detalhes únicos separados
+v: Nenhuma assimetria quebrada.
+## uv-smart-project-script
+d: UV automática por script com smart_project.
+w: Muitos assets sem desdobramento manual.
+r: bpy.ops.uv.smart_project com margem | Exige modo de edição | Revise o resultado
+v: Os UVs ficam dentro do espaço sem sobreposição indevida.
+## uv-atlas-packing
+d: Empacotar ilhas em um atlas.
+w: Combinar objetos em uma textura.
+r: Empacotar com margem | Mesma densidade entre objetos | Preservar ilhas únicas
+v: O uso do espaço é alto e sem sobreposição.
+## uv-stretch-checking
+d: Detectar e corrigir esticamento de UV com textura de teste xadrez.
+w: Textura distorcida.
+r: Aplique uma textura xadrez e procure quadrados deformados | Esticamento aparece onde faltam costuras ou há ilhas muito comprimidas | Adicione costuras ou relaxe as ilhas e reaplique o xadrez | Reverifique depois de qualquer escala ou edição da malha
+v: O xadrez mostra quadrados de proporção uniforme em toda a superfície visível.
+## uv-multiple-uv-sets
+d: Múltiplos conjuntos de UV.
+w: Texturas com usos diferentes.
+r: obj.data.uv_layers.new | Confirme suporte do destino | Documente o uso de cada conjunto
+v: Cada conjunto tem função clara.
+## uv-tiling-textures
+d: Texturas repetidas com UV em tile.
+w: Paredes e pisos.
+r: Texturas que repetem sem emenda | Escala UV coerente | Evite padrão repetitivo óbvio
+v: A repetição não é visível.
+## uv-decal-areas
+d: Áreas de decalques e detalhes únicos.
+w: Logos e marcas.
+r: Ilha separada para detalhes | Resolução maior se necessário | Alinhar com a malha
+v: O decalque aparece nítido.
+## uv-export-validation
+d: Validar UV antes da exportação.
+w: Fim da etapa de UV.
+r: Todos os objetos com UV | Sem ilhas fora do espaço | Sem faces sem UV
+v: Relatório de UV por objeto.
+# rig
+## rig-bone-hierarchy
+d: Hierarquia de ossos coerente.
+w: Criar esqueletos.
+r: Uma raiz e filhos em ordem | Nomes claros | Origem na base
+v: A hierarquia não tem ossos soltos.
+## rig-naming-roblox
+d: Nomes de ossos e partes compatíveis com Roblox.
+w: Rigs que serão importados.
+r: Siga os nomes esperados para R15 quando o alvo for um avatar | Rigs próprios têm nomes consistentes | Confirme com a documentação atual
+v: O rig importa com as juntas esperadas.
+## rig-weight-painting
+d: Pintura de pesos e grupos de vértices.
+w: Deformação suave.
+r: Cada vértice influenciado por poucos ossos | Normalize os pesos | Teste poses extremas
+v: Sem deformação quebrada nas poses.
+## rig-auto-weights
+d: Pesos automáticos e ajustes finais.
+w: Rigging rápido.
+r: parent_set com ARMATURE_AUTO | Revisar pesos | Corrigir áreas problemáticas
+v: O personagem se deforma de forma aceitável.
+## rig-motor6d-mapping
+d: Relação entre ossos e Motor6D no Roblox.
+w: Importar rigs animados.
+r: Cada osso vira uma junta | Hierarquia preservada | Confirme o resultado no Studio
+v: As juntas existem após a importação.
+## rig-ik-fk
+d: IK e FK em rigs.
+w: Membros animados.
+r: FK para animação de pose | IK para contato | Escolha uma abordagem por rig
+v: O membro alcança o alvo sem torcer.
+## rig-bone-limits
+d: Limite de influências por vértice e de ossos.
+w: Rigs para jogo.
+r: Limite o número de ossos por vértice | Confirme limites do importador | Simplifique o rig
+v: Sem aviso do importador.
+## rig-facial
+d: Rigs simples de rosto para jogos.
+w: Expressões básicas.
+r: Poucos ossos ou formas | Confirme suporte | Não exagere
+v: As expressões funcionam no destino.
+## rig-props-attachments
+d: Pontos de encaixe para itens e efeitos.
+w: Armas e acessórios.
+r: Ossos ou vazios nomeados | Posição e rotação definidas | Corresponder aos Attachments no Roblox
+v: O item se encaixa na posição.
+## rig-pose-testing
+d: Testar poses extremas e de repouso do rig antes de animar.
+w: Antes de animar.
+r: Poses de braço e perna | Pose de repouso | Capturas de comparação
+v: Sem deformação inaceitável.
+## rig-apply-scale
+d: Aplicar escala e rotação no armature e na malha antes de exportar.
+w: Antes de exportar.
+r: Aplique escala e rotação na malha e no armature (Ctrl+A) | Refaça ou confira os pesos depois | Confirme escala 1 e rotação zero nos dois | Teste uma pose para ver se a deformação continua igual
+v: Escala 1, rotação zero e pose de teste deformando como antes.
+## rig-export-armature
+d: Exportar armature com malha.
+w: Rigs para o Roblox.
+r: Exportar malha e armature juntas | Sem ossos extras | Verificar a importação
+v: O rig importado anima.
+# anim3d
+## anim3d-keyframe-basics
+d: Keyframes por código e interpolação.
+w: Animações simples.
+r: keyframe_insert com data_path e frame | Interpolação definida | Quadros inicial e final da cena
+v: A animação tem a duração esperada.
+## anim3d-walk-cycles
+d: Ciclos de caminhada em loop.
+w: Movimento de personagens.
+r: Poses principais: contato, passagem | Primeiro e último quadro iguais | Velocidade coerente
+v: O ciclo emenda sem salto.
+## anim3d-attack-animations
+d: Animações de ataque com antecipação, golpe e recuperação.
+w: Combate.
+r: Antecipação, impacto e recuperação | Marque o quadro do impacto | Duração coerente com o cooldown
+v: O impacto cai no quadro marcado.
+## anim3d-timing-spacing
+d: Tempo e espaçamento de animação.
+w: Movimento com peso.
+r: Mais quadros no começo e no fim | Menos no meio do movimento | Revisar em velocidade real
+v: Movimento com peso.
+## anim3d-fps-export
+d: Taxa de quadros na exportação de animações.
+w: Animações para o Roblox.
+r: Confirme a taxa esperada pelo editor ou importador | Mantenha a mesma ao longo do projeto | Teste uma amostra
+v: A duração em jogo coincide.
+## anim3d-looping
+d: Loops de animação sem salto: primeira e última pose iguais, sem quadro duplicado.
+w: Idle e andar.
+r: Primeira e última pose iguais | Sem quadro duplicado | Testar a emenda
+v: Não há salto no loop.
+## anim3d-root-motion
+d: Movimento da raiz versus deslocamento pelo jogo.
+w: Animações que se movem no espaço.
+r: Em Roblox o deslocamento costuma vir do Humanoid | Mantenha a raiz no lugar | Exceções documentadas
+v: O personagem não desliza.
+## anim3d-nla-actions
+d: Actions e faixas NLA.
+w: Várias animações no mesmo rig.
+r: Uma Action por animação | Nomes claros | Exportar uma por vez
+v: Cada animação sai com o nome certo.
+## anim3d-bake-export
+d: Bake de animações antes da exportação.
+w: Rigs com constraints e IK.
+r: bake_anim no exportador | Revise a duração | Conferir ossos exportados
+v: A animação exportada coincide com a da cena.
+## anim3d-markers
+d: Marcadores de evento nas animações.
+w: Sincronizar eventos de jogo.
+r: Marcadores no editor do Roblox | Nome estável | Sem lógica crítica no marcador
+v: O evento dispara no quadro certo.
+## anim3d-retargeting
+d: Reaproveitar animações em rigs diferentes.
+w: Vários personagens.
+r: Esqueletos compatíveis | Ajuste de proporção | Testar pose a pose
+v: A animação funciona no novo rig.
+## anim3d-validation-in-studio
+d: Validar animações dentro do Studio.
+w: Fim do fluxo.
+r: Importar e tocar | Conferir velocidade e loop | Testar com o rig final
+v: A animação tocou no Studio e foi observada.
+# exp
+## exp-fbx-settings
+d: Configuração de exportação FBX para jogos.
+w: Exportar malhas e rigs.
+r: use_selection, eixos e escala explícitos | add_leaf_bones desligado para rigs | Testar a importação
+v: O FBX importa com escala e orientação corretas.
+## exp-gltf-settings
+d: Configuração de exportação glTF e GLB.
+w: Malhas com materiais PBR.
+r: export_scene.gltf com export_format e use_selection | export_apply aplica modificadores | Confirme suporte do importador do Roblox
+v: O arquivo importa com os materiais.
+## exp-obj-settings
+d: Exportação OBJ para malhas simples.
+w: Só geometria.
+r: Na série 4 do Blender use wm.obj_export | Sem rig nem animação | Materiais em arquivo separado
+v: A malha importa sem erros.
+## exp-apply-transforms
+d: Aplicar transformações antes de exportar.
+w: Sempre.
+r: transform_apply para escala e rotação | Posição conforme o pivô desejado | Verificar dimensões
+v: Escala 1 e rotação zero.
+## exp-axis-orientation
+d: Eixos e orientação na exportação.
+w: Modelo importado girado ou deitado.
+r: Defina axis_forward e axis_up | Teste com um objeto assimétrico | Registre a convenção
+v: A frente do objeto aponta como esperado.
+## exp-scale-units
+d: Unidades e escala entre Blender e Roblox.
+w: Modelos grandes ou pequenos demais.
+r: Escolha uma convenção e documente | Valide com um objeto de referência | Use global_scale se preciso
+v: As dimensões em jogo conferem.
+## exp-selection-export
+d: Exportar só a seleção ou a coleção certa.
+w: Evitar arquivos com lixo.
+r: Selecione por nome | use_selection ligado | Confirme a lista exportada
+v: O arquivo contém só os objetos desejados.
+## exp-naming-batch
+d: Nomes de arquivos e exportação em lote.
+w: Muitos assets.
+r: Nome igual ao do asset | Pasta por categoria | Sem sobrescrever sem aviso
+v: Cada arquivo tem nome previsível.
+## exp-validate-file
+d: Validar o arquivo exportado: existência, tamanho, contagens e reimportação.
+w: Depois de qualquer exportação.
+r: Confirme que o arquivo existe e tem tamanho maior que zero | Compare triângulos e objetos exportados com o esperado | Reimporte em cena limpa quando possível | Registre caminho e tamanho no relatório
+v: Caminho, tamanho e contagens do arquivo foram registrados.
+## exp-embedded-textures
+d: Texturas embutidas e externas.
+w: Materiais que somem na importação.
+r: Embutir ou copiar texturas junto | Caminhos válidos | Testar a importação
+v: As texturas aparecem no destino.
+## exp-versioned-output-folders
+d: Pastas de saída versionadas.
+w: Iterar assets.
+r: Versão no nome da pasta ou do arquivo | Manter a última boa | Registrar mudanças
+v: É possível voltar à versão anterior.
+## exp-failed-export-triage
+d: Diagnóstico de exportações que falham.
+w: Erro ou arquivo vazio.
+r: Modo de objeto | Seleção válida | Permissão de escrita no caminho
+v: A causa foi identificada e corrigida.
+# pipe
+## pipe-import-3d-importer
+d: Importação pelo Importador 3D do Studio.
+w: Trazer malhas e rigs para o Roblox.
+r: Abra o Importador 3D e escolha o arquivo | Revise avisos | Confira o resultado na hierarquia
+v: A importação gerou o modelo sem avisos graves.
+## pipe-scale-verification
+d: Verificação de escala no Studio.
+w: Primeiro passo depois de importar.
+r: Compare com um personagem | Meça em studs | Corrija na origem se necessário
+v: As dimensões em jogo conferem.
+## pipe-meshpart-setup
+d: Configuração de MeshPart: material, colisão e ancoragem.
+w: Depois da importação.
+r: Anchored, CanCollide e CollisionFidelity conforme o uso | RenderFidelity para o custo | Pivô correto
+v: A peça se comporta como esperado.
+## pipe-collision-setup
+d: Colisão do asset importado.
+w: Objetos que o jogador toca.
+r: Colisão simples sempre que possível | Malha de colisão separada | Teste caminhando
+v: O personagem colide como esperado.
+## pipe-pivot-fix
+d: Corrigir pivô de modelos importados.
+w: Rotação e posicionamento estranhos.
+r: Model:PivotTo e WorldPivot | Corrija na origem do Blender quando possível | Verifique ao clonar
+v: PivotTo posiciona o modelo no ponto esperado.
+## pipe-surfaceappearance-assign
+d: Atribuir SurfaceAppearance com mapas PBR.
+w: Texturas realistas.
+r: ColorMap, NormalMap, MetalnessMap e RoughnessMap | Tamanhos respeitando os limites atuais | Verifique a aparência sob a luz do jogo
+v: A superfície mostra os mapas esperados.
+## pipe-bulk-import
+d: Importação em lote de muitos assets com pastas organizadas e IDs registrados.
+w: Muitos assets.
+r: Organizar a pasta | Importar por categoria | Registrar IDs
+v: Todos importados e listados.
+## pipe-upload-moderation
+d: Uploads e moderação de assets.
+w: Assets que demoram ou são rejeitados.
+r: Uploads passam por moderação | Registre o status | Tenha alternativa enquanto aguarda
+v: O status de cada asset foi registrado.
+## pipe-rig-import-animation
+d: Importar rigs e animações do Blender.
+w: Personagens animados.
+r: Importar o rig com malha | Testar animações no editor do Roblox | Confirme o suporte atual
+v: A animação toca no rig importado.
+## pipe-roundtrip-iteration
+d: Ciclo rápido Blender, exportar, Studio.
+w: Ajustes frequentes.
+r: Caminho de saída fixo | Passos curtos | Mudar só o necessário
+v: Uma alteração aparece no Studio em poucos passos.
+## pipe-in-game-verification
+d: Verificação do asset dentro do jogo.
+w: Antes de declarar concluído.
+r: Colocar no contexto real | Conferir escala, colisão e aparência | Medir impacto
+v: Asset visto em jogo.
+## pipe-manual-handoff
+d: Instruções para etapas manuais.
+w: Sem ferramenta de importação automática.
+r: Caminho exato do arquivo | Configurações recomendadas | Passo a passo
+v: O usuário consegue seguir os passos.
+# fx
+## fx-particle-emitters
+d: ParticleEmitter com taxa, vida e emissão controladas.
+w: Fogo, fumaça e impactos.
+r: Rate para contínuo e Emit(n) para impulsos | Lifetime e Speed em config | Limite o número
+v: O efeito não excede o orçamento.
+## fx-beams-trails
+d: Beam e Trail para raios, rastros e linhas, com Attachments e destruição ao fim.
+w: Raios, rastros e linhas.
+r: Attachments nas pontas | Largura e transparência | Destruir ao fim
+v: O rastro termina sem deixar objetos.
+## fx-sound-design
+d: Sons espaciais 3D com RollOffMode, distâncias e volume balanceado.
+w: Áudio 3D.
+r: Sound dentro de parte ou Attachment | RollOffMode e distâncias | Volume balanceado
+v: O som diminui com a distância.
+## fx-sound-groups-mixing
+d: SoundGroup para controlar volumes de música, efeitos e interface por categoria.
+w: Controlar volumes por categoria.
+r: SoundGroup para música, efeitos e interface | Volume do grupo | Respeitar configurações
+v: Cada categoria ajusta separadamente.
+## fx-audio-api-wires
+d: Nova API de áudio com AudioPlayer, AudioEmitter e Wire.
+w: Áudio com roteamento.
+r: Conecte nós com Wire | Confirme o suporte atual | Teste no cliente
+v: O áudio sai pelo caminho desejado.
+## fx-screen-shake-camera
+d: Tremor de câmera e efeitos de câmera.
+w: Impactos e explosões.
+r: Executar no cliente | Decair a intensidade | Opção para reduzir
+v: O tremor termina e a câmera volta.
+## fx-hit-feedback
+d: Feedback de acerto: som, flash e números.
+w: Combate responsivo.
+r: Efeitos no cliente | Dano real no servidor | Curto e legível
+v: O feedback aparece no acerto.
+## fx-tween-vfx
+d: Efeitos visuais com tweens.
+w: Brilhos e pulsos.
+r: TweenService em propriedades | Cancelar ao destruir | Sem excesso
+v: O efeito termina sem vazamentos.
+## fx-ui-juice
+d: Pequenos efeitos de UI para sensação de resposta.
+w: Botões e recompensas.
+r: Animações curtas | Som de interface | Opção de reduzir movimento
+v: A UI responde sem atrasar a ação.
+## fx-ambient-loops
+d: Loops de som ambiente sem emenda audível, com volume baixo e distância definida.
+w: Atmosfera de cenário.
+r: Ligue Looped e use um áudio feito para repetir sem corte | Mantenha o volume baixo para não cansar | Defina RollOffMaxDistance se o som for espacial | Evite vários loops iguais sobrepostos
+v: O loop repete sem corte audível e sem somar volume com outros loops.
+## fx-performance-limits
+d: Limites de custo de efeitos.
+w: Efeitos causando lag.
+r: Limite de partículas | Distância de ativação | Menos efeitos em mobile
+v: FPS medido com os efeitos.
+## fx-client-side-effects
+d: Efeitos só no cliente, decisões no servidor.
+w: Efeitos visuais e sonoros.
+r: Servidor avisa o evento | Cliente cria o efeito | Não replicar o que cada cliente pode criar
+v: O servidor não cria partículas desnecessárias.

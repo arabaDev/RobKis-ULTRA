@@ -1,0 +1,198 @@
+# arq
+## arq-service-layering
+d: Separa serviços de servidor, controllers de cliente e módulos compartilhados.
+w: Ao criar ou reorganizar a base de um jogo.
+r: Um serviço por domínio (Inventário, Combate, Dados) com API pública pequena | Controllers de cliente cuidam só de input, UI e efeitos e pedem ações ao servidor por Remotes | Código comum fica em módulo compartilhado sem dependência de serviço
+v: Cada serviço carrega isoladamente, sem require circular.
+## arq-client-server-boundary
+d: Define o que roda no cliente e o que é autoridade do servidor.
+w: Antes de implementar qualquer mecânica multiplayer.
+r: Servidor decide dano, recompensa, compra, posse e progressão | Cliente cuida de input, animação, previsão visual e feedback | Tudo que cruza a fronteira vira um contrato de Remote nomeado e tipado
+v: Existe uma lista escrita de cada Remote com quem envia, quem valida e o que valida.
+## arq-module-dependencies
+d: Mantém dependências entre módulos explícitas e sem ciclos.
+w: Quando módulos se importam entre si ou o require trava.
+r: Dependência entra por require no topo ou por parâmetro, nunca por global | Ciclo se resolve extraindo a parte comum para um terceiro módulo | Código de cliente nunca referencia módulo que só existe no servidor
+v: Busca por require mostra grafo sem ciclos.
+## arq-config-driven-design
+d: Move números e dados de balanceamento para módulos de configuração.
+w: Armas, habilidades, preços, tempos e níveis.
+r: Dados em tabelas de config tipadas e lógica em código | Um ID por entrada; o código busca pelo ID | Config é congelada com table.freeze depois de carregada
+v: Mudar um valor de balanceamento não exige editar lógica.
+## arq-event-driven-design
+d: Prefere eventos e sinais a polling em loops.
+w: Quando existe while true do checando estado.
+r: Use sinais (Changed, GetAttributeChangedSignal, BindableEvent ou módulo Signal) | Polling só quando não há evento, com intervalo fixo e task.wait | Todo Connect tem dono e Disconnect no fim do ciclo de vida
+v: Nenhum loop vazio consumindo CPU e contagem de conexões estável ao longo do tempo.
+## arq-state-management
+d: Mantém uma única fonte de verdade para o estado do jogo.
+w: Quando o mesmo dado aparece no servidor, no cliente e na UI.
+r: Servidor guarda o estado real e o cliente uma cópia de leitura | Replique só o que o cliente precisa ver, por atributos ou Remotes | Atualizações passam por funções únicas, não por escrita direta em tabelas
+v: Duas telas mostrando o mesmo dado não divergem após reconexão.
+## arq-folder-structure
+d: Estrutura de pastas e nomes consistentes para o projeto Roblox.
+w: No início do projeto ou ao limpar um lugar bagunçado.
+r: Pastas por função: Shared, Remotes, Services, Controllers, Assets | Se usar sincronização de arquivos (Rojo), respeite os sufixos .server e .client | Escolha uma convenção de nomes e registre no AGENTS.md
+v: Qualquer script é achado pelo nome da pasta sem busca ampla.
+## arq-extensibility-patterns
+d: Padrões para adicionar armas, habilidades e itens sem reescrever sistemas.
+w: Quando o jogo precisa de muitas variações do mesmo comportamento.
+r: Registro (tabela id para definição) em vez de cadeias de if | Interface comum para cada variação, por exemplo Activate e Cleanup | Dados em config e comportamento em módulos plugáveis
+v: Adicionar um item novo toca no máximo um arquivo de dados e um módulo.
+## arq-api-contracts
+d: Contratos claros e tipados para Remotes e APIs de módulos.
+w: Ao expor funções ou eventos entre sistemas ou entre lados.
+r: Cada API declara tipos de entrada e saída com export type | Remotes nomeados com verbo e objeto, como RequestEquipItem | Mudança de contrato atualiza todos os chamadores na mesma alteração
+v: A análise estática não aponta chamadas com tipos incompatíveis.
+## arq-error-boundaries
+d: Isola falhas para um sistema não derrubar os outros.
+w: No bootstrap de serviços e em handlers de eventos.
+r: Inicie cada serviço sob pcall e registre qual falhou | Handlers de Remote protegem a lógica crítica e não deixam estado pela metade | Falha de sistema opcional desliga só o recurso e deixa aviso no log
+v: Forçar erro em um serviço de teste não impede os demais de iniciar.
+## arq-feature-flags
+d: Liga e desliga funcionalidades por configuração.
+w: Ao integrar recursos incompletos ou testar variações.
+r: Flags em módulo de config ou em atributos | Código novo entra desligado até estar verificado | Remova a flag e o código morto depois que estabilizar
+v: Com a flag desligada o comportamento anterior é idêntico.
+## arq-refactor-safely
+d: Refatora em passos pequenos sem quebrar o que funciona.
+w: Quando um sistema precisa de reorganização.
+r: Registre o comportamento atual (teste ou checklist) antes de mudar | Uma mudança estrutural por vez, com verificação entre elas | Não misture refatoração com funcionalidade nova
+v: O mesmo checklist passa antes e depois.
+## arq-game-loop-design
+d: Modela o ciclo de partida como máquina de estados (lobby, rodada, fim).
+w: Jogos com rodadas, ondas ou partidas.
+r: Estados explícitos como Lobby, Intermission, Playing e Ending, com transições únicas | Um serviço dono decide as transições e o resto reage a eventos | Tempo da rodada vive no servidor e é replicado por atributo para a UI
+v: Todo estado é alcançável e tem saída; nenhuma transição fica sem dono.
+# luau
+## luau-strict-types
+d: Tipagem Luau com --!strict, aliases, opcionais e refinamento.
+w: Ao escrever ModuleScripts e APIs públicas.
+r: Primeira linha --!strict; type e export type para estruturas | Opcional com ?; refine com typeof ou comparação antes de usar | Evite any; use o cast :: só quando o analisador não consegue inferir
+v: Análise estática sem erros de tipo no módulo.
+## luau-task-library
+d: Usa task.spawn, task.defer, task.delay, task.wait e task.cancel.
+w: Sempre que precisar de concorrência ou espera.
+r: Prefira a biblioteca task a wait, spawn e delay legados | task.spawn roda já até o primeiro yield; task.defer roda no próximo ciclo | Guarde a thread de task.delay ou task.spawn se precisar cancelar com task.cancel
+v: Nenhum uso de wait(), spawn() ou delay() restante.
+## luau-error-handling
+d: Tratamento de erros com pcall, xpcall, assert e erro estruturado.
+w: Em chamadas que podem falhar (DataStore, Marketplace, HTTP).
+r: pcall retorna ok e resultado; trate o caso de falha, não ignore | xpcall com debug.traceback quando precisar do stack | Retorne ok e erro em funções próprias em vez de lançar erro por fluxo normal
+v: Cada chamada que pode falhar tem caminho de falha testado.
+## luau-modulescript-patterns
+d: Padrões de ModuleScript: retorno único, cache do require e estado.
+w: Ao criar módulos compartilhados ou serviços.
+r: O módulo roda uma vez por ambiente e o resultado do require é compartilhado | Cliente e servidor têm cópias separadas do mesmo módulo | Não guarde estado por jogador em variável de módulo sem limpar em PlayerRemoving
+v: Duas chamadas de require retornam a mesma tabela dentro do mesmo lado.
+## luau-metatables-oop
+d: Classes simples com setmetatable e __index, tipadas.
+w: Quando precisa de objetos com estado e métodos.
+r: Tabela de classe com __index apontando para ela e função new | Prefira composição a herança profunda | Métodos de instância chamados com dois pontos; funções estáticas com ponto
+v: Instâncias criadas por new não compartilham estado mutável por engano.
+## luau-table-performance
+d: Uso eficiente de tabelas e da biblioteca table.
+w: Em código quente ou com listas grandes.
+r: table.create para arrays de tamanho conhecido; table.clear para reutilizar | Evite buracos em arrays; o operador # só é confiável em sequências | table.find, table.clone, table.freeze e table.move cobrem casos comuns
+v: Operações sobre listas grandes medidas com os.clock antes e depois.
+## luau-string-handling
+d: Manipulação de strings: format, split, padrões e utf8.
+w: Ao montar textos, validar nomes ou processar comandos.
+r: Concatene muitos pedaços com table.concat, não com .. em loop | Padrões do Luau não são regex completo; teste os casos de borda | Para texto com acentos use a biblioteca utf8 ao contar caracteres
+v: Casos com acento, string vazia e entrada longa testados.
+## luau-generalized-iteration
+d: Iteração com for k, v in tabela, pairs e ipairs sem armadilhas.
+w: Ao percorrer ou modificar tabelas.
+r: ipairs para sequências e pairs quando a ordem não importa | Atribuir ou limpar chaves existentes durante a iteração é seguro; adicionar chaves novas não | Para remover itens de lista, percorra de trás para frente
+v: Percorrer e remover não pula nem repete elementos.
+## luau-coroutines-threads
+d: Coroutines, threads do scheduler e propagação de erros.
+w: Ao usar coroutine.wrap ou entender por que um erro sumiu.
+r: Prefira task.spawn a coroutine.create para rodar código em paralelo lógico | Erro dentro de task.spawn é impresso e não chega ao chamador | coroutine.wrap propaga o erro ao retomar; trate com pcall
+v: Um erro forçado na thread aparece no Output e não trava o resto.
+## luau-signals-bindables
+d: BindableEvent e módulos Signal para comunicação interna.
+w: Quando sistemas do mesmo lado precisam se avisar sem acoplamento.
+r: BindableEvent copia tabelas ao disparar e perde metatables; módulo Signal passa referências | Use Once quando só interessa a primeira ocorrência | Desconecte conexões de objetos destruídos
+v: Disparar o sinal chama cada ouvinte uma vez e sem vazamento após o Destroy.
+## luau-attributes-tags
+d: Atributos e CollectionService para dados e comportamento por objeto.
+w: Configurar instâncias sem criar muitos ValueObjects.
+r: SetAttribute, GetAttribute e GetAttributeChangedSignal; nomes não podem começar com RBX | Tags com CollectionService: AddTag, GetTagged e GetInstanceAddedSignal | Processe os já existentes com GetTagged e os novos com o sinal
+v: Objetos existentes e criados depois recebem o comportamento.
+## luau-math-vectors-cframe
+d: Vector3, CFrame, Random e matemática de jogo.
+w: Movimento, mira, distâncias e rotações.
+r: Multiplicação de CFrame é ordenada: pai vezes deslocamento | .Unit de vetor zero dá NaN; verifique Magnitude antes | Random.new(seed) para sequências reproduzíveis; math.clamp para limites
+v: Casos com vetor zero e ângulos de borda testados.
+## luau-linting-formatting
+d: Análise estática e formatação (luau-analyze, selene, stylua).
+w: Antes de entregar código Luau.
+r: Use o que estiver instalado no projeto; não cite ferramenta que não existe | Corrija avisos reais, não silencie em massa | Formatação consistente com a config do projeto
+v: Comando de lint executado e saída reportada.
+# studio
+## studio-explorer-properties
+d: Navegar Explorer e Properties e escolher entre propriedade e atributo.
+w: Ao inspecionar ou configurar objetos no Studio.
+r: Propriedades são da classe; atributos são dados personalizados da instância | Confira Parent, Anchored, CanCollide e Archivable antes de depurar | Renomeie com nomes estáveis, pois scripts dependem deles
+v: A hierarquia real coincide com a que o script espera.
+## studio-play-modes
+d: Diferenças entre Play, Run e Test com servidor e clientes locais.
+w: Ao testar replicação e lógica cliente-servidor.
+r: Play simula um jogador; Run roda só o servidor, sem personagem | O teste com servidor local e vários clientes mostra problemas de replicação | Alterne a vista de cliente e servidor ao conferir o Workspace
+v: A funcionalidade foi vista no modo que realmente a exercita.
+## studio-output-console
+d: Output do Studio e console do desenvolvedor em jogo.
+w: Ao caçar erros, avisos e desempenho.
+r: Leia a mensagem completa, com script e linha | Filtre o Output por tipo; avisos de infinite yield apontam WaitForChild sem retorno | O console do jogo (F9) mostra logs de cliente e servidor
+v: O erro original foi reproduzido e sumiu após a correção.
+## studio-script-workflow
+d: Fluxo de edição de scripts e sincronização com arquivos.
+w: Ao decidir como editar código fora do Studio.
+r: Edição no Studio é direta; sincronização com Rojo exige o projeto configurado | Em Team Create use rascunhos de script e publique com cuidado | Nunca edite o mesmo script em dois lugares ao mesmo tempo
+v: A versão no Studio e a versão em arquivo coincidem após a sincronização.
+## studio-plugin-development
+d: Criação de plugins do Studio (toolbar, Selection, waypoints).
+w: Quando uma tarefa repetitiva no Studio merece uma ferramenta.
+r: plugin:CreateToolbar e CreateButton; use o serviço Selection para o alvo | Registre desfazer com ChangeHistoryService (waypoints ou gravação) | Plugin roda só no Studio; não dependa dele no jogo publicado
+v: A ação do plugin pode ser desfeita com Ctrl+Z.
+## studio-terrain-workflow
+d: Terreno por editor e por script (FillBlock, FillBall, Clear).
+w: Ao criar mapas ou terreno gerado.
+r: Terrain:FillBlock e FillBall preenchem regiões com material | Terreno é pesado; use regiões e tamanhos moderados | Terreno gerado em runtime deve rodar no servidor
+v: Terreno gerado não congela o servidor na inicialização.
+## studio-asset-manager
+d: Asset Manager, importação em lote e organização de assets.
+w: Ao importar malhas, imagens e áudios.
+r: Importe pelo Importador 3D ou pelo Asset Manager | Organize em pastas e nomeie antes de importar em lote | Registre IDs de assets em um módulo de config
+v: Todos os assets importados aparecem com nome e ID registrados.
+## studio-streaming-enabled
+d: Configuração de StreamingEnabled e modos de streaming de modelos.
+w: Em mapas grandes ou projetos para mobile.
+r: Ajuste raio de streaming e ModelStreamingMode conforme a importância do modelo | Código cliente deve esperar por objetos que podem não ter chegado | Não assuma que todo o Workspace existe no cliente
+v: Jogar com streaming ligado não gera erros de objeto nil.
+## studio-team-create
+d: Colaboração no Team Create e histórico de versões.
+w: Quando mais de uma pessoa edita o jogo.
+r: Rascunhos de script evitam sobrescrever o trabalho de outros | Use o histórico de versões para recuperar | Combine quem edita qual área
+v: Nenhuma alteração de outra pessoa foi sobrescrita.
+## studio-publishing
+d: Publicar o jogo e separar experiência de lugar.
+w: Antes de publicar ou alterar configurações públicas.
+r: Publicar é ação irreversível em termos de exposição: peça autorização | Confira configurações de acesso e monetização antes | Teste em lugar de testes, não no jogo de produção
+v: Houve autorização explícita registrada antes da publicação.
+## studio-device-emulator
+d: Emulador de dispositivos para telas e entrada de toque.
+w: Ao validar UI e controles em mobile.
+r: Teste vários tamanhos e proporções | Toque não tem hover; confira botões e áreas de toque | Desempenho real em celular pode diferir do emulador
+v: A UI foi vista em pelo menos um tamanho de celular e um de desktop.
+## studio-undo-waypoints
+d: Desfazer e refazer em scripts de edição e plugins.
+w: Quando um script altera o lugar em modo de edição.
+r: Agrupe alterações em um waypoint para um único desfazer | Não faça mudanças destrutivas sem waypoint | Em runtime não existe desfazer; trate o estado
+v: Uma alteração em lote é desfeita com um comando.
+## studio-workspace-settings
+d: Configurações globais de Workspace: gravidade, altura de queda e filtragem.
+w: Ao ajustar a física global ou o mapa.
+r: Workspace.Gravity e FallenPartsDestroyHeight definem física e limite de queda | A replicação sempre é filtrada; mudanças do cliente não chegam ao servidor | Mudar configuração global afeta todo o jogo; teste depois
+v: Cair do mapa remove o objeto como esperado.

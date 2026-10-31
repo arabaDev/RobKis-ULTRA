@@ -1,0 +1,254 @@
+# sec
+## sec-remote-input-validation
+d: Validação de tipo, faixa e formato de argumentos de Remotes.
+w: Todo handler de OnServerEvent ou OnServerInvoke.
+r: Cheque typeof de cada argumento antes de usar | Rejeite NaN, infinito, negativos e valores fora da faixa | Texto e tabelas com tamanho máximo
+v: Entradas inválidas são ignoradas sem erro e sem efeito.
+## sec-rate-limit-implementation
+d: Limite de frequência por jogador e por Remote.
+w: Ações que podem ser disparadas em rajada.
+r: Guarde o instante da última chamada com os.clock por jogador | Use balde de fichas para ações que aceitam pequenas rajadas | Limpe em PlayerRemoving
+v: Mil chamadas em um segundo geram poucos efeitos.
+## sec-ownership-checks
+d: Confirma posse de itens, tools e objetos antes de agir.
+w: Equipar, vender, usar ou destruir algo.
+r: Confira no estado do servidor, nunca no que o cliente afirma | Confirme que o objeto pertence ao jogador e está no lugar esperado | Rejeite referências a instâncias de outro jogador
+v: Pedir uma ação com item alheio não tem efeito.
+## sec-distance-sanity-checks
+d: Valida distância e linha de visão no servidor.
+w: Ações de alcance como pegar, abrir e atacar.
+r: Meça entre as posições reais do personagem e do alvo | Use margem pequena para latência | Linha de visão com raycast quando importa
+v: Ação a distância absurda é rejeitada.
+## sec-receipt-processing
+d: ProcessReceipt idempotente para Developer Products.
+w: Qualquer compra com Robux.
+r: Conceda o item e registre o ID do recibo antes de retornar PurchaseGranted | Se falhar, retorne NotProcessedYet para nova tentativa | Defina o callback uma única vez e no servidor
+v: Processar o mesmo recibo duas vezes concede uma vez só.
+## sec-gamepass-verification
+d: Verificação de Game Pass no servidor.
+w: Benefícios por passe.
+r: MarketplaceService:UserOwnsGamePassAsync dentro de pcall | Cache por jogador e invalide ao comprar | Nunca confie em flag do cliente
+v: Jogador sem o passe não recebe o benefício.
+## sec-dupe-prevention
+d: Prevenção de duplicação de itens em troca, salvamento e teleporte.
+w: Trocas, entregas e transferência entre servidores.
+r: Operações de transferência são atômicas e registradas | Use UpdateAsync para mover entre donos | Bloqueie o item durante a transação
+v: Fechar o jogo no meio da troca não duplica nem perde o item.
+## sec-sanitize-text
+d: Filtragem e limite de texto digitado por jogadores.
+w: Nomes, mensagens e qualquer texto exibido a outros.
+r: Filtre texto de usuário com TextService:FilterStringAsync ou use o chat padrão | Limite tamanho e caracteres | Trate falha do filtro como rejeição
+v: Texto não filtrado nunca aparece para outros jogadores.
+## sec-secrets-handling
+d: Segredos, chaves e tokens fora do código.
+w: Integração com serviços externos.
+r: Nunca grave chave em script, repositório ou LocalScript | Use o armazenamento de segredos do Roblox quando disponível | Requisições HTTP partem do servidor
+v: Busca por tokens no projeto não encontra nada.
+## sec-exploit-resistant-ui
+d: UI como exibição apenas, sem autoridade.
+w: Botões que mudam dados do jogo.
+r: Botão envia pedido; servidor decide | Não esconda botões como proteção | Estado crítico nunca mora na UI
+v: Habilitar um botão escondido não concede nada.
+## sec-anti-speed-fly
+d: Detecção de velocidade e voo anômalos com tolerância.
+w: Jogos competitivos.
+r: Compare deslocamento por tempo com limite generoso | Considere veículos, trampolins e quedas | Corrija a posição em vez de punir de imediato
+v: Ações legítimas de movimento não geram falso positivo.
+## sec-admin-auth
+d: Autorização de comandos de administrador.
+w: Painéis e comandos de staff.
+r: Autorize por UserId ou cargo em grupo, no servidor | Nunca por nome de usuário | Registre o uso de comandos
+v: Jogador comum não executa comando de admin.
+## sec-script-visibility
+d: O que o cliente consegue ver e o que fica oculto.
+w: Decidir onde guardar lógica e dados.
+r: ServerScriptService e ServerStorage não replicam | LocalScripts e ReplicatedStorage são visíveis ao cliente | Segredos e regras sensíveis só no servidor
+v: Nenhuma lógica sensível em ReplicatedStorage ou LocalScripts.
+# ui
+## ui-scale-layout
+d: Layout com escala (UDim2 Scale), âncoras e restrições.
+w: Qualquer interface que deve funcionar em várias telas.
+r: Posicione e dimensione por Scale; use Offset só para margens pequenas | AnchorPoint para alinhar bordas e centro | UIAspectRatioConstraint e UISizeConstraint para limites
+v: A UI se mantém coerente em retrato, paisagem e desktop.
+## ui-responsive-mobile
+d: Interfaces utilizáveis em telas pequenas e com toque.
+w: Jogos que rodam em celular.
+r: Alvos de toque grandes e espaçados | Evite depender de hover ou teclado | Texto legível em telas pequenas
+v: Testada no emulador de celular.
+## ui-safe-areas
+d: Áreas seguras e insets do sistema.
+w: Notch e botões nativos do Roblox.
+r: Respeite ScreenInsets do ScreenGui | Deixe espaço para a barra superior | Teste com o emulador
+v: Nenhum botão fica sob a barra ou o notch.
+## ui-layout-objects
+d: UIListLayout, UIGridLayout, UIPadding e afins.
+w: Listas, grades e menus.
+r: Use layouts em vez de posições manuais | AutomaticSize combinado com layouts para conteúdo dinâmico | Defina SortOrder para ordem previsível
+v: Adicionar ou remover itens reordena sem ajuste manual.
+## ui-text-handling
+d: Texto: RichText, TextScaled, TextWrapped e restrições de tamanho.
+w: Textos que variam em tamanho ou idioma.
+r: UITextSizeConstraint limita TextScaled | RichText para ênfase; escape de conteúdo de usuário | Teste com textos longos e com acentos
+v: Texto longo não estoura o contêiner.
+## ui-tween-animation
+d: Animações de UI com TweenService.
+w: Aberturas, transições e feedback.
+r: TweenService:Create com TweenInfo e tabela de propriedades | Cancele o tween anterior ao iniciar outro no mesmo objeto | Evite animar por RenderStepped quando um tween resolve
+v: Abrir e fechar rapidamente não deixa a UI em estado errado.
+## ui-input-handling
+d: Entrada de mouse, toque, teclado e gamepad.
+w: Controles e menus.
+r: UserInputService.InputBegan com gameProcessedEvent | ContextActionService:BindAction para ações com botão de toque | Use eventos Activated em botões para todos os dispositivos
+v: A mesma ação funciona em teclado, toque e gamepad.
+## ui-hud-design
+d: HUD legível: vida, munição, objetivos.
+w: Interface de jogo em tempo real.
+r: Informação essencial no campo de visão, sem poluir | Atualize por evento, não por loop | Cores com contraste suficiente
+v: O HUD permanece legível sobre fundos claros e escuros.
+## ui-inventory-grids
+d: Grades de inventário com layout e dados ligados.
+w: Inventário, loja e equipamento.
+r: UIGridLayout dentro de ScrollingFrame | Reutilize slots em vez de recriar | Dados vêm do servidor; UI só reflete
+v: Inventário com muitos itens rola sem travar.
+## ui-shop-screens
+d: Telas de loja com compra confirmada pelo servidor.
+w: Lojas de itens ou moeda.
+r: Clique envia pedido; o servidor valida preço e saldo | Mostre estado pendente e resultado | Nunca calcule preço no cliente
+v: Alterar o preço no cliente não muda a cobrança.
+## ui-notifications-toasts
+d: Notificações e avisos temporários.
+w: Recompensas, erros e eventos.
+r: Fila com limite e duração | Cada aviso se destrói ao terminar | Informações importantes não dependem só de aviso rápido
+v: Muitos avisos seguidos não empilham sem controle.
+## ui-viewport-frames
+d: ViewportFrame para pré-visualizar itens e modelos 3D.
+w: Preview de armas, skins e personagens.
+r: Clone o modelo para dentro do ViewportFrame | Configure uma câmera própria | Cuide do custo com muitos viewports ao mesmo tempo
+v: Preview com iluminação e enquadramento corretos.
+## ui-accessibility-controls
+d: Acessibilidade: contraste, tamanho e navegação por gamepad.
+w: Interfaces para todos os jogadores.
+r: Contraste e tamanho de texto adequados | Selectable e GuiService.SelectedObject para navegação | Não use só cor para transmitir estado
+v: Navegar a UI apenas por gamepad é possível.
+# anim
+## anim-animator-basics
+d: Animator, AnimationTrack e como carregar e tocar animações.
+w: Qualquer animação de personagem ou rig.
+r: Obtenha o Animator do Humanoid ou AnimationController | Animator:LoadAnimation retorna a AnimationTrack; Humanoid:LoadAnimation é legado | Carregue uma vez e reutilize a track
+v: A animação toca e termina sem erros no Output.
+## anim-priorities
+d: Prioridades de animação (Core, Idle, Movement, Action).
+w: Quando uma animação não sobrepõe outra.
+r: AnimationTrack.Priority usa Enum.AnimationPriority | Action sobrepõe Movement e Idle | Defina na publicação ou no código
+v: A animação desejada vence a de movimento.
+## anim-markers-events
+d: Eventos de animação com GetMarkerReachedSignal.
+w: Sincronizar dano, som ou efeito com o quadro.
+r: Crie marcadores no editor de animação | Conecte com GetMarkerReachedSignal(nome) | Dano continua decidido no servidor
+v: O efeito dispara no quadro do marcador.
+## anim-blending-weights
+d: Mistura de animações com peso e tempo de fade.
+w: Transições suaves.
+r: AnimationTrack:Play(fadeTime, weight, speed) | Stop(fadeTime) para saída suave | Ajuste pesos com AdjustWeight
+v: A transição não tem salto visível.
+## anim-looping-speed
+d: Loop, velocidade e duração de animações.
+w: Ciclos e variações de ritmo.
+r: Looped é propriedade da animação publicada | AdjustSpeed muda a velocidade em runtime | Calcule duração por Length e Speed
+v: A animação em loop reinicia sem corte.
+## anim-ownership-permissions
+d: Propriedade e permissões de animações publicadas.
+w: Animação não toca em jogo publicado.
+r: O criador ou grupo dono do jogo deve ser dono da animação | Publique pelo mesmo dono | Falha de propriedade aparece como animação que não toca
+v: A animação toca em teste fora do Studio.
+## anim-preloading
+d: Pré-carregamento de animações com ContentProvider.
+w: Animações que atrasam no primeiro uso.
+r: ContentProvider:PreloadAsync com as animações | Carregue as tracks no início, não no primeiro uso | Faça isso uma vez
+v: O primeiro uso não tem atraso perceptível.
+## anim-r15-vs-r6
+d: Diferenças de rig R6 e R15 para animações.
+w: Jogos que suportam os dois.
+r: R15 tem mais juntas e partes; R6 é mais simples | Uma animação feita para um não serve para o outro sem ajuste | Defina um padrão para o jogo
+v: A animação foi testada no tipo de rig do jogo.
+## anim-custom-rigs
+d: Animar rigs personalizados com AnimationController e Motor6D.
+w: Monstros, criaturas e props animados.
+r: AnimationController com Animator em vez de Humanoid | Motor6D ligando as partes | Nomes de partes e juntas consistentes com a animação
+v: O rig anima sem partes soltas.
+## anim-procedural
+d: Animação por código alterando Motor6D e CFrame.
+w: Mira, inclinação e reações dinâmicas.
+r: Motor6D.Transform ou C0 e C1 ajustados em RunService | Rodar no cliente para o personagem local | Mantenha leve e por frame
+v: O movimento procedural não luta com a animação base.
+## anim-ik-control
+d: IKControl para pés e mãos.
+w: Posicionar mãos e pés em alvos.
+r: IKControl define cadeia e alvo | Ative e desative conforme o contexto | Confira o suporte no rig usado
+v: A extremidade alcança o alvo sem torcer o corpo.
+## anim-cleanup-tracks
+d: Limpeza de tracks e conexões de animação.
+w: Vazamento ao trocar de personagem ou ferramenta.
+r: Pare e destrua tracks ao desequipar | Desconecte sinais de marcador | Reconstrua no CharacterAdded
+v: Respawn não acumula tracks.
+# npc
+## npc-character-spawning
+d: Criar NPCs com Humanoid e aparência definida.
+w: Inimigos, vendedores e aliados.
+r: Clone o modelo base de ServerStorage | Humanoid com HumanoidDescription para aparência | Posicione com PivotTo antes de colocar no Workspace
+v: O NPC aparece inteiro, de pé e na posição.
+## npc-humanoid-states
+d: Estados do Humanoid e como controlá-los em NPCs.
+w: Morte, queda e movimento do NPC.
+r: Humanoid.Died para limpeza | Humanoid:ChangeState com Enum.HumanoidStateType | WalkSpeed e JumpPower em config
+v: O NPC morre e é removido sem sobras.
+## npc-path-following
+d: Seguir caminhos com PathfindingService e Humanoid:MoveTo.
+w: NPCs que andam até um alvo.
+r: PathfindingService:CreatePath com parâmetros do agente | path:ComputeAsync e GetWaypoints; confira o Status | Recalcule se o caminho for bloqueado
+v: O NPC chega ao destino ou desiste com tratamento de falha.
+## npc-dialogue-system
+d: Diálogos de NPC com dados e UI.
+w: Missões e conversas.
+r: Diálogo em tabela de dados com nós e escolhas | ProximityPrompt para iniciar | Estado de missão no servidor
+v: Todo nó leva a algum lugar válido.
+## npc-spawn-despawn
+d: Gerenciamento de nascimento e remoção de NPCs.
+w: Ondas e mapas com muitos inimigos.
+r: Limite de NPCs ativos | Reaproveite em vez de recriar quando possível | Destrua ao sair da área ou da partida
+v: Número de NPCs ativos respeita o limite.
+## npc-health-bars
+d: Barras de vida com BillboardGui.
+w: Mostrar vida de inimigos.
+r: BillboardGui no cliente a partir de Health e MaxHealth | Atualize por HealthChanged | Oculte à distância
+v: A barra acompanha a vida e some ao morrer.
+## npc-network-ownership
+d: Propriedade de rede em NPCs para evitar jitter.
+w: NPCs que se movem de forma estranha.
+r: SetNetworkOwner(nil) mantém a física no servidor | Faça isso nas partes não ancoradas do NPC | Verifique com GetNetworkOwner
+v: O NPC se move suavemente para todos.
+## npc-patrol-routes
+d: Rotas de patrulha com pontos de passagem.
+w: Guardas e inimigos que patrulham.
+r: Pontos em Folder com nomes ordenados | Espera curta em cada ponto | Retome a rota após perder o alvo
+v: O NPC percorre a rota sem travar.
+## npc-aggro-targeting
+d: Escolha e perda de alvo com distância e linha de visão.
+w: NPCs que perseguem jogadores.
+r: Distância e raycast de visão | Escolha o alvo por regra clara (mais próximo, maior ameaça) | Perda de alvo por distância ou tempo
+v: O NPC alterna alvos de forma previsível.
+## npc-animations
+d: Animações de NPC: andar, ataque e morte.
+w: NPCs com aparência viva.
+r: Animator do Humanoid ou AnimationController | Reaja a estados com Running e Died | Carregue as tracks uma vez
+v: Cada estado tem sua animação.
+## npc-loot-drops
+d: Itens que os NPCs soltam ao morrer.
+w: Recompensas de combate.
+r: Tabelas de drop com peso e raridade em config | Sorteio no servidor com Random | Conceda uma vez por morte
+v: A proporção de drops confere com a tabela em muitas simulações.
+## npc-streaming-considerations
+d: NPCs e streaming de Workspace.
+w: Mapas grandes com StreamingEnabled.
+r: Modelos de NPC podem não existir no cliente longe | Use modo persistente quando necessário | Servidor decide, cliente só mostra
+v: Nenhum erro de nil quando NPCs entram e saem do raio.

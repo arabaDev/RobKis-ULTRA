@@ -1,0 +1,15 @@
+---
+name: zoom-out
+description: "Tell the agent to zoom out and give broader context or a higher-level perspective. Use when you're unfamiliar with a section of code or need to understand how it fits into the bigger picture."
+metadata:
+  id: SK-46-01
+  department: "Núcleo Roblox"
+  version: 
+  revised: 2026-10-20
+---
+
+I don't know this area of code well. Go up a layer of abstraction. Give me a map of all the relevant modules and callers, using the project's domain glossary vocabulary.
+
+## Next
+
+With the map in hand, dive into the specific system using its skill — usually `roblox-luau-architecture` for code structure, or the relevant gameplay, economy, or UI skill for that subsystem.

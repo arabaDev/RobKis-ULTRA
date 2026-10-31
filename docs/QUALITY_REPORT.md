@@ -1,0 +1,183 @@
+# Relatório de qualidade das skills
+
+Heurísticas determinísticas (estrutura, tamanho, referências). **Não é revisão semântica** nem prova de que as regras estão corretas.
+
+- Skills: **619** em **45** departamentos
+- Estados: ESTRUTURALMENTE VALIDADA: 619
+- Skills com algum ponto fraco (regra muito curta etc.): **173**
+
+## Lista de melhoria (corrigir em `factory/src/*.txt` e rodar `python factory/build.py`)
+
+- `anim-cleanup-tracks`: verificação curta
+- `anim3d-keyframe-basics`: 1 regra(s) com menos de 3 palavras
+- `anim3d-markers`: 1 regra(s) com menos de 3 palavras
+- `anim3d-nla-actions`: 1 regra(s) com menos de 3 palavras; descrição curta
+- `anim3d-retargeting`: 1 regra(s) com menos de 3 palavras
+- `anim3d-root-motion`: 1 regra(s) com menos de 3 palavras; verificação curta
+- `anim3d-timing-spacing`: verificação curta
+- `anim3d-walk-cycles`: 1 regra(s) com menos de 3 palavras
+- `bench-fair-comparison`: 1 regra(s) com menos de 3 palavras
+- `bench-regression-compare`: verificação curta
+- `bench-reporting`: 2 regra(s) com menos de 3 palavras
+- `bench-success-criteria`: 1 regra(s) com menos de 3 palavras; descrição curta
+- `bench-timing-method`: verificação curta
+- `bench-token-accounting`: verificação curta
+- `bpy-batch-generation`: 1 regra(s) com menos de 3 palavras
+- `bpy-bmesh-modeling`: 1 regra(s) com menos de 3 palavras
+- `bpy-collections-naming`: 1 regra(s) com menos de 3 palavras
+- `bpy-custom-operators`: 1 regra(s) com menos de 3 palavras
+- `bpy-headless-run`: 1 regra(s) com menos de 3 palavras
+- `bpy-mesh-stats`: 1 regra(s) com menos de 3 palavras
+- `bug-nil-index`: descrição curta
+- `bug-physics-glitches`: 1 regra(s) com menos de 3 palavras
+- `bug-ui-not-showing`: descrição curta
+- `compat-deprecated-apis`: verificação curta
+- `compat-exporter-changes`: 1 regra(s) com menos de 3 palavras
+- `compat-input-devices`: 1 regra(s) com menos de 3 palavras
+- `compat-mcp-versions`: 1 regra(s) com menos de 3 palavras; descrição curta
+- `compat-os-paths`: descrição curta
+- `compat-platform-differences`: 1 regra(s) com menos de 3 palavras
+- `compat-python-versions`: 1 regra(s) com menos de 3 palavras
+- `compat-roblox-api-changes`: 1 regra(s) com menos de 3 palavras
+- `compat-studio-vs-live`: 1 regra(s) com menos de 3 palavras
+- `data-budget-limits`: 1 regra(s) com menos de 3 palavras
+- `data-corruption-recovery`: 1 regra(s) com menos de 3 palavras
+- `data-migration`: 1 regra(s) com menos de 3 palavras
+- `data-ordered-leaderboards`: 1 regra(s) com menos de 3 palavras; descrição curta
+- `dep-plugin-dependencies`: 1 regra(s) com menos de 3 palavras; verificação curta
+- `dep-removal-safety`: 1 regra(s) com menos de 3 palavras
+- `dep-require-graph`: verificação curta
+- `dep-service-order`: 1 regra(s) com menos de 3 palavras; verificação curta
+- `dep-third-party-licenses`: 2 regra(s) com menos de 3 palavras
+- `dep-tool-versions`: verificação curta
+- `doc-agents-md-maintenance`: 1 regra(s) com menos de 3 palavras
+- `doc-asset-manifest`: 1 regra(s) com menos de 3 palavras; verificação curta
+- `doc-changelogs`: 1 regra(s) com menos de 3 palavras
+- `doc-diagrams-text`: 1 regra(s) com menos de 3 palavras; verificação curta
+- `doc-inline-comments`: verificação curta; descrição curta
+- `doc-readme-structure`: 2 regra(s) com menos de 3 palavras
+- `eco-leaderboards`: descrição curta
+- `eco-premium-benefits`: descrição curta
+- `eco-subscriptions`: 1 regra(s) com menos de 3 palavras
+- `exp-apply-transforms`: 1 regra(s) com menos de 3 palavras
+- `exp-embedded-textures`: 1 regra(s) com menos de 3 palavras; descrição curta
+- `exp-failed-export-triage`: 1 regra(s) com menos de 3 palavras
+- `exp-selection-export`: 1 regra(s) com menos de 3 palavras
+- `exp-versioned-output-folders`: 1 regra(s) com menos de 3 palavras; descrição curta
+- `fx-presentation-polish`: 1 regra(s) com menos de 3 palavras
+- `fx-sound-design`: 1 regra(s) com menos de 3 palavras
+- `fx-sound-groups-mixing`: 1 regra(s) com menos de 3 palavras; verificação curta
+- `fx-tween-vfx`: 1 regra(s) com menos de 3 palavras; descrição curta
+- `fx-ui-juice`: 1 regra(s) com menos de 3 palavras
+- `game-ability-system`: descrição curta
+- `game-checkpoints`: descrição curta
+- `inv-server-actions`: 1 regra(s) com menos de 3 palavras
+- `light-atmosphere-sky`: descrição curta
+- `light-baked-lighting-textures`: 1 regra(s) com menos de 3 palavras; descrição curta
+- `light-blender-preview-render`: 1 regra(s) com menos de 3 palavras
+- `light-color-grading`: 1 regra(s) com menos de 3 palavras; verificação curta
+- `light-day-night-cycle`: 1 regra(s) com menos de 3 palavras; verificação curta
+- `light-local-lights`: descrição curta
+- `light-mobile-lighting`: verificação curta; descrição curta
+- `light-post-processing`: 1 regra(s) com menos de 3 palavras; verificação curta
+- `mat-atlases`: verificação curta
+- `mat-export-checks`: 1 regra(s) com menos de 3 palavras
+- `mat-naming-reuse`: 1 regra(s) com menos de 3 palavras; verificação curta
+- `mat-pbr-texture-set`: 1 regra(s) com menos de 3 palavras; verificação curta
+- `mat-principled-bsdf`: 1 regra(s) com menos de 3 palavras
+- `mat-stylized-palettes`: 1 regra(s) com menos de 3 palavras
+- `mat-transparency`: verificação curta
+- `mcp-error-triage`: verificação curta
+- `mcp-operation-audit-log`: verificação curta
+- `mcp-redundant-call-prevention`: descrição curta
+- `mcp-side-effect-verification`: verificação curta
+- `net-remote-function-risks`: verificação curta
+- `net-unreliable-remotes`: descrição curta
+- `orch-context-minimization`: verificação curta; descrição curta
+- `orch-dependency-ordering`: 1 regra(s) com menos de 3 palavras
+- `orch-handoff-format`: 2 regra(s) com menos de 3 palavras
+- `orch-incremental-verification`: 1 regra(s) com menos de 3 palavras; descrição curta
+- `orch-obsolete-task-cancellation`: verificação curta
+- `orch-parallel-safety`: verificação curta
+- `orch-result-consolidation`: verificação curta
+- `perf-benchmark-method`: 1 regra(s) com menos de 3 palavras; verificação curta
+- `perf-loading-time`: 1 regra(s) com menos de 3 palavras; verificação curta
+- `perf-mobile-budgets`: 1 regra(s) com menos de 3 palavras
+- `perf-network-cost`: 1 regra(s) com menos de 3 palavras
+- `phys-network-ownership`: verificação curta
+- `pipe-bulk-import`: 1 regra(s) com menos de 3 palavras; verificação curta
+- `pipe-collision-setup`: 1 regra(s) com menos de 3 palavras; descrição curta
+- `pipe-import-3d-importer`: 1 regra(s) com menos de 3 palavras
+- `pipe-in-game-verification`: 1 regra(s) com menos de 3 palavras; verificação curta
+- `pipe-manual-handoff`: 1 regra(s) com menos de 3 palavras; descrição curta
+- `pipe-meshpart-setup`: 1 regra(s) com menos de 3 palavras
+- `pipe-roundtrip-iteration`: 1 regra(s) com menos de 3 palavras
+- `proc-curves-sweeps`: 1 regra(s) com menos de 3 palavras
+- `proc-modular-building-kits`: 2 regra(s) com menos de 3 palavras
+- `proc-parametric-props`: 2 regra(s) com menos de 3 palavras
+- `proc-symmetry-mirroring`: verificação curta
+- `proc-terrain-heightmaps`: 1 regra(s) com menos de 3 palavras
+- `proc-validation-bounds`: 1 regra(s) com menos de 3 palavras
+- `proc-variations-lod`: verificação curta
+- `proc-vegetation-scatter`: 1 regra(s) com menos de 3 palavras; verificação curta
+- `proc-weapon-generator`: 1 regra(s) com menos de 3 palavras
+- `rec-circuit-breaker`: 1 regra(s) com menos de 3 palavras; verificação curta
+- `rec-corrupted-file-recovery`: verificação curta
+- `rec-failure-logging`: 1 regra(s) com menos de 3 palavras
+- `rec-partial-failure`: descrição curta
+- `rec-safe-abort`: verificação curta
+- `rec-state-rollback`: 1 regra(s) com menos de 3 palavras
+- `rec-timeout-handling`: 1 regra(s) com menos de 3 palavras; descrição curta
+- `rec-tool-outage`: 2 regra(s) com menos de 3 palavras
+- `regr-asset-rechecks`: 1 regra(s) com menos de 3 palavras; verificação curta
+- `regr-diff-impact`: verificação curta
+- `regr-golden-outputs`: 2 regra(s) com menos de 3 palavras
+- `regr-network-contracts`: 1 regra(s) com menos de 3 palavras
+- `regr-release-gate`: 1 regra(s) com menos de 3 palavras; verificação curta
+- `review-3d-assets`: verificação curta; descrição curta
+- `review-architecture`: 1 regra(s) com menos de 3 palavras
+- `review-compatibility`: 1 regra(s) com menos de 3 palavras; verificação curta
+- `review-integration`: 1 regra(s) com menos de 3 palavras
+- `review-regressions`: verificação curta
+- `review-security`: 1 regra(s) com menos de 3 palavras
+- `review-syntax`: verificação curta
+- `rig-auto-weights`: 1 regra(s) com menos de 3 palavras
+- `rig-bone-hierarchy`: 1 regra(s) com menos de 3 palavras; descrição curta
+- `rig-bone-limits`: verificação curta
+- `rig-export-armature`: verificação curta; descrição curta
+- `rig-facial`: 2 regra(s) com menos de 3 palavras
+- `rig-motor6d-mapping`: 1 regra(s) com menos de 3 palavras
+- `rig-pose-testing`: verificação curta
+- `rig-skeleton-compatibility`: 1 regra(s) com menos de 3 palavras
+- `secan-audit-report-format`: 1 regra(s) com menos de 3 palavras; verificação curta
+- `secan-datastore-abuse`: verificação curta
+- `secan-economy-exploit-audit`: 1 regra(s) com menos de 3 palavras
+- `secan-free-model-audit`: verificação curta
+- `secan-incident-response`: 1 regra(s) com menos de 3 palavras; verificação curta
+- `secan-injection-risks`: 1 regra(s) com menos de 3 palavras
+- `secan-privacy-pii`: verificação curta; descrição curta
+- `secan-remote-audit`: 1 regra(s) com menos de 3 palavras
+- `secan-threat-modeling`: verificação curta
+- `test-acceptance-checklists`: verificação curta
+- `test-mock-services`: 1 regra(s) com menos de 3 palavras
+- `test-ui-responsive`: 1 regra(s) com menos de 3 palavras
+- `tool-backpack-handling`: descrição curta
+- `topo-collision-hulls`: descrição curta
+- `topo-decimation-safely`: 1 regra(s) com menos de 3 palavras; verificação curta
+- `topo-edge-flow`: 1 regra(s) com menos de 3 palavras
+- `topo-lod-generation`: 1 regra(s) com menos de 3 palavras
+- `topo-merge-doubles`: 1 regra(s) com menos de 3 palavras
+- `topo-non-manifold`: 1 regra(s) com menos de 3 palavras; verificação curta
+- `topo-normals-fixing`: verificação curta
+- `topo-poly-budgets`: 1 regra(s) com menos de 3 palavras
+- `topo-quads-vs-tris`: verificação curta
+- `topo-scale-origin`: 2 regra(s) com menos de 3 palavras
+- `ui-notifications-toasts`: descrição curta
+- `uv-decal-areas`: verificação curta
+- `uv-mirror-overlap`: verificação curta; descrição curta
+- `uv-multiple-uv-sets`: descrição curta
+- `uv-padding-islands`: descrição curta
+- `vcs-git-basics`: 1 regra(s) com menos de 3 palavras
+- `vcs-gitignore-assets`: descrição curta
+- `vcs-merge-conflicts`: 1 regra(s) com menos de 3 palavras
+- `vcs-release-tags`: 1 regra(s) com menos de 3 palavras

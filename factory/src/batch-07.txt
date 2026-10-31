@@ -1,0 +1,366 @@
+# light
+## light-technology-modes
+d: Modos de iluminação do Lighting: Voxel, Compatibility, ShadowMap e Future.
+w: Escolher o equilíbrio entre qualidade e desempenho.
+r: Lighting.Technology define o modo | Future é o mais realista e o mais caro | Teste em mobile antes de decidir
+v: O modo escolhido roda no dispositivo-alvo.
+## light-atmosphere-sky
+d: Atmosphere, Sky e neblina.
+w: Ambientação do mapa.
+r: Atmosphere para densidade e cor do ar | Sky para skybox | Ajuste de neblina com moderação
+v: Distância e cor conferidas em cena.
+## light-day-night-cycle
+d: Ciclo de dia e noite com ClockTime.
+w: Mundos com passagem de tempo.
+r: Alterar Lighting.ClockTime no servidor | Replicação automática | Ajuste de brilho e cor por hora
+v: A transição é suave.
+## light-post-processing
+d: Efeitos de pós-processamento: Bloom, ColorCorrection, DepthOfField, SunRays.
+w: Acabamento visual.
+r: Use poucos e com intensidade moderada | Teste o custo em mobile | Mantenha legibilidade
+v: A cena continua legível.
+## light-local-lights
+d: PointLight, SpotLight e SurfaceLight.
+w: Luzes locais.
+r: Limite o número e o alcance | Cor e brilho em config | Desligar quando longe
+v: Poucas luzes ativas ao mesmo tempo.
+## light-horror-mood
+d: Iluminação de terror com pouca luz ambiente, luzes locais guiando e contraste controlado.
+w: Atmosfera tensa.
+r: Pouca luz ambiente | Fontes locais para guiar | Contraste e sombras controlados
+v: O jogador consegue navegar apesar da escuridão.
+## light-shadows-cost
+d: Custo de sombras e GlobalShadows em cenas pesadas, com medição de FPS.
+w: Cenas pesadas.
+r: GlobalShadows e luzes com sombra custam | Desative onde não ajuda | Teste a diferença
+v: FPS medido com e sem sombras.
+## light-blender-preview-render
+d: Renders de inspeção no Blender.
+w: Conferir o asset visualmente.
+r: Câmera e luz simples | Resolução pequena | Salvar em pasta conhecida
+v: A imagem foi gerada e vista.
+## light-eevee-cycles-settings
+d: Configuração de EEVEE e Cycles por script.
+w: Renderizar ou fazer bake.
+r: scene.render.engine com o identificador da versão em uso | Confirme os valores válidos na versão do Blender | Amostras baixas para inspeção
+v: O render termina no tempo esperado.
+## light-baked-lighting-textures
+d: Iluminação assada em texturas.
+w: Cenários estáticos.
+r: Segundo UV para luz | Resolução conforme importância | Verificar emendas
+v: A iluminação assada aparece sem costuras.
+## light-mobile-lighting
+d: Iluminação para dispositivos móveis.
+w: Jogos no celular.
+r: Modos mais leves | Menos luzes e efeitos | Testar no aparelho
+v: FPS aceitável no celular.
+## light-color-grading
+d: Correção de cor e coerência visual.
+w: Identidade visual.
+r: ColorCorrection com valores moderados | Consistência entre cenas | Manter contraste
+v: As cores permanecem consistentes.
+# vcs
+## vcs-git-basics
+d: Fundamentos de Git para projetos Roblox e Blender.
+w: Versionar scripts e assets.
+r: Commits pequenos e frequentes | Mensagens claras | Não versionar arquivos temporários
+v: O histórico conta o que mudou.
+## vcs-commit-hygiene
+d: Commits pequenos, com mensagem clara e sem segredos nem arquivos temporários.
+w: Antes de salvar mudanças.
+r: Um commit por mudança lógica, para poder reverter isoladamente | Mensagem no imperativo que diz o que mudou e por quê | Revise o diff antes de commitar para não incluir segredos, builds ou temporários | Rode o teste relevante mais rápido antes de commitar
+v: O diff em staging lista só os arquivos da mudança e nenhum segredo.
+## vcs-branching-for-features
+d: Ramos Git por funcionalidade, integrados em passos pequenos.
+w: Trabalho em paralelo.
+r: Um ramo por tarefa | Integre em passos pequenos | Remova ramos antigos
+v: Cada ramo tem objetivo claro.
+## vcs-backup-before-risk
+d: Backup antes de mudanças arriscadas.
+w: Refatorações e operações destrutivas.
+r: Copie ou faça commit antes | Registre o ponto de volta | Confirme que o backup abre
+v: É possível voltar ao estado anterior.
+## vcs-roblox-file-formats
+d: Formatos .rbxl, .rbxlx e sincronização por arquivos.
+w: Decidir como versionar o lugar.
+r: Arquivos binários não mesclam bem | Sincronização por arquivos permite versionar scripts | Escolha uma abordagem para o projeto
+v: O método escolhido foi documentado.
+## vcs-rojo-workflow
+d: Fluxo com Rojo, se o projeto o usar.
+w: Editar scripts fora do Studio.
+r: Arquivo de projeto descreve a árvore | Sincronização em um sentido por vez | Confirme que está instalado antes de citar
+v: Mudanças em arquivo aparecem no Studio.
+## vcs-merge-conflicts
+d: Resolução de conflitos de merge.
+w: Duas pessoas mudaram o mesmo arquivo.
+r: Entenda as duas mudanças | Mantenha a intenção de ambas | Teste depois
+v: Sem marcadores de conflito restantes.
+## vcs-roblox-version-history
+d: Histórico de versões do Roblox.
+w: Recuperar um estado anterior do lugar.
+r: Use o histórico de versões do Studio | Publique com cuidado | Anote versões importantes
+v: A versão restaurada foi aberta e testada.
+## vcs-rollback-recovery
+d: Reverter e recuperar com segurança.
+w: Uma mudança causou problema.
+r: Identifique o ponto bom | Reverter em passo isolado | Evite apagar histórico
+v: O sistema voltou a funcionar.
+## vcs-gitignore-assets
+d: .gitignore e arquivos grandes.
+w: Repositório com assets pesados.
+r: Ignore temporários e builds | Decida o que versionar entre fonte e exportado | Considere armazenamento de arquivos grandes
+v: O repositório não cresce com lixo.
+## vcs-release-tags
+d: Tags e versões de entrega.
+w: Marcar versões estáveis.
+r: Tag por versão | Notas curtas | Tag só após validação
+v: A versão marcada abre e funciona.
+## vcs-team-create-vs-git
+d: Team Create e Git juntos.
+w: Equipes usando os dois.
+r: Defina qual é a fonte da verdade por tipo de conteúdo | Evite editar o mesmo script nos dois | Sincronize com disciplina
+v: Sem divergência entre as fontes.
+# review
+## review-syntax
+d: Revisão de sintaxe e erros estáticos.
+w: Antes de entregar código.
+r: Execute a análise estática disponível | Leia o código procurando erros comuns | Corrija ou reporte
+v: Sem erro de sintaxe.
+## review-architecture
+d: Revisão de arquitetura: responsabilidades, dependências e fronteira cliente-servidor.
+w: Mudanças estruturais.
+r: Responsabilidades claras | Dependências sem ciclos | Fronteira cliente e servidor
+v: Estrutura coerente com o projeto.
+## review-security
+d: Revisão de segurança de mudanças.
+w: Remotes, compras, dados e recompensas.
+r: Validação de entrada | Autoridade do servidor | Sem segredos
+v: Lista de achados por severidade.
+## review-performance
+d: Revisão de desempenho: loops por frame, criação de instâncias e tráfego de rede.
+w: Código quente ou sistemas com muitos objetos.
+r: Loops por frame | Criação de instâncias | Tráfego de rede
+v: Pontos de custo com evidência.
+## review-integration
+d: Revisão de integração entre sistemas.
+w: Vários sistemas alterados.
+r: Contratos entre módulos | Eventos conectados | Ordem de inicialização
+v: Os sistemas funcionam juntos em teste.
+## review-tests
+d: Revisão da qualidade dos testes.
+w: Antes de aceitar que testes passaram.
+r: Os testes cobrem o que mudou | Os testes falham quando deveriam | Nada foi apagado para passar
+v: A cobertura dos casos de risco foi avaliada.
+## review-regressions
+d: Revisão de regressões nas funcionalidades vizinhas a uma mudança.
+w: Depois de alterações em sistemas existentes.
+r: Liste funcionalidades vizinhas | Compare com o comportamento anterior | Teste o essencial
+v: Nenhuma funcionalidade anterior quebrou.
+## review-compatibility
+d: Revisão de compatibilidade de APIs depreciadas, versões do Blender e plataformas.
+w: Versões e plataformas.
+r: APIs depreciadas | Versão do Blender | PC e mobile
+v: Itens de compatibilidade verificados.
+## review-3d-assets
+d: Revisão de assets 3D.
+w: Antes de entregar um modelo.
+r: Escala, origem, normais | Orçamento de triângulos | Materiais e UV
+v: Checklist de asset preenchido.
+## review-export
+d: Revisão de exportação: arquivo existe, reimporta e tem configurações registradas.
+w: Depois de exportar.
+r: Confirme que o arquivo existe e tem tamanho maior que zero | Reimporte em cena limpa e compare dimensões, orientação e triângulos | Compare as configurações usadas (formato, escala, eixos) com as registradas | Registre divergências com a causa provável
+v: A reimportação foi feita e as diferenças em relação à cena de origem estão listadas.
+## review-final-result
+d: Revisão final antes de entregar: requisitos, estados reais e limitações.
+w: Fechamento da tarefa.
+r: Compare o resultado com cada requisito do pedido | Dê a cada item um estado real, de IMPLEMENTADA a VALIDADA NO AMBIENTE | Liste o que não foi testado e por quê | Não declare concluído o que depende de ação manual
+v: O relatório final tem um estado por item e lista as limitações.
+## review-evidence-standards
+d: Padrão de evidência para aprovar ou reprovar.
+w: Qualquer revisão.
+r: Cite arquivo, linha ou saída | Não aprove o que não verificou | Diferencie observado de suposto
+v: Cada conclusão tem evidência anexada.
+# doc
+## doc-script-headers
+d: Cabeçalho padrão no topo de cada script: local, tipo, função e dependências.
+w: Todo script novo.
+r: Primeira linha de comentário com o local no Explorer e o tipo (Server, Local, Module) | Uma frase sobre a função do script | Liste as dependências principais | Atualize ao mudar a responsabilidade do script
+v: Todo script novo tem cabeçalho com local, tipo e função.
+## doc-readme-structure
+d: README de projeto com o que é, como rodar, estrutura e problemas conhecidos.
+w: Projetos novos.
+r: O que é e como rodar | Estrutura | Problemas conhecidos
+v: Uma pessoa nova consegue começar.
+## doc-api-reference
+d: Referência de APIs internas com assinatura, parâmetros, retorno, erros e exemplo.
+w: Módulos usados por muitos sistemas.
+r: Para cada função pública: assinatura, parâmetros e retorno | Liste erros e condições de falha | Inclua um exemplo curto que funcione | Revise junto com o código para não divergir
+v: Cada exemplo da referência roda e bate com o código atual.
+## doc-changelogs
+d: Changelog por versão: o que mudou, por quê e o que ficou quebrado.
+w: Versões e entregas.
+r: Resumo por versão | O que mudou e por quê | Itens quebrados
+v: O changelog reflete o histórico real.
+## doc-decision-records
+d: Registro curto de decisões técnicas: contexto, escolha, alternativas e consequências.
+w: Escolhas com impacto.
+r: Escreva contexto, decisão e consequências em poucas linhas | Cite as alternativas descartadas e o motivo | Date e guarde junto ao código | Não reescreva decisões antigas: acrescente uma nova
+v: Alguém novo entende por que a escolha foi feita sem perguntar.
+## doc-diagrams-text
+d: Diagramas em texto, como Mermaid.
+w: Explicar fluxos.
+r: Diagramas simples | Mantidos junto ao código | Atualizados com mudanças
+v: O diagrama renderiza.
+## doc-known-issues
+d: Lista de problemas conhecidos com sintoma, causa, contorno e gravidade.
+w: Limitações que ficam.
+r: Registre sintoma, causa provável e contorno | Marque a gravidade e o responsável | Remova o item quando for corrigido e verificado | Não esconda um problema porque ele é pequeno
+v: Todo problema aberto encontrado está na lista com contorno ou plano.
+## doc-onboarding-guide
+d: Guia de início rápido para um colaborador novo rodar e testar o projeto.
+w: Novos colaboradores.
+r: Liste pré-requisitos com versões (Studio, Blender, ferramentas) | Passos numerados do clone ao primeiro teste funcionando | Inclua como confirmar que cada passo deu certo | Aponte onde estão as convenções e a memória do projeto
+v: Uma pessoa nova seguiu o guia do zero e chegou ao teste final sem ajuda.
+## doc-inline-comments
+d: Comentários úteis no código.
+w: Lógica não óbvia.
+r: Explique o porquê | Evite ecoar o código | Remova comentários obsoletos
+v: Os comentários continuam verdadeiros.
+## doc-asset-manifest
+d: Manifesto de assets com nome, arquivo, ID, versão e orçamento de triângulos.
+w: Muitos assets de Blender e Roblox.
+r: Nome, arquivo, ID e versão | Orçamento e contagens | Origem
+v: Todo asset está listado.
+## doc-test-reports
+d: Relatório de testes separando o que passou, falhou e não foi testado.
+w: Fim de tarefas.
+r: O que foi testado | O que passou e o que falhou | O que não foi testado
+v: O relatório distingue evidência de suposição.
+## doc-agents-md-maintenance
+d: Manutenção do AGENTS.md como memória do projeto.
+w: Final de mudanças relevantes.
+r: Poucas linhas por atualização | Remova o que ficou obsoleto | Mantenha curto
+v: O arquivo continua curto e atual.
+# dep
+## dep-require-graph
+d: Grafo de requires entre módulos.
+w: Entender o acoplamento.
+r: Busque por require | Registre quem depende de quem | Identifique módulos centrais
+v: Grafo escrito ou listado.
+## dep-circular-detection
+d: Detectar dependências circulares entre módulos que travam o require.
+w: Erros de require ou travamentos.
+r: Mapeie os requires de cada módulo por busca | Procure caminhos que voltam ao ponto de partida | Quebre o ciclo extraindo a parte comum para um terceiro módulo | Rode o jogo e confira que o require não trava mais
+v: O mapa de requires não tem ciclos e o jogo inicia sem travar.
+## dep-service-order
+d: Ordem de inicialização de serviços.
+w: Serviços que dependem de outros.
+r: Defina a ordem de início | Dependências explícitas | Falha de um serviço tratada
+v: A inicialização é determinística.
+## dep-package-managers
+d: Gerenciadores de pacotes só quando o projeto já os usa, com versões fixas.
+w: Bibliotecas externas.
+r: Confirme qual ferramenta o projeto realmente usa antes de sugerir | Instale só dependências necessárias e de origem confiável | Fixe versões no arquivo de bloqueio | Registre a origem e a licença
+v: A instalação limpa reproduz as mesmas versões do arquivo de bloqueio.
+## dep-version-pinning
+d: Fixar versões exatas de ferramentas e bibliotecas para builds reproduzíveis.
+w: Evitar quebras por atualização.
+r: Registre a versão exata, não faixas | Atualize de propósito, uma dependência por vez | Rode os testes depois de cada atualização | Anote a versão anterior para poder voltar
+v: Todas as dependências têm versão exata registrada e o projeto funciona com ela.
+## dep-asset-ids-tracking
+d: Rastreio de IDs de assets.
+w: Assets referenciados por ID.
+r: Módulo único de IDs | Nome, tipo e dono | Remova IDs mortos
+v: Todo ID usado está registrado.
+## dep-plugin-dependencies
+d: Dependências de plugins do Studio.
+w: Fluxos que usam plugins.
+r: Liste plugins e versões | Confirme disponibilidade | Alternativa sem plugin
+v: A lista está atualizada.
+## dep-blender-addon-deps
+d: Dependências de addons do Blender.
+w: Scripts que usam addons.
+r: Liste addons e versões | Ative por script se possível | Teste em Blender limpo
+v: O script roda com a lista informada.
+## dep-impact-analysis
+d: Análise de impacto de mudanças.
+w: Antes de alterar algo compartilhado.
+r: Busque todos os usos | Estime o impacto | Planeje a verificação
+v: Todos os usos foram checados.
+## dep-removal-safety
+d: Remoção segura de código e assets.
+w: Limpeza de projeto.
+r: Confirme que não há usos | Remova em passo isolado | Teste
+v: Nada quebrou com a remoção.
+## dep-third-party-licenses
+d: Licenças de código e assets de terceiros.
+w: Usar recursos externos.
+r: Verifique a licença antes | Registre origem | Respeite atribuição
+v: Cada recurso externo tem licença registrada.
+## dep-tool-versions
+d: Versões das ferramentas do projeto.
+w: Reprodutibilidade.
+r: Registre versões de Blender e de ferramentas | Atualize com cuidado | Teste após atualizar
+v: As versões estão documentadas.
+# orch
+## orch-task-classification
+d: Classificação de tarefas em níveis 1 a 5.
+w: Início de qualquer pedido.
+r: Escolha o nível pelo escopo e pelas dependências | Aplique o fluxo mais curto | Reclassifique se o escopo crescer
+v: Fluxo proporcional ao tamanho da tarefa.
+## orch-subtask-splitting
+d: Dividir uma tarefa em subtarefas com entrada, saída e teste próprios.
+w: Sistemas com várias partes.
+r: Cada subtarefa tem entrada, saída esperada e teste verificável | Defina as interfaces entre elas antes de começar | Subtarefas independentes não compartilham arquivos | Ordene as dependentes e execute em paralelo as independentes
+v: Cada subtarefa pode ser verificada sozinha e as interfaces estão escritas.
+## orch-specialist-selection
+d: Escolha de agente e skills por necessidade.
+w: Delegar trabalho.
+r: Pesquise skills com scripts/skill_search.py | Carregue só as relevantes | Delegue ao agente certo
+v: Poucas skills carregadas e relevantes.
+## orch-dependency-ordering
+d: Ordenar tarefas por dependências e priorizar o caminho crítico.
+w: Tarefas que dependem de outras.
+r: Identifique bloqueios | Ordene a execução | Antecipe o caminho crítico
+v: Nenhuma tarefa espera sem motivo.
+## orch-parallel-safety
+d: Paralelismo seguro: só tarefas sem arquivos em comum, nunca duas escritas no mesmo arquivo.
+w: Várias tarefas independentes.
+r: Só tarefas sem arquivos em comum | Nunca duas escritas no mesmo arquivo | Consolide ao fim
+v: Sem conflito de escrita.
+## orch-concurrency-limits
+d: Limites de concorrência de subagentes e chamadas, com fila para o excedente.
+w: Muitos subagentes ou chamadas.
+r: Limite de tarefas simultâneas | Fila para o excedente | Priorize o caminho crítico
+v: A concorrência fica dentro do limite.
+## orch-result-consolidation
+d: Consolidar resultados de subtarefas, verificar a integração e reportar estados reais.
+w: Fim de subtarefas.
+r: Junte as saídas | Verifique a integração | Reporte estados reais
+v: Resultado único e coerente.
+## orch-contradiction-detection
+d: Detectar contradições entre subagentes ou fontes e resolvê-las com evidência.
+w: Vários agentes ou fontes.
+r: Compare conclusões e números de cada agente sobre o mesmo ponto | Para cada diferença, reproduza a verificação em vez de escolher no palpite | Prefira o resultado com evidência, como saída de teste ou linha de código | Reporte ao usuário o que ficou sem resolução
+v: Cada contradição foi resolvida com evidência ou listada como pendente.
+## orch-escalation-rules
+d: Escalonar bloqueios e falhas repetidas após tentativas limitadas, dizendo o que foi tentado.
+w: Bloqueios e falhas repetidas.
+r: Escale após tentativas limitadas | Informe o que foi tentado | Peça a informação essencial
+v: O usuário recebe um bloqueio claro.
+## orch-context-minimization
+d: Contexto mínimo por tarefa.
+w: Reduzir custo e ruído.
+r: Passe só o necessário | Leia trechos, não arquivos inteiros | Resuma o estado
+v: Contexto pequeno e suficiente.
+## orch-handoff-format
+d: Formato de passagem entre agentes.
+w: Delegar e receber trabalho.
+r: Objetivo, entradas, saídas e critérios | Arquivos envolvidos | Estado verificado
+v: O receptor não precisa reperguntar.
+## orch-skill-search-protocol
+d: Protocolo de busca de skills sem carregar todas.
+w: Quando há muitas skills disponíveis.
+r: Rode python scripts/skill_search.py com palavras-chave | Leia o SKILL.md das melhores | Não carregue em massa
+v: Menos de cinco skills lidas por tarefa.

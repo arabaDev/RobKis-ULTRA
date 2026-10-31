@@ -1,0 +1,59 @@
+[
+  {
+    "nome": "Jardim Faminto",
+    "frase_5s": "Plante monstros de dia e segure eles à noite com seus amigos",
+    "padroes": ["crescimento-tempo-real", "sobrevivencia-coop-noites"],
+    "referencias": ["Grow a Garden (crescimento em tempo real)", "99 Nights in the Forest (noites cooperativas)"],
+    "mvp_dias": 4,
+    "notas": {
+      "originalidade": {"nota": 7, "evidencia": "estimativa", "motivo": "inverte o crescimento cozy: o que cresce é a ameaça", "fonte": ""},
+      "diversao_imediata": {"nota": 7, "evidencia": "hipotese", "motivo": "primeira semente vira bicho em 30 s e morde o jogador", "fonte": ""},
+      "compreensao": {"nota": 8, "evidencia": "hipotese", "motivo": "plantar e cercar são verbos que todos conhecem", "fonte": ""},
+      "compartilhamento": {"nota": 8, "evidencia": "hipotese", "motivo": "a noite exige papéis (cercar, alimentar, iluminar); fuga do bicho gera clipe", "fonte": ""},
+      "retencao": {"nota": 8, "evidencia": "estimativa", "motivo": "plantas crescem offline (D1), lua cheia semanal (D2-7), bestiário de mutações (D8-28)", "fonte": ""},
+      "diferenciacao": {"nota": 8, "evidencia": "estimativa", "motivo": "nenhum dos dois hits combina crescimento com ameaça que você mesmo criou", "fonte": ""},
+      "viabilidade": {"nota": 6, "evidencia": "estimativa", "motivo": "IA simples de criatura + DataStore de crescimento; noites exigem balanceamento", "fonte": ""},
+      "expansao": {"nota": 8, "evidencia": "estimativa", "motivo": "novas sementes, mutações e climas semanais", "fonte": ""},
+      "publico": {"nota": 7, "evidencia": "hipotese", "motivo": "casual que gosta de susto leve em grupo; risco de ser assustador demais para os menores", "fonte": ""}
+    },
+    "portoes": {"frase_5s": true, "diversao_60s": true, "motivo_voltar": true, "motivo_amigo": true, "nao_reskin": true, "mvp_viavel": true, "thumbnail_honesta": true}
+  },
+  {
+    "nome": "Turno Estranho",
+    "frase_5s": "Atenda clientes no caixa e aperte o alarme quando um deles não for humano",
+    "padroes": ["anomalia", "emprego-caotico"],
+    "referencias": ["jogos de anomalia (padrão de observar o que mudou)", "simuladores de loja"],
+    "mvp_dias": 3,
+    "notas": {
+      "originalidade": {"nota": 7, "evidencia": "estimativa", "motivo": "anomalia dentro de um loop de trabalho com pressão de fila", "fonte": ""},
+      "diversao_imediata": {"nota": 8, "evidencia": "hipotese", "motivo": "primeiro cliente estranho aparece no segundo atendimento", "fonte": ""},
+      "compreensao": {"nota": 9, "evidencia": "hipotese", "motivo": "caixa + alarme; a thumbnail mostra um cliente com algo errado", "fonte": ""},
+      "compartilhamento": {"nota": 8, "evidencia": "hipotese", "motivo": "dupla com informação assimétrica: caixa vê o cliente, segurança vê as câmeras", "fonte": ""},
+      "retencao": {"nota": 6, "evidencia": "hipotese", "motivo": "turnos com promoção de cargo e anomalias semanais; risco de conteúdo finito", "fonte": ""},
+      "diferenciacao": {"nota": 7, "evidencia": "estimativa", "motivo": "padrão de anomalia está crescendo; a fila e os papéis diferenciam", "fonte": ""},
+      "viabilidade": {"nota": 8, "evidencia": "estimativa", "motivo": "um cenário, NPCs com variações por configuração", "fonte": ""},
+      "expansao": {"nota": 7, "evidencia": "estimativa", "motivo": "lojas novas e editor moderado de anomalias criadas por jogadores", "fonte": ""},
+      "publico": {"nota": 8, "evidencia": "hipotese", "motivo": "público amplo; humor + terror leve funciona em vídeo", "fonte": ""}
+    },
+    "portoes": {"frase_5s": true, "diversao_60s": true, "motivo_voltar": true, "motivo_amigo": true, "nao_reskin": true, "mvp_viavel": true, "thumbnail_honesta": true}
+  },
+  {
+    "nome": "Corda Curta",
+    "frase_5s": "Escale uma torre infinita preso ao seu amigo por uma corda",
+    "padroes": ["torre-publica", "caos-fisica"],
+    "referencias": ["Tower of Hell (escalada pública)"],
+    "mvp_dias": 3,
+    "notas": {
+      "originalidade": {"nota": 6, "evidencia": "estimativa", "motivo": "corda entre jogadores já existe em jogos de outras plataformas", "fonte": ""},
+      "diversao_imediata": {"nota": 9, "evidencia": "hipotese", "motivo": "a primeira queda puxando o amigo acontece em segundos", "fonte": ""},
+      "compreensao": {"nota": 9, "evidencia": "hipotese", "motivo": "imagem de dois bonecos pendurados explica tudo", "fonte": ""},
+      "compartilhamento": {"nota": 9, "evidencia": "hipotese", "motivo": "precisa de dupla; quedas são clipes prontos", "fonte": ""},
+      "retencao": {"nota": 5, "evidencia": "hipotese", "motivo": "torre diária com ranking de duplas; risco alto de queda depois da novidade", "fonte": ""},
+      "diferenciacao": {"nota": 7, "evidencia": "estimativa", "motivo": "a corda muda a estrutura da escalada", "fonte": ""},
+      "viabilidade": {"nota": 6, "evidencia": "estimativa", "motivo": "física de corda entre personagens com latência é o maior risco técnico", "fonte": ""},
+      "expansao": {"nota": 6, "evidencia": "estimativa", "motivo": "torres por semente diária, cordas especiais, modo trio", "fonte": ""},
+      "publico": {"nota": 7, "evidencia": "hipotese", "motivo": "amigos que gostam de desafio e de rir das falhas", "fonte": ""}
+    },
+    "portoes": {"frase_5s": true, "diversao_60s": true, "motivo_voltar": false, "motivo_amigo": true, "nao_reskin": true, "mvp_viavel": true, "thumbnail_honesta": true}
+  }
+]

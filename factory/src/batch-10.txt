@@ -1,0 +1,185 @@
+# topo
+## topo-boolean-operations
+d: Operações booleanas e limpeza posterior.
+w: Cortes e junções em hard surface.
+r: Modificador Boolean com objeto de corte e operação definida | Aplique e limpe a geometria resultante | Evite booleans em malhas não manifold
+v: A malha resultante é manifold e sem faces degeneradas.
+## topo-retopology
+d: Retopologia de malhas de alta resolução.
+w: Esculturas ou scans a transformar em malha de jogo.
+r: Crie uma nova malha em quads sobre a original | Mais densidade onde há detalhe e deformação | Faça o bake dos detalhes da alta para a baixa
+v: A contagem está no orçamento e a silhueta é mantida.
+## topo-triangulation
+d: Triangulação controlada antes da exportação.
+w: Sombreamento estranho após a importação.
+r: Use o modificador Triangulate ou bmesh.ops.triangulate | Faça depois de aplicar os outros modificadores | Verifique as normais depois
+v: A malha importada sombreia como no Blender.
+# bpy
+## bpy-instances
+d: Instâncias e duplicatas ligadas para reduzir custo.
+w: Muitos objetos iguais.
+r: Objetos podem compartilhar a mesma malha | Instâncias de coleção para conjuntos | Torne único antes de alterar só uma cópia
+v: A contagem de malhas únicas é menor que a de objetos.
+## bpy-geometry-nodes-scripting
+d: Geometry Nodes por script: grupo, entradas e modificador.
+w: Geração procedural repetível.
+r: Crie o grupo com bpy.data.node_groups.new do tipo GeometryNodeTree | Defina entradas e saídas conforme a versão do Blender | Aplique com um modificador do tipo NODES
+v: O modificador gera a malha esperada com os valores de entrada.
+## bpy-safe-execution
+d: Execução segura de scripts no Blender.
+w: Scripts que alteram ou apagam dados.
+r: Salve uma cópia do .blend antes de rodar | Trabalhe numa coleção própria | Nunca apague dados que o script não criou
+v: O arquivo original está intacto após o teste.
+## bpy-material-editing
+d: Edição de materiais existentes por script.
+w: Trocar cores ou texturas em lote.
+r: Localize o material por nome | Ajuste as entradas do Principled BSDF | Verifique os slots nos objetos
+v: Os materiais alterados têm os valores esperados.
+## bpy-script-failure-diagnosis
+d: Diagnóstico de falhas em scripts bpy.
+w: Erro de contexto, atributo ou operador.
+r: Leia a mensagem de erro completa | Verifique a versão do Blender e o modo atual | Teste em um trecho pequeno
+v: A causa foi identificada e o script roda.
+# model
+## model-hard-surface
+d: Modelagem hard surface para armas e veículos.
+w: Superfícies mecânicas com bordas definidas.
+r: Formas primárias primeiro, depois secundárias e terciárias | Bevel nas bordas relevantes | Normais ponderadas e painéis por corte
+v: A silhueta lê bem de longe e o orçamento é respeitado.
+## model-organic
+d: Modelagem orgânica de criaturas e plantas.
+w: Formas suaves.
+r: Comece com formas simples e subdivida | O fluxo de arestas segue a forma | Mantenha a simetria até os ajustes finais
+v: A forma é suave sem pontos ou dobras indesejadas.
+## model-low-poly
+d: Modelagem low-poly estilizada com silhueta clara, poucas faces e cor por material.
+w: Jogos de estilo simples ou mobile.
+r: Silhueta clara com poucas faces | Cor por material ou por vértice | Evite triângulos desnecessários
+v: A contagem baixa mantém a leitura do objeto.
+## model-high-poly
+d: Modelagem high-poly para bake.
+w: Detalhe a transferir para uma malha leve.
+r: Subdivisão e detalhe sem limite de custo | Mesma forma geral da malha leve | Mantenha o alinhamento para o bake
+v: O bake sobre a malha leve não tem artefatos.
+# move
+## move-humanoid-speed-jump
+d: Velocidade e salto do Humanoid: WalkSpeed e JumpHeight.
+w: Qualquer ajuste de movimento.
+r: Use Humanoid.WalkSpeed e JumpHeight (ou JumpPower com UseJumpPower ligado) | Mantenha os valores em config | Alterações que importam partem do servidor, não do cliente
+v: O personagem anda e salta com os valores definidos.
+## move-sprint-stamina
+d: Corrida com estamina decidida no servidor, com consumo e regeneração por tempo.
+w: Jogos com sprint.
+r: A estamina é decidida no servidor e o cliente só pede o sprint | Consumo e regeneração por tempo | WalkSpeed muda ao ligar e desligar
+v: A estamina nunca fica negativa e a velocidade volta ao normal ao esgotar.
+## move-dash-roll
+d: Dash e esquiva com impulso curto e invulnerabilidade opcional.
+w: Combate ágil.
+r: Impulso por LinearVelocity ou deslocamento por tempo curto | Cooldown e custo no servidor | Janela de invulnerabilidade em config
+v: O dash tem distância fixa e respeita o cooldown.
+## move-double-jump
+d: Pulo duplo com detecção de estado.
+w: Plataformas e ação.
+r: Detecte o estado Freefall e o pedido de salto | Limite os saltos extras por pouso | Valide no servidor se importar para jogo competitivo
+v: Só ocorre o número de saltos permitido.
+## move-custom-camera
+d: Câmera personalizada em primeira, terceira pessoa e fixa.
+w: Câmeras diferentes do padrão.
+r: Defina Camera.CameraType e CameraSubject | Atualize com RenderStepped ou BindToRenderStep | Trate a colisão da câmera com o cenário
+v: A câmera não atravessa paredes e volta ao padrão quando necessário.
+## move-wall-climb
+d: Escalada de paredes por detecção e movimento controlado.
+w: Parkour e exploração.
+r: Um raycast frontal detecta a superfície escalável | O estado de escalada bloqueia a gravidade e define a velocidade | Saia ao fim da parede ou sem estamina
+v: O personagem escala e solta sem ficar preso.
+## move-swimming
+d: Natação e movimento na água do terreno.
+w: Mapas com água.
+r: O Humanoid entra no estado Swimming na água do Terrain | Velocidade e animação próprias | Oxigênio opcional, controlado no servidor
+v: O personagem nada e sai da água corretamente.
+## move-slopes-floor
+d: Inclinação e superfícies: MaxSlopeAngle e FloorMaterial.
+w: Terreno irregular.
+r: Humanoid.MaxSlopeAngle limita a subida | FloorMaterial identifica o piso | Ajuste a velocidade por superfície em config
+v: O personagem não sobe o que não deveria e muda de velocidade por piso.
+## move-custom-controller
+d: Controle de personagem personalizado sobre o PlayerModule.
+w: Movimento que foge do padrão.
+r: Use o PlayerModule como base e substitua só o necessário | Entrada por ContextActionService | Mantenha a compatibilidade com toque e gamepad
+v: O movimento funciona em teclado, toque e gamepad.
+## move-grapple-hook
+d: Gancho de arremesso com constraint.
+w: Mecânicas de deslocamento.
+r: Um raycast encontra o ponto de fixação | AlignPosition ou RopeConstraint com limites | Alcance e cooldown validados no servidor
+v: O gancho puxa até o ponto e solta ao fim.
+## move-ledge-mantle
+d: Subir bordas (mantle) por raycasts de altura e tween curto, para parkour.
+w: Parkour.
+r: Raycasts de altura detectam a borda | O movimento é um tween curto | Cancele se não houver espaço livre
+v: O personagem sobe bordas válidas e ignora as inválidas.
+## move-slide
+d: Deslizar com velocidade e redução de hitbox.
+w: Jogos de ação.
+r: Estado de slide com duração e cooldown | Reduza a altura via animação e cheque o teto | A velocidade decai com o tempo
+v: O slide termina e o personagem se levanta sem ficar preso.
+## move-speed-modifiers
+d: Empilhamento de modificadores de velocidade.
+w: Buffs, debuffs e terreno atuando juntos.
+r: Mantenha a lista de modificadores, não só o valor final | Recalcule WalkSpeed a partir da base | Defina regras de empilhamento
+v: Remover um modificador devolve a velocidade correta.
+## move-lock-on-camera
+d: Câmera com mira em alvo (lock-on).
+w: Combate em terceira pessoa.
+r: Escolha o alvo por distância e ângulo | Câmera e personagem se orientam ao alvo | Libere ao morrer, ao afastar ou a pedido
+v: O alvo é mantido e liberado conforme as regras.
+# game
+## game-quest-system
+d: Sistema de quests com objetivos e progresso.
+w: Missões e conquistas.
+r: A quest é dado (id, objetivos, recompensa) e o progresso é estado do jogador | Objetivos escutam eventos do jogo | Conclusão e recompensa no servidor, uma única vez
+v: Concluir duas vezes não entrega duas recompensas.
+## game-progression-xp-levels
+d: Progressão com XP e níveis.
+w: Jogos com evolução do jogador.
+r: Curva de XP em config | A subida de nível ocorre no servidor, com laço para XP em excesso | Benefícios por nível em config
+v: Ganhar muito XP de uma vez sobe vários níveis corretamente.
+## game-matchmaking-queue
+d: Fila de partidas e formação de grupos.
+w: Jogos competitivos ou cooperativos.
+r: Fila no servidor ou no MemoryStore para vários servidores | Critérios simples como tamanho e nível | Timeout e cancelamento
+v: Os grupos se formam e quem sai da fila é removido.
+## game-round-manager
+d: Gerenciador de rodadas com estados e pontuação.
+w: Partidas com início e fim.
+r: Estados Intermission, Playing e Ending | Condições de vitória verificadas no servidor | Limpeza e reinício completos
+v: Várias rodadas seguidas começam do estado limpo.
+## game-lobby-system
+d: Lobby com preparação e início automático.
+w: Antes de cada partida.
+r: Mínimo de jogadores e contagem regressiva | Cancele ao cair abaixo do mínimo | Teletransporte controlado para a partida
+v: A contagem reinicia e cancela conforme a regra.
+## game-respawn-handling
+d: Respawn controlado: tempo, local e estado.
+w: Mortes e retorno ao jogo.
+r: Players.RespawnTime e CharacterAutoLoads definem o fluxo | Local por checkpoint ou por time | Restaure ferramentas e estado conforme a regra
+v: O jogador volta no local e com o equipamento corretos.
+## game-checkpoints
+d: Checkpoints com persistência opcional.
+w: Obbies e fases.
+r: Cada checkpoint tem ordem e ponto de respawn | Só avance, nunca retroceda ao tocar um anterior | Salve o último se houver persistência
+v: Renascer leva ao último checkpoint válido.
+## game-portals-teleporters
+d: Portais dentro do mesmo lugar e entre lugares.
+w: Atalhos e mudança de mapa.
+r: No mesmo servidor use PivotTo no personagem com cooldown | Entre lugares use TeleportService dentro de pcall | Valide o destino
+v: O jogador chega ao destino e não fica em loop de portal.
+## game-class-system
+d: Sistema de classes com atributos e habilidades.
+w: Jogos de papéis.
+r: A classe é dado: atributos base e lista de habilidades | A troca de classe ocorre no servidor com custo e regras | O estado antigo é limpo
+v: Trocar de classe aplica e remove tudo corretamente.
+## game-ability-system
+d: Sistema de habilidades reutilizável.
+w: Várias habilidades com cooldown e custo.
+r: A habilidade tem id, custo, cooldown e efeito em config | A ativação valida estado, recurso e cooldown no servidor | Efeitos visuais no cliente
+v: Uma habilidade nova entra só por dados e um módulo de efeito.

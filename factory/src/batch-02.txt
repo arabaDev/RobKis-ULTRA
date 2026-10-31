@@ -1,0 +1,264 @@
+# combat
+## combat-hitbox-raycast
+d: Detecção de acerto por raycast no servidor com RaycastParams.
+w: Armas de tiro e golpes lineares.
+r: workspace:Raycast com RaycastParams e FilterType Exclude, ignorando o atacante | Resolva o Humanoid pelo ancestral Model do Instance atingido | Alcance e direção calculados no servidor a partir do personagem
+v: Acertar, errar e acertar parede estão cobertos em teste.
+## combat-hitbox-overlap
+d: Hitbox por volume com GetPartBoundsInBox e OverlapParams.
+w: Golpes corpo a corpo e áreas.
+r: workspace:GetPartBoundsInBox, GetPartBoundsInRadius ou GetPartsInPart com OverlapParams | Deduplique por Humanoid, pois um personagem tem várias partes | Posicione o volume a partir do CFrame do atacante no servidor
+v: Um alvo com várias partes toma dano uma única vez por golpe.
+## combat-shapecast
+d: Blockcast e Spherecast para hitboxes grossas em movimento.
+w: Projéteis largos ou golpes que varrem espaço.
+r: WorldRoot:Blockcast e Spherecast varrem um volume ao longo de uma direção | Útil para evitar atravessar alvos finos em alta velocidade | Use as mesmas RaycastParams para filtro
+v: Um projétil rápido não atravessa um alvo fino em teste.
+## combat-cooldowns
+d: Cooldown por jogador validado no servidor com os.clock.
+w: Qualquer ataque ou habilidade com intervalo.
+r: Guarde o último uso por jogador e habilidade em tabela no servidor | Rejeite pedido antes do tempo; cliente só mostra a barra | Limpe a entrada em PlayerRemoving
+v: Disparar o Remote em rajada causa um único efeito por cooldown.
+## combat-damage-pipeline
+d: Pipeline único de dano com defesa, crítico e eventos.
+w: Quando há várias fontes de dano.
+r: Uma função recebe fonte, alvo, valor e tipo e aplica as regras na mesma ordem | Humanoid:TakeDamage respeita ForceField; mudar Health direto ignora | Dispare um evento de dano para UI, kill feed e conquistas
+v: Todo dano passa pela mesma função; nenhum Humanoid.Health é alterado por fora.
+## combat-hit-dedup
+d: Evita dano duplicado por golpe, projétil ou colisão repetida.
+w: Quando Touched dispara várias vezes ou o golpe atravessa várias partes.
+r: Tabela de alvos já atingidos por golpe, descartada ao final | Desconecte a conexão do projétil ao primeiro acerto, se não perfura | Não use Touched sozinho para dano crítico
+v: Um golpe aplica dano exatamente uma vez por alvo.
+## combat-melee-combos
+d: Combos corpo a corpo com janela de input e estado.
+w: Espadas, socos e sequências de ataque.
+r: Estado do combo no servidor com índice e prazo de reinício | Cada golpe tem janela, dano e duração em config | Cancelamento por stun ou morte limpa o estado
+v: Sequência correta, estouro de janela e cancelamento testados.
+## combat-ranged-projectiles
+d: Projéteis físicos ou simulados com tempo de vida e colisão.
+w: Flechas, bolas de fogo e granadas.
+r: Simule no servidor ou valide o resultado; cliente mostra o efeito | Defina velocidade, gravidade e tempo de vida em config | Destrua e desconecte ao acertar ou expirar
+v: Nenhum projétil permanece no Workspace depois do fim da vida.
+## combat-hitscan-weapons
+d: Armas de acerto instantâneo com dispersão e alcance.
+w: Pistolas, rifles e armas de laser.
+r: Cliente envia origem e direção; servidor recalcula a partir do personagem e confere o desvio | Dispersão com Random.new no servidor | Limite a taxa de disparo por arma
+v: Pedido com origem falsa é rejeitado ou corrigido.
+## combat-lag-compensation
+d: Tolerância a latência sem abrir brechas de exploit.
+w: Quando o acerto parece falhar para jogadores com ping alto.
+r: Margem pequena e fixa de distância, nunca ilimitada | Previsão visual no cliente; decisão final no servidor | Registre posições recentes só se for realmente necessário
+v: Teste com latência simulada ainda rejeita acertos impossíveis.
+## combat-status-effects
+d: Efeitos de status (queimadura, lentidão, atordoamento) com duração.
+w: Habilidades que alteram o alvo por tempo.
+r: Tabela de efeitos ativos por alvo com expiração | Regras de empilhamento definidas: renovar, acumular ou ignorar | Remova efeitos na morte e ao trocar de personagem
+v: Efeito expira no tempo certo e não persiste após o respawn.
+## combat-knockback
+d: Empurrão com impulso físico respeitando propriedade de rede.
+w: Golpes que empurram o alvo.
+r: BasePart:ApplyImpulse ou LinearVelocity com tempo curto | Considere o dono de rede da parte; personagens costumam ser do cliente | Limite a magnitude para não lançar o alvo para fora do mapa
+v: O empurrão tem o mesmo efeito para quem acerta e para quem é atingido.
+## combat-kill-credit
+d: Atribuição de abate e assistência ao último agressor.
+w: Placar, kill feed e recompensas por abate.
+r: Registre o último agressor e o instante em uma tabela por alvo | Credite só se o dano foi recente | Dê a recompensa no servidor, uma vez por morte
+v: Duas mortes seguidas não duplicam recompensa.
+# tool
+## tool-structure
+d: Estrutura de uma Tool: Handle, RequiresHandle, Grip e partes.
+w: Ao criar qualquer ferramenta ou arma.
+r: Handle é a parte segurada; RequiresHandle controla se é obrigatório | Grip e GripPos definem a posição na mão | Mantenha o modelo soldado com WeldConstraint ou Motor6D
+v: A Tool equipa sem cair e na posição correta.
+## tool-equip-lifecycle
+d: Eventos Equipped, Unequipped, Activated e Deactivated.
+w: Ao ligar lógica a uma Tool.
+r: Conecte no Equipped e desconecte no Unequipped | Activated respeita Tool.Enabled e ManualActivationOnly | Limpe animações e efeitos ao desequipar
+v: Equipar e desequipar várias vezes não duplica efeitos.
+## tool-grip-positioning
+d: Ajuste de posição e rotação da ferramenta na mão.
+w: Quando o modelo aparece torto ou deslocado.
+r: Ajuste Tool.Grip (CFrame) ou GripPos e as direções de grip | Faça o ajuste no modelo e confirme em R6 e R15 se ambos importam | Pivô correto no Blender evita ajustes por tentativa
+v: Posição conferida com o personagem em pose neutra.
+## tool-server-validation
+d: Validação no servidor de ações disparadas por uma Tool.
+w: Qualquer Tool que cause efeito no jogo.
+r: Confirme que o jogador possui e está com a Tool equipada | Valide cooldown, distância e estado vivo | Efeito e dano são calculados no servidor
+v: Chamar o Remote sem a Tool é rejeitado.
+## tool-backpack-handling
+d: Backpack, StarterPack e StarterGear.
+w: Ao dar, tirar ou persistir ferramentas.
+r: StarterPack entrega no respawn; StarterGear mantém itens entre respawns | Dar ferramenta em runtime: clonar e colocar Parent no Backpack | Controle quantidade e duplicatas
+v: Respawn não duplica nem perde a ferramenta.
+## tool-animation-binding
+d: Animações de uso e idle ligadas à Tool.
+w: Armas com animação de ataque.
+r: Carregue no Animator do personagem e guarde a AnimationTrack | Use prioridade Action para sobrepor movimento | Pare e destrua as tracks ao desequipar
+v: A animação toca ao ativar e para ao desequipar.
+## tool-sounds-effects
+d: Sons e efeitos da Tool, tocados com origem no Handle.
+w: Armas e ferramentas com feedback sonoro.
+r: Sound dentro do Handle ou Attachment para áudio espacial | Efeitos visuais no cliente; dano no servidor | Reutilize Sounds em vez de criar um a cada uso
+v: Nenhum Sound órfão acumula no Workspace.
+## tool-ammo-reload
+d: Munição, pente e recarga no servidor.
+w: Armas de fogo e arcos.
+r: Munição e estado de recarga ficam no servidor; cliente mostra | Recarga tem duração e é cancelada ao desequipar | Rejeite disparo sem munição
+v: Disparar sem munição e recarregar interrompido testados.
+## tool-rarity-stats
+d: Raridade e atributos de armas por tabela de config.
+w: Muitas armas com números diferentes.
+r: Um registro id para stats, validado no servidor | Raridade como dado, não como código | Balanceamento por tabela comparável
+v: Todas as armas têm todos os campos obrigatórios.
+## tool-custom-models
+d: Usar modelos do Blender como Handle de ferramentas.
+w: Armas e ferramentas modeladas fora do Studio.
+r: Origem do modelo no ponto de empunhadura | Escala validada contra o personagem | Colisão simples no Handle
+v: Modelo equipado com escala e orientação corretas.
+## tool-dropping-pickup
+d: Largar e pegar ferramentas com ProximityPrompt.
+w: Itens no chão e loot.
+r: Tool.CanBeDropped controla o drop do jogador | ProximityPrompt no item; valide distância e posse no servidor | Destrua o item do chão ao pegar
+v: Dois jogadores pegando ao mesmo tempo resulta em um dono só.
+## tool-respawn-cleanup
+d: Limpeza de ferramentas e efeitos na morte e no respawn.
+w: Quando objetos ficam presos após a morte.
+r: Desconecte eventos e pare tracks ao morrer | Decida se a Tool volta pelo StarterGear ou pelo Backpack | Remova projéteis e efeitos ligados ao dono
+v: Morrer e renascer vários vezes não acumula objetos.
+## tool-ui-hotbar
+d: Hotbar personalizada no lugar do Backpack padrão.
+w: Interfaces de inventário próprias.
+r: Desligue o Backpack padrão com StarterGui:SetCoreGuiEnabled | A UI lê o Backpack e pede equip ao servidor ou usa Humanoid:EquipTool | Atualize em ChildAdded e ChildRemoved
+v: Itens adicionados ou removidos refletem na hotbar.
+# phys
+## phys-collision-groups
+d: Grupos de colisão com PhysicsService e a propriedade CollisionGroup.
+w: Quando objetos não devem colidir entre si.
+r: PhysicsService:RegisterCollisionGroup e CollisionGroupSetCollidable | Atribua BasePart.CollisionGroup nas partes | Registre os grupos uma vez no servidor, antes do uso
+v: Partes de grupos separados atravessam e as demais colidem.
+## phys-network-ownership
+d: Propriedade de rede de física e SetNetworkOwner.
+w: Veículos, objetos arremessáveis e jitter de física.
+r: BasePart:SetNetworkOwner(player) ou nil para o servidor | Partes ancoradas não têm dono de rede | Dono do cliente simula localmente e pode manipular; valide efeitos importantes
+v: GetNetworkOwner retorna o esperado.
+## phys-constraints-basics
+d: Constraints básicas: Attachment, Hinge, Prismatic, Spring, Rope.
+w: Portas, pontes, molas e articulações.
+r: Cada constraint conecta dois Attachments | Defina limites e forças máximos | Teste com massas realistas
+v: O mecanismo se move e para onde esperado.
+## phys-modern-movers
+d: LinearVelocity, AlignPosition e VectorForce no lugar de BodyMovers.
+w: Mover objetos por física.
+r: BodyVelocity, BodyPosition e similares são legados | Use LinearVelocity, AlignPosition, AlignOrientation e VectorForce com Attachment | Defina MaxForce e Responsiveness com cuidado
+v: Nenhum BodyMover novo no código.
+## phys-assemblies-mass
+d: Assemblies, massa, Massless e velocidade da assembly.
+w: Ao calcular impulsos ou resolver comportamento estranho.
+r: AssemblyMass soma a massa das partes ligadas | Massless zera a contribuição de acessórios | Prefira AssemblyLinearVelocity à propriedade Velocity legada
+v: O impulso aplicado produz a velocidade prevista.
+## phys-custom-properties
+d: PhysicalProperties: densidade, fricção e elasticidade.
+w: Superfícies escorregadias, quicantes ou pesadas.
+r: CustomPhysicalProperties usa PhysicalProperties.new | Valores extremos causam instabilidade | Aplique em poucas partes
+v: Fricção e salto conferidos em jogo.
+## phys-raycast-filtering
+d: Filtros de raycast e consultas espaciais.
+w: Raios que acertam coisas indesejadas.
+r: FilterType Exclude com lista de instâncias a ignorar | CanQuery e CanTouch desligados em partes decorativas | Colision groups podem ser usados no RaycastParams
+v: O raio ignora o que deve e acerta o que deve.
+## phys-collision-fidelity
+d: CollisionFidelity de MeshParts e custo de física.
+w: Malhas complexas com colisão pesada.
+r: Box, Hull, Default e PreciseConvexDecomposition têm custos crescentes | Use Box ou Hull sempre que a forma aceitar | Malha de colisão separada, simples, para objetos grandes
+v: Colisão aceitável com o modo mais barato possível.
+## phys-anchoring-strategy
+d: Quando ancorar e quando deixar a física agir.
+w: Cenários com muitas partes.
+r: Ancore o que não se move; é a maior economia de física | Objetos dinâmicos mantêm pouca massa e poucas partes | Mude Anchored com cuidado, pois afeta a propriedade de rede
+v: Número de partes não ancoradas medido e justificado.
+## phys-touched-pitfalls
+d: Armadilhas do evento Touched e alternativas.
+w: Gatilhos de dano, coleta e checkpoints.
+r: Touched dispara várias vezes e com qualquer parte | Debounce por alvo e confirme que é um personagem | Prefira consultas espaciais ou ProximityPrompt quando possível
+v: O gatilho dispara uma vez por entrada, não por frame.
+## phys-joints-welds
+d: WeldConstraint, Weld, Motor6D e quando usar cada um.
+w: Ao unir partes de modelos e ferramentas.
+r: WeldConstraint mantém posição relativa de forma simples | Motor6D é usado em rigs e animação | Evite juntas redundantes
+v: O modelo se move como unidade sem partes soltas.
+## phys-vehicles
+d: Veículos com VehicleSeat, constraints e propriedade de rede.
+w: Carros, barcos e montarias.
+r: Seat ou VehicleSeat para o motorista | Defina o dono de rede do motorista para resposta suave | Limite de velocidade e recuperação ao capotar
+v: Um jogador dirige sem jitter e o veículo não voa.
+## phys-ragdoll
+d: Ragdoll com BallSocketConstraint e estado de Humanoid.
+w: Morte ou nocaute com física.
+r: Substitua Motor6D por BallSocketConstraint com limites | Humanoid:ChangeState para o estado de física | Reverta tudo ao levantar ou renascer
+v: O personagem cai, não entra no chão e volta ao normal.
+# net
+## net-remote-event-design
+d: Projeto de RemoteEvents: nomes, direção e payload mínimo.
+w: Ao criar comunicação cliente e servidor.
+r: Um Remote por ação, com nome verbo e objeto | Payload pequeno e tipado | Em OnServerEvent o primeiro argumento é sempre o Player
+v: Todo Remote tem handler com validação.
+## net-remote-function-risks
+d: Riscos de RemoteFunction e quando evitar.
+w: Quando o código pensa em InvokeClient ou InvokeServer.
+r: Nunca use InvokeClient, pois o cliente pode nunca responder | InvokeServer pode travar o cliente se o servidor demorar | Prefira RemoteEvent em duas vias
+v: Nenhum InvokeClient no projeto.
+## net-unreliable-remotes
+d: UnreliableRemoteEvent para dados descartáveis.
+w: Efeitos visuais e posições frequentes sem exigir entrega.
+r: Pode perder ou reordenar pacotes | Nunca use para compra, dano ou estado importante | Mantenha o payload pequeno
+v: Perder um pacote não deixa o jogo inconsistente.
+## net-payload-limits
+d: O que pode atravessar Remotes: tipos, tabelas e instâncias.
+w: Quando um argumento chega nil ou mudado.
+r: Funções não são enviadas; metatables se perdem | Instâncias que o destino não enxerga chegam como nil | Tabelas com chaves mistas ou não numéricas se comportam de forma inesperada
+v: O payload recebido foi conferido com um print e comparado ao enviado.
+## net-replication-model
+d: O que replica entre servidor e cliente.
+w: Ao decidir onde guardar objetos e dados.
+r: Servidor para cliente replica Workspace e ReplicatedStorage | ServerStorage e ServerScriptService não vão ao cliente | Alterações feitas só no cliente não chegam ao servidor
+v: Cada objeto está no serviço correto para quem precisa dele.
+## net-attributes-replication
+d: Atributos como canal simples de estado replicado.
+w: Valores pequenos que a UI precisa ver.
+r: Atributos definidos no servidor replicam para o cliente | GetAttributeChangedSignal evita polling | Não confie em atributo editado pelo cliente
+v: A UI reage à mudança de atributo sem polling.
+## net-latency-prediction
+d: Previsão no cliente com reconciliação pelo servidor.
+w: Ações que precisam parecer instantâneas.
+r: O cliente executa feedback imediato | O servidor decide e corrige o cliente se divergir | Mantenha a lógica de decisão em um módulo compartilhado simples
+v: Com latência simulada a ação continua correta.
+## net-bandwidth-batching
+d: Agrupa e reduz mensagens de rede.
+w: Quando há muitos disparos por segundo.
+r: Agrupe atualizações em um pacote por tick | Envie mudanças, não o estado inteiro | Dados só do servidor não devem replicar
+v: Mensagens por segundo medidas antes e depois.
+## net-player-lifecycle
+d: Ciclo de vida de jogadores: PlayerAdded, PlayerRemoving e jogadores já presentes.
+w: Inicialização de dados por jogador.
+r: Processe Players:GetPlayers() e conecte PlayerAdded para os próximos | Limpe tabelas por jogador em PlayerRemoving | Salve dados antes de remover
+v: Entrar tarde e sair cedo não gera erro nem vazamento.
+## net-server-movement-sanity
+d: Checagens de sanidade no servidor para movimento.
+w: Anti teletransporte e velocidade absurda.
+r: Compare posição entre amostras com margem de tolerância | Considere latência e propriedade de rede | Responda corrigindo posição, não banindo automaticamente
+v: Movimento legítimo com ping alto não é punido.
+## net-streaming-replication
+d: Interação entre StreamingEnabled e código replicado.
+w: Jogo com streaming ligado.
+r: Objetos podem não existir no cliente no momento | Use WaitForChild com tolerância ou eventos de entrada | Para objetos críticos use modo persistente de streaming
+v: Entrar em locais distantes não gera erro de nil.
+## net-teleport-service
+d: TeleportService: TeleportAsync, dados de teleporte e servidores reservados.
+w: Mudar de lugar ou de servidor.
+r: TeleportAsync dentro de pcall, pois pode falhar | Dados de teleporte são enviados pelo cliente; valide | Servidores reservados para partidas privadas
+v: Falha de teleporte é tratada com mensagem e nova tentativa limitada.
+## net-messaging-memorystore
+d: MessagingService e MemoryStoreService entre servidores.
+w: Eventos globais e dados compartilhados entre servidores.
+r: MessagingService:PublishAsync e SubscribeAsync para avisos entre servidores | MemoryStore guarda dados com expiração | Ambos têm limites de uso; confira a documentação atual
+v: Uma mensagem publicada chega a outro servidor em teste.

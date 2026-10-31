@@ -1,0 +1,305 @@
+# regr
+## regr-baseline-capture
+d: Registrar o comportamento atual antes de mudar.
+w: Antes de alterar sistemas existentes.
+r: Anote o que funciona hoje | Guarde saídas e capturas | Defina como comparar depois
+v: Existe um baseline para comparar.
+## regr-smoke-suite
+d: Suíte rápida de poucos testes que cobrem o essencial do jogo após cada mudança.
+w: Depois de qualquer mudança.
+r: Escolha de 5 a 10 verificações do fluxo principal: entrar, jogar, morrer, comprar e sair | Deve rodar em poucos minutos | Falhe rápido e mostre qual passo quebrou | Atualize a suíte quando surgir um bug novo
+v: A suíte roda completa e cada passo tem resultado registrado.
+## regr-diff-impact
+d: Impacto da diferença de código.
+w: Revisar uma mudança.
+r: Liste arquivos alterados | Busque usos dos símbolos mudados | Teste os vizinhos
+v: Os vizinhos foram testados.
+## regr-golden-outputs
+d: Saídas de referência para funções determinísticas, comparadas a cada mudança.
+w: Funções com resultado determinístico.
+r: Entradas fixas | Saída esperada guardada | Compare
+v: A saída bate com a referência.
+## regr-gameplay-checklist
+d: Checklist de gameplay: morte, respawn, compra e salvamento antes de entregar versão.
+w: Antes de entregar uma versão.
+r: Fluxos principais do jogador | Morte, respawn, compra, salvamento | Marque cada item
+v: Todos os itens marcados com resultado.
+## regr-ui-snapshots
+d: Comparar capturas de UI antes e depois de uma mudança, em vários tamanhos de tela.
+w: Mudanças de interface.
+r: Capture as telas principais antes de mexer, com os mesmos tamanhos e estado | Repita depois da mudança nas mesmas condições | Toda diferença visual precisa ser intencional e explicada | Inclua os estados vazio, carregando e erro
+v: Cada diferença entre as capturas está marcada como intencional ou como defeito.
+## regr-data-compat
+d: Garantir que dados salvos em versões antigas ainda carregam após mudar o esquema.
+w: Mudança de esquema.
+r: Mantenha amostras de dados de cada versão do esquema | Carregue cada amostra na versão nova e compare os campos | Campos novos recebem valores padrão e campos removidos não quebram | Nunca teste em dados reais de jogadores
+v: Todas as amostras antigas carregam sem erro e sem perda de campos importantes.
+## regr-network-contracts
+d: Compatibilidade de contratos de Remotes.
+w: Mudança de API entre cliente e servidor.
+r: Compare assinaturas | Atualize todos os lados | Teste cliente e servidor
+v: Nenhum Remote com assinatura desencontrada.
+## regr-asset-rechecks
+d: Recheque de assets após mudanças.
+w: Alterações em exportação ou importação.
+r: Reexporte uma amostra | Compare escala e contagens | Reimporte
+v: Os assets mantêm medidas.
+## regr-flaky-tests
+d: Tratar testes instáveis que mudam de resultado sem alteração de código.
+w: Resultados que mudam sem alteração.
+r: Reexecute para confirmar | Procure dependência de tempo ou ordem | Corrija a causa
+v: O teste é estável em várias execuções.
+## regr-bisect
+d: Bisseção para achar qual mudança causou uma regressão entre duas versões.
+w: Algo quebrou entre duas versões.
+r: Teste o ponto médio | Reduza o intervalo | Isole a mudança
+v: A mudança culpada foi encontrada.
+## regr-release-gate
+d: Portão de entrega: smoke, regressão e segurança aprovados antes de publicar.
+w: Antes de publicar ou entregar.
+r: Smoke, regressão e segurança passaram | Pendências listadas | Autorização para publicar
+v: Portão aprovado com evidência.
+# compat
+## compat-roblox-api-changes
+d: Mudanças e depreciações da API do Roblox.
+w: Código que usa APIs antigas.
+r: Consulte a documentação atual | Troque APIs legadas | Teste depois
+v: Sem uso de API depreciada conhecida.
+## compat-luau-versions
+d: Recursos de Luau e versões.
+w: Sintaxe que não compila.
+r: Confirme o recurso na documentação | Evite depender de recurso experimental | Teste no Studio
+v: O código compila no Studio.
+## compat-blender-versions
+d: Compatibilidade entre versões do Blender.
+w: Scripts que falham em outra versão.
+r: Verifique a versão | Mudanças de API em séries novas | Testar na versão do usuário
+v: O script roda na versão alvo.
+## compat-exporter-changes
+d: Detectar mudanças de comportamento dos exportadores do Blender após atualização.
+w: Exportação diferente após atualização.
+r: Compare parâmetros | Teste com amostra | Atualize o script
+v: A saída coincide com a anterior.
+## compat-platform-differences
+d: Diferenças entre PC, celular e console.
+w: Jogos multiplataforma.
+r: Entrada, tela e desempenho | Teste cada plataforma alvo | Layouts adaptáveis
+v: Cada plataforma alvo foi testada.
+## compat-input-devices
+d: Suporte a teclado, mouse, toque e gamepad, com troca de dispositivo em jogo.
+w: Teclado, mouse, toque e gamepad.
+r: Detecte o tipo de entrada | Suporte a troca em jogo | Controles alternativos
+v: Todos os dispositivos alvo funcionam.
+## compat-studio-vs-live
+d: Diferenças entre Studio e jogo publicado.
+w: Funciona no Studio e falha em produção.
+r: Acesso a APIs | Permissões e propriedade | Latência real
+v: O comportamento foi observado fora do Studio.
+## compat-deprecated-apis
+d: Trocar APIs depreciadas do Roblox por substitutos oficiais em passos pequenos.
+w: Avisos de depreciação.
+r: Liste as APIs | Procure o substituto oficial | Troque em passos pequenos
+v: Sem avisos de depreciação.
+## compat-os-paths
+d: Caminhos e sistemas operacionais.
+w: Scripts em Windows, macOS e Linux.
+r: Use caminhos absolutos | Separadores com os.path ou pathlib | Teste no sistema do usuário
+v: O script roda no sistema alvo.
+## compat-python-versions
+d: Versão do Python do Blender.
+w: Bibliotecas em scripts bpy.
+r: O Blender embute o próprio Python | Bibliotecas externas precisam ser instaladas para ele | Evite dependências
+v: Imports funcionam no Python do Blender.
+## compat-mcp-versions
+d: Versões de servidores MCP.
+w: Ferramentas que mudam.
+r: Registre versões | Releia as ferramentas após atualizar | Teste uma chamada simples
+v: A ferramenta responde na versão atual.
+## compat-r6-r15
+d: R6 e R15 em ferramentas, animações e UI.
+w: Jogos que suportam os dois.
+r: Defina o padrão | Teste em ambos se houver suporte | Evite supor nomes de partes
+v: Cada tipo de rig testado.
+# rec
+## rec-retry-policy
+d: Política de novas tentativas com limite, espera crescente e operações seguras.
+w: Falhas temporárias.
+r: Repita só operações seguras de repetir, como leituras e escritas idempotentes | Limite o número de tentativas e aumente a espera a cada uma | Registre cada falha com o erro completo | Depois do limite, mude de abordagem em vez de insistir
+v: A operação termina em sucesso ou em falha tratada, nunca em loop.
+## rec-circuit-breaker
+d: Interromper chamadas a um recurso que falha.
+w: Serviço indisponível.
+r: Pare depois de falhas consecutivas | Verifique de novo após um intervalo | Use alternativa
+v: Sem tempestade de chamadas.
+## rec-fallback-strategies
+d: Alternativas quando o plano principal falha.
+w: Ferramentas ou etapas indisponíveis.
+r: Tenha uma opção B real | Diga a limitação | Não simule resultados
+v: O usuário recebe uma alternativa utilizável.
+## rec-state-rollback
+d: Reverter para um estado anterior bom.
+w: Uma alteração deixou algo quebrado.
+r: Tenha um ponto de retorno | Reverter só a parte afetada | Verificar depois
+v: O estado bom foi restaurado.
+## rec-checkpointing
+d: Pontos de controle em tarefas longas.
+w: Trabalho de várias etapas.
+r: Salve o estado após cada etapa verificada | Registre o que falta | Retome do último ponto
+v: Retomar não repete o que já funcionou.
+## rec-partial-failure
+d: Falhas parciais em lotes.
+w: Muitos itens, alguns falham.
+r: Continue com os outros | Liste os que falharam | Repita só esses
+v: O relatório distingue sucessos e falhas.
+## rec-timeout-handling
+d: Tratamento de tempo esgotado.
+w: Chamadas longas.
+r: Limite explícito | Cancelar quando possível | Verificar se a operação concluiu
+v: Nenhuma operação fica pendente sem registro.
+## rec-corrupted-file-recovery
+d: Recuperar arquivos corrompidos por backups e versões, sem sobrescrever o original.
+w: Arquivo não abre.
+r: Procure backups ou versões | Não sobrescreva o original | Valide o recuperado
+v: O arquivo recuperado abre.
+## rec-tool-outage
+d: Queda de ferramenta ou MCP.
+w: Ferramenta deixa de responder.
+r: Confirme o problema | Use alternativa | Reporte
+v: O trabalho continua pelo caminho alternativo.
+## rec-strategy-switching
+d: Mudar de abordagem após falhas.
+w: A mesma tentativa falhou duas vezes.
+r: Pare de repetir | Reanalise a causa | Escolha outro caminho
+v: A nova abordagem foi tentada.
+## rec-failure-logging
+d: Registro de falhas e causas.
+w: Falhas que ensinam algo.
+r: O que falhou, por quê e como corrigiu | Curto | Em local conhecido
+v: A falha e a solução estão registradas.
+## rec-safe-abort
+d: Abortar com segurança quando continuar é arriscado, deixando o projeto utilizável.
+w: Não dá para continuar sem risco.
+r: Pare antes de danificar | Deixe o projeto utilizável | Explique o motivo
+v: O projeto continua íntegro.
+# secan
+## secan-threat-modeling
+d: Modelagem de ameaças de um jogo.
+w: Antes de lançar sistemas com valor.
+r: Liste ativos: moeda, itens, dados | Liste vetores: Remotes, compras | Priorize por impacto
+v: Lista de ameaças priorizada.
+## secan-remote-audit
+d: Auditoria de todos os Remotes.
+w: Revisão de segurança.
+r: Liste todos os Remotes | Cheque validação e limite de taxa | Registre achados
+v: Nenhum Remote sem handler validado.
+## secan-economy-exploit-audit
+d: Auditoria de exploits de economia.
+w: Qualquer fonte de moeda ou itens.
+r: Trace cada fonte | Procure duplicação | Procure ganho sem custo
+v: Cada fonte tem limite e validação.
+## secan-datastore-abuse
+d: Auditoria de abuso e falhas em DataStore.
+w: Salvamento de dados.
+r: Dados vindos do cliente | Sobrescrita por dados vazios | Orçamento de requisições
+v: Salvamento resistente a falhas.
+## secan-injection-risks
+d: Riscos de injeção e execução de código.
+w: Código dinâmico ou assets externos.
+r: Evite loadstring | Cuidado com require de IDs de terceiros | Revise tudo que executa texto
+v: Nenhuma execução de código não confiável.
+## secan-free-model-audit
+d: Auditoria de modelos gratuitos e plugins.
+w: Antes de usar assets de terceiros.
+r: Procure scripts ocultos, require por ID e HTTP | Remova o que não for necessário | Prefira fontes confiáveis
+v: Nenhum script suspeito restante.
+## secan-permissions-audit
+d: Auditar quem pode editar, publicar e acessar dados do jogo.
+w: Projeto com colaboradores.
+r: Liste colaboradores e o nível de acesso de cada um | Aplique o mínimo necessário por pessoa | Confira quem pode publicar e quem acessa chaves ou dados | Remova acessos de quem saiu
+v: A lista de acessos bate com a equipe atual e segue o mínimo necessário.
+## secan-privacy-pii
+d: Privacidade e dados pessoais.
+w: Qualquer dado de jogador.
+r: Colete o mínimo | Nunca exponha dados pessoais | Remoção sob pedido
+v: Nenhum dado pessoal desnecessário.
+## secan-rate-abuse
+d: Auditar abuso por frequência: Remotes e recursos que podem ser disparados em rajada.
+w: Spam de Remotes e recursos.
+r: Liste os Remotes e ações que consomem recurso, criam objetos ou gravam dados | Verifique se cada um tem limite por jogador | Dispare em rajada no seu próprio jogo de teste e meça o efeito | Exija penalidade gradual e registro
+v: Nenhuma ação consegue gerar efeito ilimitado por segundo em teste de rajada.
+## secan-dos-vectors
+d: Vetores de negação de serviço do jogo.
+w: Jogos com muita simulação.
+r: Criação ilimitada de objetos | Loops disparados pelo cliente | Limite os recursos
+v: Nenhuma ação do cliente cria carga ilimitada.
+## secan-incident-response
+d: Resposta a incidentes de segurança.
+w: Exploit em produção.
+r: Contenha | Corrija a causa | Restaure dados com base em backups
+v: Plano de resposta escrito.
+## secan-audit-report-format
+d: Formato de relatório de auditoria.
+w: Entregar achados.
+r: Severidade, local e correção | O que não foi revisado | Evidência
+v: O relatório é verificável.
+# bench
+## bench-task-suite
+d: Conjunto fixo de tarefas de benchmark.
+w: Medir evolução do agente.
+r: Mesmo enunciado em cada versão | Cobrir Luau e Blender | Registrar em BENCHMARK.md
+v: As tarefas estão listadas e fixas.
+## bench-timing-method
+d: Método de medição de tempo.
+w: Comparar versões.
+r: Meça do pedido à entrega | Separe tempo de ferramentas | Registre o ambiente
+v: Medições comparáveis.
+## bench-token-accounting
+d: Contagem de tokens e custo.
+w: Otimizar consumo.
+r: Registre tokens por tarefa | Estime custo só se houver dados | Compare em condições iguais
+v: Números vindos do ambiente.
+## bench-success-criteria
+d: Critérios objetivos de sucesso.
+w: Definir o que significa passar.
+r: Critérios binários quando possível | Testes executáveis | Sem avaliação vaga
+v: Cada critério pode ser verificado.
+## bench-regression-compare
+d: Comparação entre versões do agente.
+w: Medir melhora real.
+r: Mesmas tarefas e condições | Diferenças com contexto | Sem conclusão forte com poucos dados
+v: Tabela comparável.
+## bench-fair-comparison
+d: Comparação justa com outras ferramentas.
+w: Comparar com ferramentas externas.
+r: Mesma tarefa e requisitos | Critérios objetivos | Se não for possível testar, não invente resultados
+v: Só há conclusões baseadas em execuções reais.
+## bench-quality-rubric
+d: Rubrica de qualidade de resultados.
+w: Avaliar além de funcionar.
+r: Correção, segurança, clareza | Escala de 1 a 5 com critério | Mesma rubrica entre versões
+v: A rubrica é aplicada de forma consistente.
+## bench-reporting
+d: Relatório de benchmark com tabela por versão, limitações e próximos passos.
+w: Comunicar resultados.
+r: Tabela e resumo | Limitações | Próximos passos
+v: O relatório mostra números reais.
+## bench-baselines
+d: Registrar a linha de base de desempenho e qualidade antes de otimizar.
+w: Antes de otimizar.
+r: Meça a versão atual nas tarefas fixas antes de mudar algo | Registre tempo, taxa de sucesso, erros e ambiente | Guarde o resultado em arquivo versionado | Reuse as mesmas condições nas medições seguintes
+v: Existe um arquivo de baseline com métricas e o ambiente em que foram medidas.
+## bench-statistics-small-n
+d: Interpretar benchmarks com poucas execuções usando mediana e intervalo, sem conclusões fortes.
+w: Poucas execuções por tarefa.
+r: Com poucas execuções use mediana e intervalo, não média | Repita a tarefa antes de afirmar melhora | Só trate a diferença como real se superar a variação entre execuções | Declare o tamanho da amostra junto ao resultado
+v: O relatório informa n, mediana e variação, e não afirma melhora dentro do ruído.
+## bench-gameplay-metrics
+d: Métricas de qualidade de gameplay: loop jogável, erros no Output e desempenho.
+w: Avaliar jogos gerados.
+r: Verifique se o loop principal fecha: ação, feedback e recompensa | Conte erros e avisos no Output durante a sessão de teste | Meça FPS médio e mínimo no dispositivo alvo | Registre o tempo até o primeiro objetivo cumprido
+v: Há números de erros, FPS e tempo até o objetivo para a versão testada.
+## bench-continuous-improvement
+d: Melhoria contínua guiada por dados.
+w: Ciclo após cada versão.
+r: Ataque o maior gargalo medido | Meça de novo | Registre o resultado
+v: Cada melhoria tem medição antes e depois.

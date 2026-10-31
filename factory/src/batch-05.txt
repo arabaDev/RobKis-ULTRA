@@ -1,0 +1,366 @@
+# test
+## test-unit-luau
+d: Testes unitários de lógica Luau pura.
+w: Módulos sem dependência de instâncias.
+r: Use o framework do projeto se houver (por exemplo TestEZ ou Jest-Lua); senão um harness simples com assert | Teste funções puras e casos de borda | Mantenha testes rápidos
+v: Todos os testes passam e a saída foi reportada.
+## test-integration-studio
+d: Testes de integração dentro do Studio.
+w: Sistemas que usam serviços e instâncias.
+r: Rode em Play ou Run e observe o Output | Cubra o fluxo principal de ponta a ponta | Registre o que não pôde ser automatizado
+v: O fluxo principal funcionou e foi observado.
+## test-multiplayer-local-server
+d: Testar com servidor local e vários clientes.
+w: Replicação e interação entre jogadores.
+r: Inicie servidor e clientes pela aba Test | Teste entrada e saída de jogadores | Compare a visão de cada cliente
+v: Ações de um jogador aparecem corretamente nos outros.
+## test-edge-cases
+d: Casos de borda: nil, vazio, limites e concorrência.
+w: Antes de entregar um sistema.
+r: Liste os limites das entradas | Teste valores extremos | Teste sequências rápidas
+v: Cada caso de borda tem resultado esperado e observado.
+## test-fuzzing-remotes
+d: Enviar entradas inválidas a Remotes para testar a defesa.
+w: Qualquer Remote novo.
+r: Dispare com tipos errados, NaN, tabelas enormes e rajadas | O servidor deve ignorar sem erro | Faça isso só no seu próprio jogo
+v: Nenhuma entrada inválida causa efeito ou erro.
+## test-mock-services
+d: Simulações de DataStore e Marketplace para testes.
+w: Testar sem dependências externas.
+r: Interface fina que o código usa | Implementação falsa para testes | Falhas simuladas
+v: O código funciona com falha simulada de DataStore.
+## test-determinism
+d: Testes reproduzíveis com Random com semente.
+w: Sorteios e geração procedural.
+r: Random.new(semente) em vez de aleatoriedade solta | Registre a semente | Teste com várias sementes
+v: A mesma semente produz o mesmo resultado.
+## test-ui-responsive
+d: Testes de UI em vários tamanhos de tela.
+w: Interfaces entregues.
+r: Teste retrato, paisagem e desktop | Textos longos | Entrada por toque e por mouse
+v: Capturas ou observações por tamanho de tela.
+## test-performance-smoke
+d: Teste rápido de desempenho com carga realista.
+w: Mudanças em sistemas pesados.
+r: Crie carga de NPCs, projéteis ou jogadores simulados | Meça tempo de script e memória | Compare ao baseline
+v: Valores medidos dentro do limite combinado.
+## test-datastore-offline
+d: Testar comportamento quando o DataStore falha.
+w: Salvamento e carregamento.
+r: Simule erro com pcall falso | Jogador deve entrar com dados padrão e aviso | Nunca sobrescrever dados bons após falha de leitura
+v: Falha de leitura não apaga dados existentes.
+## test-bpy-headless
+d: Testar scripts bpy em modo background.
+w: Scripts de geração de assets.
+r: Rode com blender --background --python | Verifique arquivo gerado e contagens | Retorne código de saída diferente de zero em falha
+v: O script termina com código zero e o arquivo existe.
+## test-acceptance-checklists
+d: Checklists de aceitação por tipo de entrega.
+w: Fechar uma tarefa.
+r: Requisitos viram itens verificáveis | Marque cada item como verificado ou não | Itens manuais ficam explícitos
+v: Checklist preenchido com evidência.
+# mcp
+## mcp-tool-discovery
+d: Descobrir quais ferramentas MCP estão realmente disponíveis.
+w: Início de sessão ou antes de planejar.
+r: Liste as ferramentas conectadas e seus parâmetros | Não invente nomes | Registre no TOOL_REGISTRY
+v: A lista confere com o que o ambiente expõe.
+## mcp-roblox-studio-usage
+d: Uso do MCP do Roblox Studio para inspecionar e alterar o lugar.
+w: Quando o MCP do Studio está conectado.
+r: Leia a hierarquia antes de editar | Alterações pequenas e verificadas | Studio precisa estar aberto com o plugin ativo
+v: A alteração foi relida do Studio após a escrita.
+## mcp-blender-usage
+d: Uso do MCP do Blender para cena, objetos e exportação.
+w: Quando o MCP do Blender está conectado.
+r: Consulte a cena antes de criar | Execute código bpy em partes verificáveis | Blender precisa estar aberto com o addon ligado
+v: Objetos e contagens conferidos depois da execução.
+## mcp-batching-calls
+d: Agrupar operações em chamadas únicas quando possível.
+w: Várias alterações independentes.
+r: Use operações em lote se a ferramenta suportar | Consultas independentes em paralelo | Não agrupe escritas dependentes
+v: Menos chamadas sem perda de verificação.
+## mcp-timeouts-retries
+d: Timeouts e tentativas limitadas em chamadas MCP.
+w: Chamadas lentas ou que falham.
+r: Defina limite de tempo e de tentativas | Não repita escritas sem verificar se a anterior concluiu | Mude de abordagem após falhas repetidas
+v: Nenhuma chamada fica em loop de tentativa.
+## mcp-cache-invalidation
+d: Cache seguro de leituras de MCP.
+w: Leituras repetidas do mesmo estado.
+r: Guarde só dados que não mudam sozinhos | Invalide após qualquer escrita relacionada | Confirme o estado antes de mudanças importantes
+v: Nenhuma decisão tomada com dado vencido.
+## mcp-error-triage
+d: Triagem de erros de ferramentas MCP.
+w: Chamada que falha ou volta vazia.
+r: Leia o erro completo | Diferencie ferramenta, permissão, estado e entrada | Tente uma alternativa real
+v: A causa foi classificada.
+## mcp-fallback-manual
+d: Alternativa quando o MCP não está disponível.
+w: MCP desconectado.
+r: Diga a limitação claramente | Entregue script Luau ou bpy pronto | Instrua o passo manual exato
+v: O usuário consegue concluir sem o MCP.
+## mcp-permissions-safety
+d: Permissões e segurança em chamadas MCP.
+w: Ações que alteram ou apagam.
+r: Operações destrutivas exigem autorização | Não exponha segredos em chamadas | Prefira leitura quando possível
+v: Nenhuma ação destrutiva ocorreu sem autorização.
+## mcp-latency-logging
+d: Registro de latência de ferramentas.
+w: Medir e otimizar fluxo de trabalho.
+r: Anote tempo por ferramenta | Compare chamadas comparáveis | Atualize o TOOL_REGISTRY
+v: Há valores observados no registro.
+## mcp-state-verification
+d: Verificação do estado após escrita via MCP.
+w: Depois de qualquer alteração por ferramenta.
+r: Releia o objeto ou arquivo alterado | Compare com o esperado | Reporte a diferença
+v: Estado final conferido e descrito.
+## mcp-setup-troubleshooting
+d: Diagnóstico de instalação e conexão dos MCPs.
+w: Servidor não aparece ou não conecta.
+r: Confira o comando, o caminho e o PATH | Confirme que o programa e o plugin estão abertos | Veja logs do cliente
+v: A ferramenta aparece e responde a uma consulta simples.
+# bpy
+## bpy-scene-setup
+d: Preparar a cena do Blender: unidades, coleções e limpeza segura.
+w: Início de qualquer script de asset.
+r: Defina unit_settings coerentes com a convenção do projeto | Crie coleção própria | Não apague a cena do usuário
+v: A cena inicial tem o estado esperado.
+## bpy-bmesh-modeling
+d: Modelagem por código com bmesh.
+w: Gerar geometria própria.
+r: bmesh.new, criar vértices e faces, to_mesh e free | Chame mesh.update depois | Verifique contagens
+v: A malha criada tem os vértices e faces esperados.
+## bpy-collections-naming
+d: Organização por coleções e nomes consistentes.
+w: Cenas com muitos objetos.
+r: Objetos vinculados à coleção do asset | Prefixos consistentes | Não deixe objetos soltos
+v: Todos os objetos estão na coleção certa.
+## bpy-modifiers-api
+d: Modificadores via objects.modifiers.new e aplicação.
+w: Bevel, Mirror, Array e outros.
+r: obj.modifiers.new(name, type) | Aplicar com modifier_apply em contexto correto | Ordem dos modificadores importa
+v: A malha final conferida após aplicar.
+## bpy-context-overrides
+d: Operadores bpy.ops com contexto explícito.
+w: Operadores que falham por contexto.
+r: Use bpy.context.temp_override quando necessário | Entre em Object Mode antes | Prefira bpy.data e bmesh
+v: O operador executa sem erro de contexto.
+## bpy-headless-run
+d: Executar Blender em modo background.
+w: Automatizar sem abrir a interface.
+r: blender --background --python script.py | Caminhos absolutos | Código de saída e logs
+v: O script roda sem a interface.
+## bpy-data-vs-ops
+d: Quando usar bpy.data e quando usar bpy.ops.
+w: Escrever scripts robustos.
+r: bpy.data não depende de contexto | bpy.ops depende de seleção e modo | Prefira data para criação e ops quando não houver alternativa
+v: O script não depende do objeto ativo.
+## bpy-batch-generation
+d: Gerar muitos assets em lote.
+w: Variações de props e itens.
+r: Função parametrizada | Semente para variação | Exporte e verifique cada um
+v: Todos os arquivos existem com tamanho maior que zero.
+## bpy-version-compat
+d: Compatibilidade de API entre versões do Blender.
+w: O script falha em outra versão.
+r: Confirme bpy.app.version_string | O exportador de OBJ mudou na série 4 | A suavização automática mudou na 4.1
+v: O script foi testado na versão do usuário.
+## bpy-error-handling-verify
+d: Tratamento de erros e verificação em scripts bpy.
+w: Scripts que geram arquivos.
+r: Cheque existência com bpy.data.objects.get | try e except em operações arriscadas | Verifique arquivo exportado
+v: Falha gera mensagem clara e código de saída.
+## bpy-custom-operators
+d: Operadores e painéis simples em um addon.
+w: Ferramentas reutilizáveis na interface.
+r: bpy.types.Operator com execute | Registrar e desregistrar | Idempotente
+v: O operador aparece e executa.
+## bpy-mesh-stats
+d: Estatísticas de malha: vértices, faces e triângulos.
+w: Validar orçamento de polígonos.
+r: mesh.calc_loop_triangles e len(mesh.loop_triangles) | Avaliar com modificadores aplicados | Reportar números
+v: A contagem de triângulos reportada.
+# proc
+## proc-parametric-props
+d: Props paramétricos com dimensões e variações.
+w: Caixas, barris, móveis e armas simples.
+r: Parâmetros claros | Geração a partir de função | Valores validados
+v: Variações geradas sem malha inválida.
+## proc-seeded-randomness
+d: Aleatoriedade com semente para geração reproduzível.
+w: Variação de assets e mapas.
+r: random.Random(semente) em Python | Registrar a semente | Mesma semente, mesmo resultado
+v: A mesma semente reproduz o asset.
+## proc-modular-building-kits
+d: Kits modulares: paredes, pisos e peças encaixáveis.
+w: Cenários e construções.
+r: Grade fixa de dimensões | Pivôs padronizados | Teste encaixe
+v: As peças se encaixam sem frestas.
+## proc-terrain-heightmaps
+d: Terreno por mapa de altura e ruído.
+w: Mapas naturais.
+r: Ruído com semente | Resolução moderada | Converter para malha ou terreno com custo controlado
+v: O terreno gerado tem relevo esperado.
+## proc-vegetation-scatter
+d: Distribuição de árvores e pedras.
+w: Cenários naturais.
+r: Pontos com semente e distância mínima | Variação de escala e rotação | Instâncias leves
+v: Sem sobreposição indevida.
+## proc-geometry-nodes-intro
+d: Introdução aos Geometry Nodes por script.
+w: Geração visual procedural.
+r: Modificador do tipo NODES | Grupo de nós com entradas | Aplique antes de exportar
+v: A malha resultante pode ser exportada.
+## proc-weapon-generator
+d: Gerador de armas com partes combináveis.
+w: Muitas armas com visual diferente.
+r: Partes: lâmina, guarda e cabo | Dimensões coerentes | Pivô na empunhadura
+v: Cada variação mantém proporção e pivô.
+## proc-architecture-generator
+d: Gerar construções simples (casas, torres) a partir de largura, altura e andares.
+w: Casas e torres.
+r: Parâmetros: largura, profundidade, altura de andar e número de andares | Repita módulos de parede e piso em grade fixa | Gere colisão simplificada junto da malha | Valide a escala contra a altura do personagem
+v: A construção gerada tem as dimensões pedidas e passa na altura do personagem.
+## proc-variations-lod
+d: Variações e níveis de detalhe gerados juntos.
+w: Assets usados em muitas instâncias.
+r: Versão detalhada e versão simples | Mesma origem e escala | Nomes por nível
+v: Todos os níveis alinham.
+## proc-symmetry-mirroring
+d: Simetria e espelhamento na geração.
+w: Armas, veículos e personagens.
+r: Modifier Mirror ou geometria espelhada | Centralize na origem | Aplique antes da exportação
+v: O objeto é simétrico.
+## proc-curves-sweeps
+d: Curvas e varreduras para cordas, tubos e trilhos.
+w: Formas alongadas.
+r: Curvas com bevel | Converter para malha | Reduzir resolução
+v: A malha convertida tem contagem controlada.
+## proc-validation-bounds
+d: Validação de dimensões e limites dos assets gerados.
+w: Depois de gerar.
+r: Comparar dimensões com o esperado | Checar origem | Contagem de triângulos
+v: Relatório de dimensões e contagens.
+# topo
+## topo-quads-vs-tris
+d: Quads na modelagem e triângulos na exportação.
+w: Planejar a malha.
+r: Quads facilitam edição | Engines triangulam na importação | Evite n-gons
+v: Sem n-gons indesejados.
+## topo-edge-flow
+d: Fluxo de arestas para deformação e forma.
+w: Personagens e peças que dobram.
+r: Loops de arestas em juntas | Densidade onde há curvatura | Poucos polos
+v: A deformação não tem artefatos.
+## topo-poly-budgets
+d: Orçamentos de polígonos por categoria de asset.
+w: Antes de modelar.
+r: Defina o limite por tipo | Priorize silhueta | Detalhe fino em textura
+v: A contagem está dentro do limite.
+## topo-normals-fixing
+d: Corrigir normais invertidas e inconsistentes.
+w: Faces escuras ou invisíveis.
+r: Recalcular para fora | bmesh.ops.recalc_face_normals | Verifique com a visualização de orientação
+v: Faces voltadas para fora.
+## topo-non-manifold
+d: Detectar e corrigir geometria não manifold.
+w: Furos e arestas soltas.
+r: Selecionar não manifold | Fechar ou remover | Revalidar
+v: Sem arestas soltas.
+## topo-merge-doubles
+d: Mesclar vértices duplicados com bmesh.ops.remove_doubles sem alterar a forma.
+w: Malhas importadas ou geradas.
+r: bmesh.ops.remove_doubles com distância pequena | Cuidado com detalhes finos | Confirmar contagem
+v: A contagem de vértices diminuiu sem alterar a forma.
+## topo-hard-surface-bevels
+d: Chanfros em hard surface com poucos segmentos e normais ponderadas.
+w: Armas e veículos.
+r: Aplique Bevel só nas bordas que pegam luz ou definem a forma | Largura pequena e 1 a 2 segmentos para economizar triângulos | Use normais ponderadas para sombreamento limpo | Aplique o modificador antes de exportar
+v: As bordas pegam luz sem estourar o orçamento de triângulos.
+## topo-lod-generation
+d: Gerar níveis de detalhe com redução.
+w: Assets muito instanciados.
+r: Decimate com razão por nível | Conferir silhueta | Nomear por nível
+v: Cada nível mantém a silhueta.
+## topo-collision-hulls
+d: Malhas de colisão simplificadas.
+w: Formas complexas.
+r: Caixas ou cascos convexos | Menos faces que a malha visual | Nome com sufixo de colisão
+v: A colisão cobre o essencial.
+## topo-decimation-safely
+d: Redução de polígonos sem destruir a forma.
+w: Estourou o orçamento.
+r: Decimate como último recurso | Preservar bordas importantes | Revisar visualmente
+v: A forma continua reconhecível.
+## topo-scale-origin
+d: Escala, rotação e origem corretas.
+w: Antes de exportar.
+r: Aplicar transformações | Origem na base ou no ponto de uso | Escala 1
+v: As transformações do objeto estão limpas.
+## topo-mesh-validation
+d: Validação geral da malha antes da entrega.
+w: Fim da modelagem.
+r: Sem não manifold, sem duplicados, normais ok | Sem geometria interna oculta | Contagens dentro do orçamento
+v: Relatório de validação por malha.
+# mat
+## mat-principled-bsdf
+d: Materiais Principled BSDF por código.
+w: Criar materiais com script.
+r: mat.use_nodes True e nó Principled BSDF | Base Color, Roughness e Metallic | Nomes claros
+v: O material aparece com a cor esperada.
+## mat-pbr-texture-set
+d: Conjuntos PBR e mapas para SurfaceAppearance.
+w: Texturas com detalhe realista.
+r: Cor, normal, metal e rugosidade | Resolução coerente | Mapas com o mesmo UV
+v: Todos os mapas alinham.
+## mat-texture-resolution
+d: Resolução de texturas e custo de memória.
+w: Definir tamanho de textura.
+r: Tamanho conforme a importância na tela | Evite resolução maior que o necessário | Confirme limites atuais do Roblox
+v: A resolução foi definida e justificada.
+## mat-atlases
+d: Atlas de texturas para reduzir materiais.
+w: Muitos objetos pequenos.
+r: Um atlas por conjunto de props | UV dentro do atlas | Margem entre blocos
+v: Menos materiais por asset.
+## mat-vertex-colors
+d: Cores de vértice como alternativa leve.
+w: Estilo low-poly.
+r: Atributo de cor na malha | Confirme suporte do importador | Faça um teste de importação
+v: A cor aparece no Studio ou a alternativa foi definida.
+## mat-roblox-materials-mapping
+d: Mapeamento para Enum.Material e MaterialVariant.
+w: Aparência de partes simples.
+r: Enum.Material cobre vários acabamentos | MaterialVariant para texturas próprias | Combine com cores
+v: A aparência foi conferida no Studio.
+## mat-baking
+d: Bake de texturas e luz.
+w: Detalhe de alta resolução em baixa malha.
+r: Bake com Cycles | Alta e baixa resolução alinhadas | Margem de bake
+v: O mapa baked aplicado ao modelo leve.
+## mat-stylized-palettes
+d: Paletas estilizadas e consistência visual.
+w: Jogos com estilo próprio.
+r: Paleta limitada | Contraste entre elementos importantes | Mesmos materiais entre assets
+v: Os assets parecem do mesmo jogo.
+## mat-transparency
+d: Transparência e custo de renderização.
+w: Vidro e efeitos.
+r: Transparência custa mais que opaco | Recortes em vez de translucidez quando possível | Teste a ordem de desenho
+v: Sem artefatos de ordenação.
+## mat-emission-glow
+d: Emissão e brilho (Neon e luzes).
+w: Elementos luminosos.
+r: Material Neon no Roblox | Luz real só onde precisar | Bloom do Lighting
+v: O brilho aparece sem custo excessivo.
+## mat-naming-reuse
+d: Nomes e reutilização de materiais.
+w: Muitos materiais duplicados.
+r: Um material por aparência | Prefixos | Remover não usados
+v: Sem materiais órfãos.
+## mat-export-checks
+d: Verificar materiais antes da exportação.
+w: Fim da etapa de materiais.
+r: Todos os slots preenchidos | Texturas empacotadas ou caminhos válidos | Nomes coerentes
+v: A exportação traz os materiais no destino.

@@ -1,0 +1,46 @@
+# rk
+## rk-toolbox-first
+d: Busca na Toolbox antes de criar qualquer asset. Economiza tempo e mantém consistência visual.
+w: Qualquer pedido de modelo, prop, efeito ou script de sistema.
+r: search_asset com variações de termos | avaliar poly count e estilo | aprovar antes de inserir | registrar assetId em AGENTS.md | criar do zero só quando a busca falhar, com uma linha explicando por quê | assets pagos nunca sem autorização desta sessão
+v: Todo asset inserido tem assetId registrado e scan de segurança concluído.
+## rk-asset-security-scan
+d: Scan obrigatório de segurança em todo asset inserido. Detecta backdoors antes de entrar no projeto.
+w: Após inserir qualquer free model, plugin ou pacote de terceiro.
+r: inspect_instance no asset raiz | script_read em todo Script/LocalScript/ModuleScript | flags: require(número), getfenv, loadstring, HttpService externo, while true do sem wait | resultado: LIMPO ou SUSPEITO com localização | suspeito: remover, notificar, buscar alternativa
+v: Cada asset tem estado LIMPO ou SUSPEITO documentado antes do próximo passo.
+## rk-genre-templates
+d: Templates de arquitetura por gênero: simulator, tycoon, obby, rpg, horror, battle royale.
+w: Ao iniciar um jogo novo. Identifique o gênero pelo contexto.
+r: simulator: clique+recurso+upgrade+pet+rebirth | tycoon: droppers+conveyors+botão físico | obby: checkpoint+respawn+stages | rpg: stats+quests+combat+loot+boss | horror: AI-monster+flashlight+puzzles+jumpscares | br: lobby+drop+loot+zona+matchmanager | dano nunca decidido no cliente em nenhum gênero
+v: Template ativo e scaffold correspondente criado antes da primeira feature.
+## rk-visual-loop
+d: Loop de iteração visual de 3 passes com portões de aprovação. Garante qualidade progressiva.
+w: Criação ou refactor de qualquer mapa, zona ou ambiente novo.
+r: Passe 1 Silhueta: layout de massa, horizonte legível, portão de aprovação | Passe 2 Detalhe: props, variação de altura, textura orgânica, portão | Passe 3 Polimento: iluminação, atmosphere, efeitos, budget medido, portão | falha desce um nível no passe que falhou, não recomeça do zero | nunca pular portão
+v: Screenshot aprovado em cada portão antes de avançar.
+## rk-visual-direction
+d: Direção visual anti-genérico. Paleta, materiais, iluminação com intenção antes de construir.
+w: Início de qualquer projeto de mapa ou asset visual novo.
+r: proibido por padrão: neon em tudo, cyberpunk automático, Bloom>0.3, gradiente roxo/azul genérico | paleta de 3-5 cores antes de começar | um estilo escolhido e mantido | materiais naturais como base | variação de altura e densidade de objetos | teste em preto-e-branco para leitura espacial
+v: Paleta definida e estilo declarado antes do primeiro prop.
+## rk-map-budget
+d: Budgets concretos de cena mobile-first. Medir antes de entregar, nunca estimar.
+w: Antes de entregar qualquer mapa ou ambiente.
+r: mobile: <20k instances totais, <1k parts/zona, <10 partículas ativas, <80k triângulos | PC: <25k instances, <1.5k parts/zona, <20 partículas, <150k triângulos | medir com GetDescendants e Developer Stats | estratégias: LOD manual, object pooling, StreamingEnabled, atlas, simplificação de geometria
+v: Budget medido com números reais no relatório final.
+## rk-math-rng
+d: RNG seeded, weighted loot, spawn orgânico com math.noise e progressão com curvas.
+w: Qualquer sistema que usa aleatoriedade, loot ou progressão de stats.
+r: Random.new(seed) no servidor, nunca math.random nu | weighted loot: soma pesos, roll, encontra faixa | spawn orgânico: math.noise com rejeição de posição | stat scaling: base*(1+level^expoente) com math.clamp | cooldown com os.clock não tick
+v: Distribuição testada com 1000 rolls. Scaling plotado para primeiros 50 levels.
+## rk-game-scaffold
+d: Estrutura mínima funcional para jogo novo. Sempre antes da primeira feature.
+w: Jogo novo do zero ou projeto sem estrutura definida.
+r: GameManager + Services/DataManager + RemoteHandler + Constants | DataManager: pcall+retry+UpdateAsync+session lock+BindToClose+schema versioning | RemoteHandler: ponto único de entrada de Remotes | Constants com table.freeze | hierarquia de pastas antes de qualquer script de feature
+v: DataManager carrega sem erro. BindToClose dispara e salva. RemoteHandler conecta.
+## rk-famous-game-mode
+d: Reconhece jogo Roblox famoso citado pelo nome e usa o padrão de design dele como referência de estudo, nunca como molde de cópia.
+w: Pedido cita um jogo conhecido pelo nome (ex. blox fruits, doors, brookhaven, adopt me, arsenal, da hood, pet simulator, tower of hell) como referência de estilo ou mecânica.
+r: use `viral-game-inspector` para extrair mecânica, loop, monetização e estilo em termos de padrão, nunca o conteúdo literal | nomes próprios, texto de UI, nomes de itens e arte do jogo original nunca são reaproveitados | liste explicitamente o que muda na recriação antes de montar o scaffold | se o pedido pedir cópia exata ou usar os mesmos nomes/assets do jogo original, uma linha explicando o limite e seguir só com a versão adaptada
+v: Relatório de padrão entregue com a lista de diferenças antes da primeira linha de código ou do primeiro asset.

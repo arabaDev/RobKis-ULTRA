@@ -1,0 +1,481 @@
+[
+ {
+  "num": 1,
+  "prefix": "arq",
+  "name": "Arquitetura de software",
+  "limit": "Decisões dependem do jogo real; confirme a estrutura existente antes de impor padrões.",
+  "requires": [],
+  "complexity": "alta",
+  "risk": "baixo"
+ },
+ {
+  "num": 2,
+  "prefix": "luau",
+  "name": "Programação Luau",
+  "limit": "Confirme APIs e sintaxe na documentação oficial atual antes de usar recursos novos.",
+  "requires": [
+   "roblox-studio"
+  ],
+  "complexity": "média",
+  "risk": "baixo"
+ },
+ {
+  "num": 3,
+  "prefix": "studio",
+  "name": "Roblox Studio",
+  "limit": "Ações no Studio exigem o Studio aberto; sem MCP, entregue passos manuais exatos.",
+  "requires": [
+   "roblox-studio"
+  ],
+  "complexity": "baixa",
+  "risk": "baixo"
+ },
+ {
+  "num": 4,
+  "prefix": "combat",
+  "name": "Sistemas de combate",
+  "limit": "Valores de balanceamento são ponto de partida; ajuste por teste de jogo.",
+  "requires": [
+   "roblox-studio"
+  ],
+  "complexity": "média",
+  "risk": "médio"
+ },
+ {
+  "num": 5,
+  "prefix": "tool",
+  "name": "Ferramentas e armas",
+  "limit": "Confirme se o jogo usa R6, R15 ou rigs próprios antes de ajustar empunhadura.",
+  "requires": [
+   "roblox-studio"
+  ],
+  "complexity": "baixa",
+  "risk": "baixo"
+ },
+ {
+  "num": 6,
+  "prefix": "phys",
+  "name": "Física e colisões",
+  "limit": "Física varia com latência e propriedade de rede; teste com mais de um cliente.",
+  "requires": [
+   "roblox-studio"
+  ],
+  "complexity": "média",
+  "risk": "baixo"
+ },
+ {
+  "num": 7,
+  "prefix": "net",
+  "name": "Multiplayer e replicação",
+  "limit": "Limites de rede mudam; confirme na documentação atual.",
+  "requires": [
+   "roblox-studio"
+  ],
+  "complexity": "alta",
+  "risk": "médio"
+ },
+ {
+  "num": 8,
+  "prefix": "sec",
+  "name": "Segurança cliente-servidor",
+  "limit": "Nenhuma defesa é absoluta; combine camadas e registre tentativas suspeitas.",
+  "requires": [
+   "roblox-studio"
+  ],
+  "complexity": "alta",
+  "risk": "alto"
+ },
+ {
+  "num": 9,
+  "prefix": "ui",
+  "name": "Interfaces e GUIs",
+  "limit": "Valide em pelo menos um celular e um desktop antes de concluir.",
+  "requires": [
+   "roblox-studio"
+  ],
+  "complexity": "média",
+  "risk": "baixo"
+ },
+ {
+  "num": 10,
+  "prefix": "anim",
+  "name": "Animações Roblox",
+  "limit": "Animações publicadas dependem do dono do jogo; confirme permissões.",
+  "requires": [
+   "roblox-studio"
+  ],
+  "complexity": "média",
+  "risk": "baixo"
+ },
+ {
+  "num": 11,
+  "prefix": "npc",
+  "name": "Personagens e NPCs",
+  "limit": "Teste com vários NPCs e jogadores, não só um.",
+  "requires": [
+   "roblox-studio"
+  ],
+  "complexity": "média",
+  "risk": "baixo"
+ },
+ {
+  "num": 12,
+  "prefix": "ai",
+  "name": "Inteligência artificial para jogos",
+  "limit": "Meça o custo de CPU da IA antes de aumentar a complexidade.",
+  "requires": [
+   "roblox-studio"
+  ],
+  "complexity": "alta",
+  "risk": "baixo"
+ },
+ {
+  "num": 13,
+  "prefix": "inv",
+  "name": "Sistemas de inventário",
+  "limit": "Toda ação de inventário é decidida no servidor.",
+  "requires": [
+   "roblox-studio"
+  ],
+  "complexity": "média",
+  "risk": "médio"
+ },
+ {
+  "num": 14,
+  "prefix": "eco",
+  "name": "Economia e lojas",
+  "limit": "Políticas de monetização da plataforma mudam; confirme a política atual.",
+  "requires": [
+   "roblox-studio"
+  ],
+  "complexity": "média",
+  "risk": "alto"
+ },
+ {
+  "num": 15,
+  "prefix": "data",
+  "name": "DataStore e persistência",
+  "limit": "Limites e orçamentos mudam; confirme na documentação atual e nunca teste em dados reais.",
+  "requires": [
+   "roblox-studio"
+  ],
+  "complexity": "alta",
+  "risk": "alto"
+ },
+ {
+  "num": 16,
+  "prefix": "perf",
+  "name": "Otimização de desempenho",
+  "limit": "Sem medição não há otimização; reporte medido versus estimado.",
+  "requires": [
+   "roblox-studio"
+  ],
+  "complexity": "alta",
+  "risk": "baixo"
+ },
+ {
+  "num": 17,
+  "prefix": "bug",
+  "name": "Diagnóstico de bugs",
+  "limit": "Corrija a causa raiz; nunca remova funcionalidade para o teste passar.",
+  "requires": [
+   "roblox-studio"
+  ],
+  "complexity": "média",
+  "risk": "baixo"
+ },
+ {
+  "num": 18,
+  "prefix": "test",
+  "name": "Testes automatizados",
+  "limit": "Diga o que foi executado e o que depende de teste manual no Studio.",
+  "requires": [
+   "roblox-studio"
+  ],
+  "complexity": "média",
+  "risk": "baixo"
+ },
+ {
+  "num": 19,
+  "prefix": "mcp",
+  "name": "Integração e MCP",
+  "limit": "Nunca simule uma ferramenta; use só o que está realmente conectado.",
+  "requires": [
+   "mcp"
+  ],
+  "complexity": "baixa",
+  "risk": "médio"
+ },
+ {
+  "num": 20,
+  "prefix": "bpy",
+  "name": "Blender Python",
+  "limit": "A API muda entre versões do Blender; confirme a versão antes de rodar.",
+  "requires": [
+   "blender"
+  ],
+  "complexity": "média",
+  "risk": "baixo"
+ },
+ {
+  "num": 21,
+  "prefix": "proc",
+  "name": "Modelagem procedural",
+  "limit": "Geração procedural precisa de validação de dimensões e contagens.",
+  "requires": [
+   "blender"
+  ],
+  "complexity": "alta",
+  "risk": "baixo"
+ },
+ {
+  "num": 22,
+  "prefix": "topo",
+  "name": "Topologia e geometria",
+  "limit": "Meça contagens reais; não estime triângulos.",
+  "requires": [
+   "blender"
+  ],
+  "complexity": "média",
+  "risk": "baixo"
+ },
+ {
+  "num": 23,
+  "prefix": "mat",
+  "name": "Materiais e texturas",
+  "limit": "Confirme os limites de textura atuais do Roblox.",
+  "requires": [
+   "blender"
+  ],
+  "complexity": "média",
+  "risk": "baixo"
+ },
+ {
+  "num": 24,
+  "prefix": "uv",
+  "name": "UV mapping",
+  "limit": "Valide visualmente com um padrão de teste antes de concluir.",
+  "requires": [
+   "blender"
+  ],
+  "complexity": "média",
+  "risk": "baixo"
+ },
+ {
+  "num": 25,
+  "prefix": "rig",
+  "name": "Rigging e esqueletos",
+  "limit": "Confirme requisitos atuais do importador de rigs do Roblox.",
+  "requires": [
+   "blender"
+  ],
+  "complexity": "alta",
+  "risk": "baixo"
+ },
+ {
+  "num": 26,
+  "prefix": "anim3d",
+  "name": "Animação 3D",
+  "limit": "Valide a animação no Studio, não só no Blender.",
+  "requires": [
+   "blender"
+  ],
+  "complexity": "média",
+  "risk": "baixo"
+ },
+ {
+  "num": 27,
+  "prefix": "exp",
+  "name": "Exportação de assets",
+  "limit": "Só dê a exportação por concluída com arquivo verificado.",
+  "requires": [
+   "blender"
+  ],
+  "complexity": "baixa",
+  "risk": "baixo"
+ },
+ {
+  "num": 28,
+  "prefix": "pipe",
+  "name": "Integração Blender–Roblox",
+  "limit": "Sem importação automática, entregue o passo a passo manual e marque como pendente.",
+  "requires": [
+   "blender",
+   "roblox-studio"
+  ],
+  "complexity": "média",
+  "risk": "baixo"
+ },
+ {
+  "num": 29,
+  "prefix": "fx",
+  "name": "Áudio e efeitos",
+  "limit": "Teste o custo de efeitos em dispositivo móvel.",
+  "requires": [
+   "roblox-studio"
+  ],
+  "complexity": "baixa",
+  "risk": "baixo"
+ },
+ {
+  "num": 30,
+  "prefix": "light",
+  "name": "Iluminação e renderização",
+  "limit": "Confirme identificadores de motor de render na versão do Blender em uso.",
+  "requires": [
+   "blender",
+   "roblox-studio"
+  ],
+  "complexity": "média",
+  "risk": "baixo"
+ },
+ {
+  "num": 31,
+  "prefix": "vcs",
+  "name": "Controle de versão e recuperação",
+  "limit": "Operações destrutivas exigem autorização; faça backup antes.",
+  "requires": [
+   "git"
+  ],
+  "complexity": "baixa",
+  "risk": "alto"
+ },
+ {
+  "num": 32,
+  "prefix": "review",
+  "name": "Revisão independente",
+  "limit": "Não aprove o que não verificou; reporte evidência.",
+  "requires": [
+   "roblox-studio"
+  ],
+  "complexity": "média",
+  "risk": "baixo"
+ },
+ {
+  "num": 33,
+  "prefix": "doc",
+  "name": "Documentação técnica",
+  "limit": "Documente só o que é verdade no código atual.",
+  "requires": [],
+  "complexity": "baixa",
+  "risk": "baixo"
+ },
+ {
+  "num": 34,
+  "prefix": "dep",
+  "name": "Análise de dependências",
+  "limit": "Confirme com busca real; não presuma dependências.",
+  "requires": [],
+  "complexity": "baixa",
+  "risk": "baixo"
+ },
+ {
+  "num": 35,
+  "prefix": "orch",
+  "name": "Orquestração e roteamento",
+  "limit": "Use o mínimo de agentes e skills; sem subagentes reais, siga em sequência.",
+  "requires": [],
+  "complexity": "média",
+  "risk": "baixo"
+ },
+ {
+  "num": 36,
+  "prefix": "regr",
+  "name": "Testes de regressão",
+  "limit": "Compare sempre com um baseline registrado.",
+  "requires": [
+   "roblox-studio"
+  ],
+  "complexity": "média",
+  "risk": "baixo"
+ },
+ {
+  "num": 37,
+  "prefix": "compat",
+  "name": "Compatibilidade de versões",
+  "limit": "Confirme versões na documentação e no ambiente do usuário.",
+  "requires": [],
+  "complexity": "baixa",
+  "risk": "baixo"
+ },
+ {
+  "num": 38,
+  "prefix": "rec",
+  "name": "Recuperação de falhas",
+  "limit": "Tentativas sempre limitadas; nunca em loop.",
+  "requires": [],
+  "complexity": "baixa",
+  "risk": "baixo"
+ },
+ {
+  "num": 39,
+  "prefix": "secan",
+  "name": "Análise de segurança",
+  "limit": "Auditoria só no seu próprio jogo; reporte o que não foi revisado.",
+  "requires": [
+   "roblox-studio"
+  ],
+  "complexity": "alta",
+  "risk": "médio"
+ },
+ {
+  "num": 40,
+  "prefix": "bench",
+  "name": "Benchmark e qualidade",
+  "limit": "Nunca invente resultados nem compare com ferramenta que não foi testada.",
+  "requires": [],
+  "complexity": "baixa",
+  "risk": "baixo"
+ },
+ {
+  "num": 41,
+  "prefix": "move",
+  "name": "Gameplay e sistemas de movimento",
+  "limit": "Movimento depende de latência e propriedade de rede; teste com mais de um cliente.",
+  "requires": [
+   "roblox-studio"
+  ],
+  "complexity": "média",
+  "risk": "baixo"
+ },
+ {
+  "num": 42,
+  "prefix": "game",
+  "name": "Sistemas completos de jogo",
+  "limit": "Sistemas completos tocam dados salvos e economia; valide segurança e persistência antes de concluir.",
+  "requires": [
+   "roblox-studio"
+  ],
+  "complexity": "alta",
+  "risk": "médio"
+ },
+ {
+  "num": 43,
+  "prefix": "model",
+  "name": "Modelagem 3D",
+  "limit": "Defina o orçamento de triângulos e o estilo antes de modelar.",
+  "requires": [
+   "blender"
+  ],
+  "complexity": "alta",
+  "risk": "baixo"
+ },
+ {
+  "num": 44,
+  "prefix": "flow",
+  "name": "Fluxos compostos",
+  "limit": "Este fluxo só ordena skills; cada etapa deve ser verificada pela skill correspondente, e o estado real de cada etapa deve ser reportado.",
+  "requires": [],
+  "complexity": "alta",
+  "risk": "médio"
+ },
+ {
+  "num": 45,
+  "prefix": "rk",
+  "name": "Protocolo do agente RobKis",
+  "limit": "Protocolo interno de qualidade e processo; não substitui a verificação da skill técnica específica de cada etapa.",
+  "requires": [],
+  "complexity": "média",
+  "risk": "baixo"
+ }
+]

@@ -1,0 +1,21 @@
+{
+  "name": "RobKisGUI",
+  "tree": {
+    "$className": "DataModel",
+    "ReplicatedStorage": {
+      "$className": "ReplicatedStorage",
+      "RobKisGUI": { "$path": "src/ReplicatedStorage/RobKisGUI" }
+    },
+    "ServerScriptService": {
+      "$className": "ServerScriptService",
+      "RobKisServer": { "$path": "src/ServerScriptService/RobKisServer" }
+    },
+    "StarterPlayer": {
+      "$className": "StarterPlayer",
+      "StarterPlayerScripts": {
+        "$className": "StarterPlayerScripts",
+        "RobKisClient": { "$path": "src/StarterPlayer/StarterPlayerScripts/RobKisClient.client.luau" }
+      }
+    }
+  }
+}
